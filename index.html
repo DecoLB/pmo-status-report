@@ -4,1194 +4,958 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PMO | Gestão de Portfólio</title>
-
+<title>PMO | Status Report</title>
 <style>
-* { box-sizing:border-box }
-[hidden] { display:none!important }
-body {
-  margin:0;background:#101827;color:#fff;
-  font-family:Arial,sans-serif;line-height:1.5
-}
-header {
-  padding:22px 35px;background:#19263a;
-  border-bottom:3px solid #ec7900
-}
-header h2 { margin:0 }
-main { max-width:1250px;margin:30px auto;padding:20px }
-h1,h2,h3 { margin-top:0 }
-.muted { color:#bdc8d8 }
-.card {
-  background:#1d2d43;border:1px solid #34465e;
-  border-radius:12px;padding:24px;margin-bottom:20px
-}
-.grid {
-  display:grid;grid-template-columns:
-  repeat(auto-fit,minmax(230px,1fr));gap:16px
-}
-.topbar {
-  display:flex;justify-content:space-between;
-  align-items:center;flex-wrap:wrap;gap:15px
-}
-nav { display:flex;gap:10px;flex-wrap:wrap;margin:25px 0 }
-nav button { background:#344761 }
-nav button.active { background:#ec7900 }
-button {
-  padding:12px 19px;border:0;border-radius:7px;
-  background:#ec7900;color:white;font-weight:bold;
-  font-size:14px;cursor:pointer;margin:3px
-}
-button:hover { filter:brightness(1.12) }
-button:disabled { opacity:.45;cursor:not-allowed }
-.secondary { background:#435570 }
-label {
-  display:block;margin-bottom:15px;
-  font-weight:bold;font-size:14px
-}
-input,select,textarea {
-  width:100%;margin-top:7px;padding:12px;
-  background:#111c2b;color:white;border:1px solid #52627a;
-  border-radius:7px;font:inherit
-}
-textarea { min-height:95px;resize:vertical }
-input:focus,select:focus,textarea:focus {
-  outline:2px solid #ec7900
-}
-fieldset { border:0;margin:0;padding:0;min-width:0 }
-.badge {
-  display:inline-block;padding:6px 11px;
-  border-radius:6px;background:#254b40;
-  color:#80e2ac;font-weight:bold;font-size:13px
-}
-.item {
-  background:#172438;border-left:3px solid #ec7900;
-  padding:16px;margin:12px 0;border-radius:6px
-}
-.item h3 { margin-bottom:5px }
-.item p { margin:7px 0 }
-.info {
-  padding:15px;background:#172438;
-  border-left:3px solid #ec7900;
-  border-radius:6px;margin:15px 0
-}
-.message { margin-top:12px;white-space:pre-wrap }
-.success { color:#80e2ac }
-.error { color:#ff9999 }
-.warning { color:#ffd18a }
-.login { max-width:460px;margin:65px auto }
-.project-detail { white-space:pre-wrap;line-height:1.8 }
-.farol {
-  border-radius:6px;padding:5px 10px;
-  font-size:12px;font-weight:bold;display:inline-block
-}
-.verde { background:#164d39;color:#83e7ae }
-.amarelo { background:#62461c;color:#ffe09a }
-.vermelho { background:#66303a;color:#ffc5ca }
-.cinza { background:#455064;color:#e0e5ec }
-.audit-detail {
-  white-space:pre-wrap;overflow-wrap:anywhere;
-  font-size:12px;color:#c5cfdd
-}
-.footer { color:#bdc8d8;font-size:12px;margin-top:35px }
-@media(max-width:600px) {
-  header { padding:18px }
-  main { margin:10px auto;padding:12px }
-  .card { padding:17px }
-}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:#101827;color:#fff;
+font-family:Arial,sans-serif;line-height:1.5}
+header{padding:24px 35px;background:#19263a;
+border-bottom:3px solid #ec7900}
+header h2{margin:0}
+main{max-width:1250px;margin:28px auto;padding:20px}
+h1,h2,h3{margin-top:0}
+.muted{color:#bdc8d8}
+.card{background:#1d2d43;border:1px solid #34465e;
+border-radius:12px;padding:24px;margin-bottom:20px}
+.grid{display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:16px}
+.topbar{display:flex;justify-content:space-between;
+align-items:center;flex-wrap:wrap;gap:15px}
+nav{display:flex;flex-wrap:wrap;gap:10px;margin:25px 0}
+button{padding:12px 19px;border:0;border-radius:7px;
+background:#ec7900;color:#fff;font-size:14px;
+font-weight:bold;cursor:pointer;margin:3px}
+button:hover{filter:brightness(1.1)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.secondary,nav button{background:#40516a}
+nav button.active{background:#ec7900}
+label{display:block;margin-bottom:15px;font-size:14px;
+font-weight:bold}
+input,select,textarea{width:100%;margin-top:7px;padding:12px;
+background:#111c2b;color:white;border:1px solid #52627a;
+border-radius:7px;font:inherit}
+textarea{min-height:95px;resize:vertical}
+input:focus,select:focus,textarea:focus{
+outline:2px solid #ec7900}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.badge{display:inline-block;padding:6px 11px;
+background:#254b40;color:#80e2ac;border-radius:6px;
+font-weight:bold;font-size:13px}
+.item{background:#172438;border-left:3px solid #ec7900;
+padding:16px;margin:12px 0;border-radius:7px}
+.item h3{margin-bottom:5px}
+.item p{margin:7px 0}
+.info{background:#172438;border-left:3px solid #ec7900;
+padding:15px;border-radius:6px;margin:15px 0}
+.message{margin-top:12px;white-space:pre-wrap}
+.success{color:#80e2ac}
+.error{color:#ff9999}
+.warning{color:#ffd18a}
+.login{max-width:460px;margin:65px auto}
+.project-detail{white-space:pre-wrap;line-height:1.8}
+.farol{display:inline-block;border-radius:6px;
+padding:5px 9px;font-size:12px;font-weight:bold}
+.verde{background:#164d39;color:#83e7ae}
+.amarelo{background:#62461c;color:#ffe09a}
+.vermelho{background:#66303a;color:#ffc5ca}
+.cinza{background:#455064;color:#e0e5ec}
+.date-line{display:flex;align-items:center;gap:6px}
+.date-line input{flex:1;min-width:0}
+.date-line button{flex:0 0 auto}
+.gerente-grupo{border:1px solid #41536b;
+border-radius:12px;margin:18px 0;overflow:hidden}
+.gerente-grupo>summary{background:#263850;
+padding:20px;cursor:pointer;font-weight:bold;
+font-size:18px}
+.gerente-conteudo{padding:16px}
+.resumo-grid{display:grid;
+grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+gap:14px}
+.resumo-card{background:#172438;border:1px solid #34465e;
+border-top:3px solid #ec7900;border-radius:9px;padding:18px}
+.resumo-card h3{margin:0 0 10px}
+.resumo-card p{margin:8px 0}
+.indicadores{display:flex;gap:12px;flex-wrap:wrap;
+margin:12px 0}
+.indicador{background:#263850;padding:12px;
+border-radius:7px;flex:1;min-width:100px}
+.indicador strong{display:block;font-size:22px}
+.audit-detail{white-space:pre-wrap;overflow-wrap:anywhere;
+font-size:12px;color:#c5cfdd}
+.footer{font-size:12px;color:#bdc8d8;margin-top:30px}
+@media(max-width:600px){
+header{padding:18px}main{margin:10px auto;padding:12px}
+.card{padding:17px}}
 </style>
 </head>
-
 <body>
 
 <header><h2>PMO | Status Report</h2></header>
 
 <main>
 
-<!-- LOGIN -->
 <section id="loginBox" class="card login">
-  <h2>Acesso ao Sistema</h2>
-  <p class="muted">Gestão de Portfólio</p>
-  <form id="loginForm">
-    <label>E-mail
-      <input id="email" type="email" required
-        autocomplete="username">
-    </label>
-    <label>Senha
-      <input id="senha" type="password" required
-        autocomplete="current-password">
-    </label>
-    <button id="loginBtn" type="submit">Entrar</button>
-  </form>
-  <p id="loginMsg" class="message" role="status"></p>
+<h2>Acesso ao Sistema</h2>
+<p class="muted">Gestão de Portfólio</p>
+<form id="loginForm">
+<label>E-mail
+<input id="email" type="email" autocomplete="username" required>
+</label>
+<label>Senha
+<input id="senha" type="password"
+autocomplete="current-password" required>
+</label>
+<button id="loginBtn" type="submit">Entrar</button>
+</form>
+<p id="loginMsg" class="message" role="status"></p>
 </section>
 
-<!-- SISTEMA -->
 <section id="app" hidden>
+<div class="topbar">
+<div>
+<h1>Gestão de Portfólio</h1>
+<p id="usuario" class="muted"></p>
+<span id="perfil" class="badge"></span>
+</div>
+<button id="logout" class="secondary">Sair</button>
+</div>
 
-  <div class="topbar">
-    <div>
-      <h1>Gestão de Portfólio</h1>
-      <p id="usuario" class="muted"></p>
-      <span id="perfil" class="badge"></span>
-    </div>
-    <button id="logout" class="secondary">Sair</button>
-  </div>
+<nav>
+<button id="navConsulta" data-tab="consulta">Consulta Geral</button>
+<button id="navProjeto" data-tab="projeto">Cadastro / Edição</button>
+<button id="navStatus" data-tab="status">Status Semanal</button>
+<button id="navResumo" data-tab="resumo">Resumo Executivo</button>
+<button id="navAuditoria" data-tab="auditoria">Auditoria</button>
+</nav>
 
-  <!-- ABAS POR PERFIL -->
-  <nav id="navegacao">
-    <button data-tab="consulta" id="navConsulta">
-      Consulta Geral
-    </button>
-    <button data-tab="projeto" id="navProjeto">
-      Cadastro / Edição
-    </button>
-    <button data-tab="status" id="navStatus">
-      Status Semanal
-    </button>
-    <button data-tab="resumo" id="navResumo">
-      Resumo Executivo
-    </button>
-    <button data-tab="auditoria" id="navAuditoria">
-      Auditoria
-    </button>
-  </nav>
-
-  <!-- CONSULTA GERAL -->
-  <section id="tabConsulta" hidden>
-    <div class="card">
-      <h2>Consulta Geral de Projetos</h2>
-      <p class="muted">
-        Todos os projetos cadastrados.
-        A edição depende das permissões do usuário.
-      </p>
-      <input id="buscaProjeto"
-        placeholder="Pesquisar projeto">
-      <div id="listaProjetos"></div>
-    </div>
-    <div class="card" id="detalheCard" hidden>
-      <h2>Detalhes do Projeto</h2>
-      <div id="detalheProjeto" class="project-detail"></div>
-      <div id="detalheAcoes"></div>
-    </div>
-  </section>
-
-  <!-- CADASTRO E EDICAO -->
-  <section id="tabProjeto" hidden>
-    <div class="card">
-      <div class="topbar">
-        <h2 id="tituloFormProjeto">Novo Projeto</h2>
-        <button id="novoProjeto" class="secondary">
-          Limpar / Novo Projeto
-        </button>
-      </div>
-      <p class="muted" id="avisoProjeto"></p>
-
-      <form id="formProjeto">
-        <input type="hidden" id="projetoId">
-
-        <label>Nome do Projeto *
-          <input id="pNome" required maxlength="200">
-        </label>
-
-        <label>Objetivo
-          <textarea id="pObjetivo"></textarea>
-        </label>
-
-        <label>Contexto
-          <textarea id="pContexto"></textarea>
-        </label>
-
-        <div class="grid">
-          <label>Gerente responsável
-            <input id="pGerente" maxlength="200">
-          </label>
-          <label>Fornecedor
-            <input id="pFornecedor" maxlength="200">
-          </label>
-        </div>
-
-        <div class="grid">
-          <label>Sponsor / Stakeholder
-            <input id="pSponsor" maxlength="200">
-          </label>
-          <label>Situação
-            <select id="pSituacao">
-              <option>Não iniciado</option>
-              <option>Em andamento</option>
-              <option>Suspenso</option>
-              <option>Concluído</option>
-            </select>
-          </label>
-        </div>
-
-        <button id="salvarProjeto" type="submit">
-          Salvar Projeto
-        </button>
-        <p id="msgProjeto" class="message" role="status"></p>
-      </form>
-
-      <div class="info">
-        A atribuição efetiva de gerentes utiliza a tabela
-        projeto_gerentes. Projetos criados por gerentes
-        são vinculados automaticamente ao criador.
-        A transferência de responsabilidade será feita
-        pelo Administrador no módulo de atribuições.
-      </div>
-    </div>
-  </section>
-
-  <!-- STATUS SEMANAL -->
-  <section id="tabStatus" hidden>
-    <div class="card">
-      <h2>Status Report Semanal</h2>
-      <p class="muted">
-        Consulte qualquer projeto. A edição está limitada
-        aos projetos autorizados.
-      </p>
-
-      <form id="formStatus">
-
-        <div class="grid">
-          <label>Projeto *
-            <select id="sProjeto" required></select>
-          </label>
-          <label>Data de referência *
-            <input type="date" id="sData" required>
-          </label>
-        </div>
-
-        <div class="info" id="avisoStatus">
-          Selecione um projeto e uma data.
-        </div>
-
-        <fieldset id="camposStatus">
-
-          <h3>Indicadores de Avanço</h3>
-          <div class="grid">
-            <label>Planejado (%)
-              <input type="number" id="sPlanejado"
-                min="0" max="100" step="0.01">
-            </label>
-            <label>Realizado (%)
-              <input type="number" id="sRealizado"
-                min="0" max="100" step="0.01">
-            </label>
-          </div>
-
-          <h3>Saúde do Projeto</h3>
-          <div class="grid">
-            <label>Escopo *
-              <select id="sEscopo" class="farolSelect" required></select>
-            </label>
-            <label>Prazo *
-              <select id="sPrazo" class="farolSelect" required></select>
-            </label>
-            <label>Custo *
-              <select id="sCusto" class="farolSelect" required></select>
-            </label>
-            <label>Qualidade *
-              <select id="sQualidade" class="farolSelect" required></select>
-            </label>
-          </div>
-
-          <h3>Acompanhamento</h3>
-
-          <label>Realizado
-            <textarea id="sFeito"></textarea>
-          </label>
-
-          <label>Em Andamento
-            <textarea id="sAndamento"></textarea>
-          </label>
-
-          <label>Próximos Passos
-            <textarea id="sProximos"></textarea>
-          </label>
-
-        </fieldset>
-
-        <button type="submit" id="salvarStatus">
-          Salvar Relatório
-        </button>
-
-        <button type="button" id="publicarStatus"
-          class="secondary" hidden>
-          Publicar Resumo
-        </button>
-
-        <p id="msgStatus" class="message" role="status"></p>
-      </form>
-    </div>
-  </section>
-
-  <!-- RESUMO EXECUTIVO -->
-  <section id="tabResumo" hidden>
-    <div class="card">
-      <div class="topbar">
-        <div>
-          <h2>Resumo Executivo</h2>
-          <p class="muted">
-            Último Status Report publicado por projeto.
-          </p>
-        </div>
-        <button id="atualizarResumo" class="secondary">
-          Atualizar
-        </button>
-      </div>
-      <div id="listaResumo"></div>
-    </div>
-  </section>
-
-  <!-- AUDITORIA EXCLUSIVA ADMINISTRADOR -->
-  <section id="tabAuditoria" hidden>
-    <div class="card">
-      <div class="topbar">
-        <div>
-          <h2>Auditoria de Alterações</h2>
-          <p class="muted">
-            Últimos 50 eventos registrados no banco.
-          </p>
-        </div>
-        <button id="atualizarAuditoria" class="secondary">
-          Atualizar
-        </button>
-      </div>
-      <div id="listaAuditoria"></div>
-    </div>
-  </section>
-
+<section id="tabConsulta" hidden>
+<div class="card">
+<h2>Consulta Geral de Projetos</h2>
+<p class="muted">A edição depende das atribuições do usuário.</p>
+<input id="buscaProjeto" placeholder="Pesquisar projeto">
+<div id="listaProjetos"></div>
+</div>
+<div id="detalheCard" class="card" hidden>
+<h2>Detalhes do Projeto</h2>
+<div id="detalheProjeto" class="project-detail"></div>
+<div id="detalheAcoes"></div>
+</div>
 </section>
 
-<p class="footer">
-  PMO | Ambiente de demonstração — dados fictícios
+<section id="tabProjeto" hidden>
+<div class="card">
+<div class="topbar">
+<h2 id="tituloFormProjeto">Novo Projeto</h2>
+<button id="novoProjeto" class="secondary">Limpar / Novo Projeto</button>
+</div>
+<p id="avisoProjeto" class="muted"></p>
+<form id="formProjeto">
+<input id="projetoId" type="hidden">
+<label>Nome do Projeto *
+<input id="pNome" required maxlength="200">
+</label>
+<label>Objetivo
+<textarea id="pObjetivo"></textarea></label>
+<label>Contexto
+<textarea id="pContexto"></textarea></label>
+<div class="grid">
+<label>Gerente responsável (campo informativo)
+<input id="pGerente" maxlength="200"></label>
+<label>Fornecedor
+<input id="pFornecedor" maxlength="200"></label>
+</div>
+<div class="grid">
+<label>Sponsor / Stakeholder
+<input id="pSponsor" maxlength="200"></label>
+<label>Situação
+<select id="pSituacao">
+<option>Não iniciado</option>
+<option>Em andamento</option>
+<option>Suspenso</option>
+<option>Concluído</option>
+</select></label>
+</div>
+<button id="salvarProjeto" type="submit">Salvar Projeto</button>
+<p id="msgProjeto" class="message" role="status"></p>
+</form>
+<div class="info">
+As permissões reais de edição são determinadas pela tabela
+projeto_gerentes. A administração dos vínculos de gerentes
+permanece exclusiva do Administrador.
+</div>
+</div>
+</section>
+
+<section id="tabStatus" hidden>
+<div class="card">
+<h2>Status Report Semanal</h2>
+<p class="muted">
+Salvar e Publicar disponibiliza imediatamente os dados
+no Resumo Executivo.
 </p>
+<form id="formStatus">
+<div class="grid">
+<label>Projeto *
+<select id="sProjeto" required></select></label>
+<label>Data de referência *
+<div class="date-line">
+<input id="sData" type="date" required>
+<button id="abrirData" type="button" class="secondary"
+title="Abrir calendário">📅</button>
+</div></label>
+</div>
+<div id="avisoStatus" class="info">
+Selecione um projeto e uma data.
+</div>
+<fieldset id="camposStatus" disabled>
+<h3>Indicadores de Avanço</h3>
+<div class="grid">
+<label>Planejado (%)
+<input id="sPlanejado" type="number"
+min="0" max="100" step="0.01"></label>
+<label>Realizado (%)
+<input id="sRealizado" type="number"
+min="0" max="100" step="0.01"></label>
+</div>
+<h3>Saúde do Projeto</h3>
+<div class="grid">
+<label>Escopo *
+<select id="sEscopo" class="farolSelect" required></select></label>
+<label>Prazo *
+<select id="sPrazo" class="farolSelect" required></select></label>
+<label>Custo *
+<select id="sCusto" class="farolSelect" required></select></label>
+<label>Qualidade *
+<select id="sQualidade" class="farolSelect" required></select></label>
+</div>
+<h3>Acompanhamento</h3>
+<label>Realizado
+<textarea id="sFeito"></textarea></label>
+<label>Em Andamento
+<textarea id="sAndamento"></textarea></label>
+<label>Próximos Passos
+<textarea id="sProximos"></textarea></label>
+</fieldset>
+<button id="salvarStatus" type="submit" disabled>
+Salvar e Publicar
+</button>
+<p id="msgStatus" class="message" role="status"></p>
+</form>
+</div>
+</section>
+
+<section id="tabResumo" hidden>
+<div class="card">
+<div class="topbar">
+<div>
+<h2>Resumo Executivo por Gerente</h2>
+<p class="muted">
+Último Status Report publicado por projeto,
+agrupado por gerente responsável.
+</p>
+</div>
+<button id="atualizarResumo" class="secondary">Atualizar</button>
+</div>
+<div id="listaResumo"></div>
+</div>
+</section>
+
+<section id="tabAuditoria" hidden>
+<div class="card">
+<h2>Auditoria de Alterações</h2>
+<p class="muted">Consulta exclusiva do Administrador.</p>
+<h3>Filtros</h3>
+<div class="grid">
+<label>Responsável pela alteração
+<input id="audResponsavel" placeholder="E-mail"></label>
+<label>Operação
+<select id="audOperacao">
+<option value="">Todas</option>
+<option value="INSERT">Inclusão</option>
+<option value="UPDATE">Alteração</option>
+<option value="DELETE">Exclusão</option>
+</select></label>
+<label>Tipo de alteração
+<select id="audTabela">
+<option value="">Todos</option>
+<option value="projetos">Projetos</option>
+<option value="status_semanais">Status Semanal</option>
+<option value="projeto_gerentes">Atribuição de Gerentes</option>
+<option value="perfis">Perfis</option>
+</select></label>
+<label>Projeto
+<select id="audProjeto"><option value="">Todos</option></select>
+</label>
+<label>Data inicial
+<input id="audInicio" type="date"></label>
+<label>Data final
+<input id="audFim" type="date"></label>
+</div>
+<button id="filtrarAuditoria">Aplicar Filtros</button>
+<button id="limparAuditoria" class="secondary">Limpar Filtros</button>
+<p id="audInfo" class="muted"></p>
+<div id="listaAuditoria"></div>
+<div class="topbar">
+<button id="audAnterior" class="secondary">Anterior</button>
+<span id="audPaginacao" class="muted"></span>
+<button id="audProximo" class="secondary">Próxima</button>
+</div>
+</div>
+</section>
+
+</section>
+<p class="footer">PMO | Ambiente de demonstração — dados fictícios</p>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 "use strict";
 
-// CONFIGURACAO SUPABASE
-const URL_SUPABASE =
-  "https://ewemcwsatwefamtjxapv.supabase.co";
-const CHAVE_PUBLICA =
-  "sb_publishable__s9nlB-x2xOslj8Oc3NtkA_QUotlldx";
+const SUPABASE_URL =
+"https://ewemcwsatwefamtjxapv.supabase.co";
+const SUPABASE_KEY =
+"sb_publishable__s9nlB-x2xOslj8Oc3NtkA_QUotlldx";
 
 const $ = id => document.getElementById(id);
-
-let db;
-let usuarioAtual = null;
-let papelAtual = null;
-let projetos = [];
-let projetosDoGerente = new Set();
-let relatorioAtual = null;
-let consultaStatusSeq = 0;
-
-function msg(id, texto, tipo = "") {
-  $(id).textContent = texto;
-  $(id).className = "message " + tipo;
-}
-
-function valor(id) {
-  return $(id).value.trim();
-}
-
-function texto(v) {
-  return v == null || v === "" ? "Não informado" : String(v);
-}
-
-function admin() {
-  return papelAtual === "administrador";
-}
-
-function gerente() {
-  return papelAtual === "gerente";
-}
-
-function podeEditarProjeto(id) {
-  return admin() ||
-    (gerente() && projetosDoGerente.has(String(id)));
-}
-
-function dataHoje() {
-  const d = new Date();
-  const n = x => String(x).padStart(2,"0");
-  return `${d.getFullYear()}-${n(d.getMonth()+1)}-${n(d.getDate())}`;
-}
-
-function elemento(tag, conteudo, classe = "") {
-  const el = document.createElement(tag);
-  el.textContent = conteudo;
-  if (classe) el.className = classe;
-  return el;
-}
-
-function botao(rotulo, acao, classe = "") {
-  const el = elemento("button", rotulo, classe);
-  el.type = "button";
-  el.addEventListener("click", acao);
-  return el;
-}
-
-function mostrarAba(nome) {
-  const permitidas = admin()
-    ? ["consulta","projeto","status","resumo","auditoria"]
-    : gerente()
-    ? ["consulta","projeto","status","resumo"]
-    : ["resumo"];
-
-  if (!permitidas.includes(nome)) nome = "resumo";
-
-  ["consulta","projeto","status","resumo","auditoria"]
-    .forEach(aba => {
-      $("tab" + aba[0].toUpperCase() + aba.slice(1))
-        .hidden = aba !== nome;
-    });
-
-  document.querySelectorAll("nav button")
-    .forEach(b => {
-      b.classList.toggle("active",
-        b.dataset.tab === nome);
-    });
-
-  if (nome === "resumo") carregarResumo();
-  if (nome === "auditoria") carregarAuditoria();
-}
-
-// AUTENTICACAO
-
-async function entrar(evento) {
-  evento.preventDefault();
-  $("loginBtn").disabled = true;
-  msg("loginMsg","Verificando credenciais...");
-
-  try {
-    const {error} = await db.auth.signInWithPassword({
-      email: valor("email"),
-      password: $("senha").value
-    });
-
-    if (error) throw error;
-    $("senha").value = "";
-    await verificarSessao();
-
-  } catch(e) {
-    msg("loginMsg",
-      "Não foi possível entrar. Verifique suas credenciais.",
-      "error");
-  } finally {
-    $("loginBtn").disabled = false;
-  }
-}
-
-async function verificarSessao() {
-  try {
-    const {data,error} = await db.auth.getUser();
-
-    if (error || !data.user) {
-      $("loginBox").hidden = false;
-      $("app").hidden = true;
-      return;
-    }
-
-    const {data:perfil,error:erroPerfil} =
-      await db.from("perfis")
-        .select("papel,ativo")
-        .eq("usuario_id",data.user.id)
-        .single();
-
-    if (erroPerfil || !perfil?.ativo ||
-        !["administrador","gerente","executivo"]
-          .includes(perfil.papel)) {
-      await db.auth.signOut();
-      msg("loginMsg","Usuário sem perfil ativo.","error");
-      return;
-    }
-
-    usuarioAtual = data.user;
-    papelAtual = perfil.papel;
-
-    $("loginBox").hidden = true;
-    $("app").hidden = false;
-
-    $("usuario").textContent = usuarioAtual.email;
-    $("perfil").textContent =
-      "Perfil: " +
-      (papelAtual === "executivo"
-        ? "Usuário — Resumo"
-        : papelAtual);
-
-    // Visibilidade da interface por perfil
-    $("navConsulta").hidden = papelAtual === "executivo";
-    $("navProjeto").hidden = papelAtual === "executivo";
-    $("navStatus").hidden = papelAtual === "executivo";
-    $("navAuditoria").hidden = !admin();
-
-    if (papelAtual !== "executivo") {
-      await atualizarProjetos();
-      limparProjeto();
-      mostrarAba("consulta");
-    } else {
-      mostrarAba("resumo");
-    }
-
-  } catch(e) {
-    msg("loginMsg",
-      "Erro ao validar sessão: " + e.message,"error");
-  }
-}
-
-async function sair() {
-  const {error} = await db.auth.signOut();
-  if (error) {
-    alert("Não foi possível encerrar a sessão.");
-    return;
-  }
-  usuarioAtual = null;
-  papelAtual = null;
-  projetos = [];
-  projetosDoGerente.clear();
-  relatorioAtual = null;
-  $("app").hidden = true;
-  $("loginBox").hidden = false;
-  $("senha").value = "";
-}
-
-// CONSULTA DE PROJETOS
-
-async function atualizarProjetos() {
-  const {data,error} = await db.from("projetos")
-    .select("*").order("nome");
-
-  if (error) {
-    msg("msgProjeto","Erro ao consultar: "+error.message,"error");
-    throw error;
-  }
-
-  projetos = data || [];
-  projetosDoGerente = new Set();
-
-  if (gerente()) {
-    const {data:vinculos,error:erroVinculos} =
-      await db.from("projeto_gerentes")
-        .select("projeto_id")
-        .eq("usuario_id",usuarioAtual.id);
-
-    if (erroVinculos) throw erroVinculos;
-
-    projetosDoGerente = new Set(
-      (vinculos || []).map(v => String(v.projeto_id))
-    );
-  }
-
-  const seletor = $("sProjeto");
-  const anterior = seletor.value;
-  seletor.replaceChildren(
-    new Option("Selecione um projeto","")
-  );
-
-  projetos.forEach(p => {
-    seletor.add(new Option(p.nome,String(p.id)));
-  });
-
-  if (projetos.some(p => String(p.id) === anterior))
-    seletor.value = anterior;
-
-  renderizarProjetos();
-}
-
-function renderizarProjetos() {
-  const lista = $("listaProjetos");
-  lista.replaceChildren();
-
-  const busca = valor("buscaProjeto").toLowerCase();
-  const encontrados = projetos.filter(p =>
-    (p.nome || "").toLowerCase().includes(busca));
-
-  if (!encontrados.length) {
-    lista.textContent = "Nenhum projeto encontrado.";
-    return;
-  }
-
-  encontrados.forEach(p => {
-    const item = document.createElement("div");
-    item.className = "item";
-
-    item.appendChild(elemento("h3",p.nome));
-    item.appendChild(elemento("p",
-      "Situação: " + texto(p.situacao) +
-      " | Gerente: " + texto(p.gerente),"muted"));
-
-    item.appendChild(botao("Consultar",
-      () => consultarProjeto(p.id),"secondary"));
-
-    if (podeEditarProjeto(p.id)) {
-      item.appendChild(botao("Editar",
-        () => editarProjeto(p.id)));
-    } else {
-      item.appendChild(
-        elemento("span"," Somente leitura","muted"));
-    }
-
-    lista.appendChild(item);
-  });
-}
-
-async function consultarProjeto(id) {
-  const p = projetos.find(x => String(x.id) === String(id));
-  if (!p) return;
-
-  $("detalheCard").hidden = false;
-
-  $("detalheProjeto").textContent =
-    "Projeto: " + texto(p.nome) + "\n" +
-    "Objetivo: " + texto(p.objetivo) + "\n" +
-    "Contexto: " + texto(p.contexto) + "\n" +
-    "Gerente: " + texto(p.gerente) + "\n" +
-    "Fornecedor: " + texto(p.fornecedor) + "\n" +
-    "Sponsor: " + texto(p.sponsor) + "\n" +
-    "Situação: " + texto(p.situacao);
-
-  const acoes = $("detalheAcoes");
-  acoes.replaceChildren();
-
-  acoes.appendChild(botao("Consultar Status",
-    () => {
-      mostrarAba("status");
-      $("sProjeto").value = String(id);
-      carregarStatus();
-    },"secondary"));
-
-  if (podeEditarProjeto(id)) {
-    acoes.appendChild(botao("Editar Projeto",
-      () => editarProjeto(id)));
-  }
-
-  const {data,error} = await db.from("status_semanais")
-    .select("data_referencia,planejado,realizado,situacao_publicacao")
-    .eq("projeto_id",id)
-    .order("data_referencia",{ascending:false})
-    .limit(1);
-
-  if (!error && data?.length) {
-    const r = data[0];
-    $("detalheProjeto").textContent +=
-      "\n\nÚltimo relatório: " + r.data_referencia +
-      "\nPlanejado: " + texto(r.planejado) +
-      "% | Realizado: " + texto(r.realizado) +
-      "%\nPublicação: " + texto(r.situacao_publicacao);
-  }
-
-  $("detalheCard").scrollIntoView({behavior:"smooth"});
-}
-
-// CADASTRO E EDICAO
-
-function limparProjeto() {
-  $("formProjeto").reset();
-  $("projetoId").value = "";
-  $("tituloFormProjeto").textContent = "Novo Projeto";
-
-  $("pGerente").readOnly = gerente();
-  $("pGerente").value = gerente()
-    ? usuarioAtual.email : "";
-
-  $("avisoProjeto").textContent = gerente()
-    ? "O novo projeto será automaticamente atribuído à sua conta."
-    : "O administrador pode cadastrar e editar qualquer projeto.";
-
-  msg("msgProjeto","");
-}
-
-function editarProjeto(id) {
-  if (!podeEditarProjeto(id)) return;
-
-  const p = projetos.find(x => String(x.id) === String(id));
-  if (!p) return;
-
-  $("projetoId").value = p.id;
-  $("pNome").value = p.nome || "";
-  $("pObjetivo").value = p.objetivo || "";
-  $("pContexto").value = p.contexto || "";
-  $("pGerente").value = p.gerente || "";
-  $("pFornecedor").value = p.fornecedor || "";
-  $("pSponsor").value = p.sponsor || "";
-  $("pSituacao").value = p.situacao || "Não iniciado";
-
-  $("pGerente").readOnly = gerente();
-  $("tituloFormProjeto").textContent =
-    "Editar Projeto: " + p.nome;
-
-  $("avisoProjeto").textContent = gerente()
-    ? "Você pode editar este projeto, mas não alterar o responsável."
-    : "Alterações serão registradas na auditoria.";
-
-  msg("msgProjeto","");
-  mostrarAba("projeto");
-}
-
-async function salvarProjeto(evento) {
-  evento.preventDefault();
-
-  if (!admin() && !gerente()) return;
-
-  const id = valor("projetoId");
-
-  if (id && !podeEditarProjeto(id)) {
-    msg("msgProjeto","Edição não autorizada.","error");
-    return;
-  }
-
-  const dados = {
-    nome:valor("pNome"),
-    objetivo:valor("pObjetivo"),
-    contexto:valor("pContexto"),
-    fornecedor:valor("pFornecedor"),
-    sponsor:valor("pSponsor"),
-    situacao:valor("pSituacao")
-  };
-
-  // Gerentes não enviam nem alteram o responsável.
-  if (admin()) dados.gerente = valor("pGerente");
-
-  $("salvarProjeto").disabled = true;
-  msg("msgProjeto","Salvando...");
-
-  try {
-    let resultado;
-
-    if (id) {
-      resultado = await db.from("projetos")
-        .update(dados).eq("id",id).select("id");
-    } else {
-      resultado = await db.from("projetos")
-        .insert(dados).select("id");
-    }
-
-    if (resultado.error) throw resultado.error;
-    if (resultado.data?.length !== 1)
-      throw new Error("Gravação não autorizada ou não realizada.");
-
-    await atualizarProjetos();
-    limparProjeto();
-
-    msg("msgProjeto",
-      "Projeto salvo com sucesso!","success");
-
-  } catch(e) {
-    msg("msgProjeto",
-      "Erro ao salvar: " + e.message,"error");
-  } finally {
-    $("salvarProjeto").disabled = false;
-  }
-}
-
-// STATUS REPORT SEMANAL
-
-const camposStatus = [
-  "sPlanejado","sRealizado","sEscopo","sPrazo",
-  "sCusto","sQualidade","sFeito",
-  "sAndamento","sProximos"
+let db, usuarioAtual=null, papelAtual=null;
+let projetos=[], vinculos=new Set();
+let relatorioAtual=null, statusPronto=false;
+let statusChave="", statusSeq=0;
+let auditoriaPagina=0, consultaProjetoSeq=0;
+const POR_PAGINA=25;
+
+const camposStatus=[
+"sPlanejado","sRealizado","sEscopo","sPrazo",
+"sCusto","sQualidade","sFeito","sAndamento","sProximos"
 ];
 
-function limparCamposStatus() {
-  camposStatus.forEach(id => { $(id).value = ""; });
-  relatorioAtual = null;
+function valor(id){return $(id).value.trim()}
+function texto(v){
+return v===null||v===undefined||v===""
+?"Não informado":String(v)}
+function msg(id,tipoTexto,tipo=""){
+$(id).textContent=tipoTexto;
+$(id).className="message "+tipo;
+}
+function elemento(tag,conteudo,classe=""){
+const el=document.createElement(tag);
+el.textContent=conteudo;
+if(classe)el.className=classe;
+return el;
+}
+function botao(rotulo,acao,classe=""){
+const b=elemento("button",rotulo,classe);
+b.type="button";b.addEventListener("click",acao);return b;
+}
+function admin(){return papelAtual==="administrador"}
+function gerente(){return papelAtual==="gerente"}
+function podeEditarProjeto(id){
+return admin()||(gerente()&&vinculos.has(String(id)));
+}
+function dataLocal(d){
+const n=x=>String(x).padStart(2,"0");
+return d.getFullYear()+"-"+n(d.getMonth()+1)+"-"+n(d.getDate());
+}
+function hojeLocal(){return dataLocal(new Date())}
+function diasAtras(n){
+const d=new Date();d.setDate(d.getDate()-n);
+return dataLocal(d);
+}
+function abrirCalendario(id){
+const e=$(id);
+try{
+if(e.showPicker)e.showPicker();
+else e.focus();
+}catch(err){e.focus()}
 }
 
-function permissaoStatus() {
-  const id = valor("sProjeto");
-  const autorizado = id && podeEditarProjeto(id);
-  const publicado =
-    relatorioAtual?.situacao_publicacao === "publicado";
+function mostrarAba(nome){
+const permitidas=admin()
+?["consulta","projeto","status","resumo","auditoria"]
+:gerente()
+?["consulta","projeto","status","resumo"]
+:["resumo"];
+if(!permitidas.includes(nome))nome="resumo";
 
-  const editavel = autorizado && (admin() || !publicado);
-
-  $("camposStatus").disabled = !editavel;
-  $("salvarStatus").disabled = !editavel;
-
-  $("publicarStatus").hidden =
-    !(admin() && relatorioAtual && !publicado);
-
-  if (!autorizado) {
-    $("avisoStatus").textContent =
-      "Somente consulta: projeto não atribuído a você.";
-  } else if (publicado && gerente()) {
-    $("avisoStatus").textContent =
-      "Relatório publicado. Somente leitura para Gerentes.";
-  } else if (publicado && admin()) {
-    $("avisoStatus").textContent =
-      "Relatório publicado. Administrador pode corrigir; alterações serão auditadas.";
-  } else {
-    $("avisoStatus").textContent =
-      "Edição autorizada. Salve as alterações como rascunho.";
-  }
+["consulta","projeto","status","resumo","auditoria"]
+.forEach(aba=>{
+$("tab"+aba[0].toUpperCase()+aba.slice(1)).hidden=aba!==nome;
+});
+document.querySelectorAll("nav button").forEach(b=>{
+b.classList.toggle("active",b.dataset.tab===nome);
+});
+if(nome==="resumo")carregarResumo();
+if(nome==="auditoria")carregarAuditoria();
 }
 
-async function carregarStatus() {
-  const seq = ++consultaStatusSeq;
-  limparCamposStatus();
-  $("salvarStatus").disabled = true;
-  $("publicarStatus").hidden = true;
-
-  const id = valor("sProjeto");
-  const data = valor("sData");
-
-  if (!id || !data) {
-    permissaoStatus();
-    return;
-  }
-
-  msg("msgStatus","Carregando relatório...");
-
-  const {data:registro,error} =
-    await db.from("status_semanais")
-      .select("*")
-      .eq("projeto_id",id)
-      .eq("data_referencia",data)
-      .maybeSingle();
-
-  if (seq !== consultaStatusSeq) return;
-
-  if (error) {
-    msg("msgStatus","Erro: "+error.message,"error");
-    return;
-  }
-
-  if (registro) {
-    relatorioAtual = registro;
-
-    const mapa = {
-      sPlanejado:"planejado",
-      sRealizado:"realizado",
-      sEscopo:"farol_escopo",
-      sPrazo:"farol_prazo",
-      sCusto:"farol_custo",
-      sQualidade:"farol_qualidade",
-      sFeito:"resumo_realizado",
-      sAndamento:"resumo_andamento",
-      sProximos:"resumo_proximos"
-    };
-
-    Object.entries(mapa).forEach(([campo,coluna]) => {
-      $(campo).value = registro[coluna] ?? "";
-    });
-
-    msg("msgStatus",
-      "Relatório carregado: " +
-      texto(registro.situacao_publicacao),"success");
-  } else {
-    msg("msgStatus","Nenhum relatório nesta data.","warning");
-  }
-
-  permissaoStatus();
+async function entrar(e){
+e.preventDefault();
+$("loginBtn").disabled=true;
+msg("loginMsg","Verificando credenciais...");
+try{
+const {error}=await db.auth.signInWithPassword({
+email:valor("email"),password:$("senha").value
+});
+if(error)throw error;
+$("senha").value="";
+await verificarSessao();
+}catch(err){
+msg("loginMsg","Não foi possível autenticar. Verifique os dados.","error");
+}finally{$("loginBtn").disabled=false}
 }
 
-function numeroOuNulo(id) {
-  const v = valor(id);
-  if (v === "") return null;
-  const n = Number(v);
-  if (!Number.isFinite(n) || n < 0 || n > 100)
-    throw new Error("Percentual inválido.");
-  return n;
+async function verificarSessao(){
+try{
+const {data,error}=await db.auth.getUser();
+if(error||!data.user){
+$("loginBox").hidden=false;$("app").hidden=true;return;
+}
+const {data:pf,error:ep}=await db.from("perfis")
+.select("papel,ativo")
+.eq("usuario_id",data.user.id).single();
+if(ep||!pf?.ativo||
+!["administrador","gerente","executivo"].includes(pf.papel)){
+await db.auth.signOut();
+throw new Error("Usuário sem perfil ativo.");
+}
+usuarioAtual=data.user;papelAtual=pf.papel;
+$("usuario").textContent=usuarioAtual.email;
+$("perfil").textContent="Perfil: "+
+(papelAtual==="executivo"?"Usuário — Resumo":papelAtual);
+$("navConsulta").hidden=papelAtual==="executivo";
+$("navProjeto").hidden=papelAtual==="executivo";
+$("navStatus").hidden=papelAtual==="executivo";
+$("navAuditoria").hidden=!admin();
+
+if(papelAtual!=="executivo")await atualizarProjetos();
+$("loginBox").hidden=true;$("app").hidden=false;
+if(papelAtual==="executivo")mostrarAba("resumo");
+else{limparProjeto();mostrarAba("consulta")}
+}catch(err){
+$("loginBox").hidden=false;$("app").hidden=true;
+msg("loginMsg","Erro ao validar acesso: "+err.message,"error");
+}
 }
 
-async function salvarStatus(evento) {
-  evento.preventDefault();
-
-  const id = valor("sProjeto");
-  const data = valor("sData");
-
-  if (!id || !data || !podeEditarProjeto(id)) {
-    msg("msgStatus","Gravação não autorizada.","error");
-    return;
-  }
-
-  const publicado =
-    relatorioAtual?.situacao_publicacao === "publicado";
-
-  if (publicado && !admin()) {
-    msg("msgStatus","Relatório bloqueado.","error");
-    return;
-  }
-
-  const dados = {
-    projeto_id:Number(id),
-    data_referencia:data,
-    planejado:numeroOuNulo("sPlanejado"),
-    realizado:numeroOuNulo("sRealizado"),
-    farol_escopo:valor("sEscopo"),
-    farol_prazo:valor("sPrazo"),
-    farol_custo:valor("sCusto"),
-    farol_qualidade:valor("sQualidade"),
-    resumo_realizado:valor("sFeito"),
-    resumo_andamento:valor("sAndamento"),
-    resumo_proximos:valor("sProximos"),
-    situacao_publicacao:
-      publicado && admin() ? "publicado" : "rascunho"
-  };
-
-  $("salvarStatus").disabled = true;
-  msg("msgStatus","Salvando relatório...");
-
-  try {
-    let resultado;
-
-    if (relatorioAtual) {
-      resultado = await db.from("status_semanais")
-        .update(dados)
-        .eq("id",relatorioAtual.id)
-        .select("id");
-    } else {
-      resultado = await db.from("status_semanais")
-        .insert(dados)
-        .select("id");
-    }
-
-    if (resultado.error) throw resultado.error;
-    if (resultado.data?.length !== 1)
-      throw new Error("Nenhum registro foi alterado.");
-
-    await carregarStatus();
-    msg("msgStatus","Relatório salvo com sucesso!","success");
-
-  } catch(e) {
-    msg("msgStatus","Erro: "+e.message,"error");
-  } finally {
-    permissaoStatus();
-  }
+async function sair(){
+const {error}=await db.auth.signOut();
+if(error){alert("Não foi possível sair.");return}
+++statusSeq;++consultaProjetoSeq;
+usuarioAtual=null;papelAtual=null;
+projetos=[];vinculos.clear();
+relatorioAtual=null;statusPronto=false;statusChave="";
+$("app").hidden=true;$("loginBox").hidden=false;
+$("senha").value="";
 }
 
-async function publicarStatus() {
-  if (!admin() || !relatorioAtual ||
-      relatorioAtual.situacao_publicacao === "publicado")
-    return;
+async function atualizarProjetos(){
+const {data,error}=await db.from("projetos")
+.select("id,nome,objetivo,contexto,gerente,fornecedor,sponsor,situacao")
+.order("nome");
+if(error)throw error;
+projetos=data||[];
+vinculos=new Set();
 
-  if (!confirm(
-    "Publicar este relatório de demonstração? " +
-    "Salve as alterações antes de publicar."
-  )) return;
-
-  const id = relatorioAtual.id;
-  const {data,error} = await db.from("status_semanais")
-    .update({situacao_publicacao:"publicado"})
-    .eq("id",id)
-    .eq("situacao_publicacao","rascunho")
-    .select("id");
-
-  if (error || data?.length !== 1) {
-    msg("msgStatus",
-      "Falha na publicação: " +
-      (error?.message || "Registro indisponível."),"error");
-    return;
-  }
-
-  await carregarStatus();
-  msg("msgStatus",
-    "Resumo publicado. Alteração registrada na auditoria.",
-    "success");
+if(gerente()){
+const {data:v,error:ev}=await db.from("projeto_gerentes")
+.select("projeto_id").eq("usuario_id",usuarioAtual.id);
+if(ev)throw ev;
+vinculos=new Set((v||[]).map(x=>String(x.projeto_id)));
 }
 
-// RESUMO EXECUTIVO
-
-function classeFarol(v) {
-  if (v === "Crítico") return "vermelho";
-  if (v === "Atenção") return "amarelo";
-  if (v === "No prazo") return "verde";
-  return "cinza";
+const antigo=$("sProjeto").value;
+$("sProjeto").replaceChildren(new Option("Selecione um projeto",""));
+$("audProjeto").replaceChildren(new Option("Todos",""));
+projetos.forEach(p=>{
+$("sProjeto").add(new Option(p.nome,String(p.id)));
+$("audProjeto").add(new Option(p.nome,String(p.id)));
+});
+if(projetos.some(p=>String(p.id)===antigo)){
+$("sProjeto").value=antigo;
+}
+renderizarProjetos();
 }
 
-function piorFarol(r) {
-  const valores = [
-    r.farol_escopo,r.farol_prazo,
-    r.farol_custo,r.farol_qualidade
-  ];
-  if (valores.includes("Crítico")) return "Crítico";
-  if (valores.includes("Atenção")) return "Atenção";
-  if (valores.includes("Não avaliado") ||
-      valores.some(v => !v)) return "Não avaliado";
-  if (valores.includes("No prazo")) return "No prazo";
-  return "N/A";
+function renderizarProjetos(){
+const lista=$("listaProjetos");lista.replaceChildren();
+const busca=valor("buscaProjeto").toLowerCase();
+const encontrados=projetos.filter(p=>
+(p.nome||"").toLowerCase().includes(busca));
+if(!encontrados.length){
+lista.textContent="Nenhum projeto encontrado.";return;
+}
+encontrados.forEach(p=>{
+const item=document.createElement("div");item.className="item";
+item.appendChild(elemento("h3",p.nome));
+item.appendChild(elemento("p",
+"Situação: "+texto(p.situacao)+
+" | Responsável informado: "+texto(p.gerente),"muted"));
+item.appendChild(botao("Consultar",
+()=>consultarProjeto(p.id),"secondary"));
+if(podeEditarProjeto(p.id)){
+item.appendChild(botao("Editar",()=>editarProjeto(p.id)));
+}else item.appendChild(elemento("span"," Somente leitura","muted"));
+lista.appendChild(item);
+});
 }
 
-async function carregarResumo() {
-  const lista = $("listaResumo");
-  lista.replaceChildren();
-  lista.textContent = "Carregando resumo publicado...";
+async function consultarProjeto(id){
+const seq=++consultaProjetoSeq;
+const p=projetos.find(x=>String(x.id)===String(id));
+if(!p)return;
+$("detalheCard").hidden=false;
+$("detalheProjeto").textContent=
+"Projeto: "+texto(p.nome)+"\n"+
+"Objetivo: "+texto(p.objetivo)+"\n"+
+"Contexto: "+texto(p.contexto)+"\n"+
+"Gerente informado: "+texto(p.gerente)+"\n"+
+"Fornecedor: "+texto(p.fornecedor)+"\n"+
+"Sponsor: "+texto(p.sponsor)+"\n"+
+"Situação: "+texto(p.situacao);
 
-  const {data,error} = await db.rpc("resumo_publicado");
+const a=$("detalheAcoes");a.replaceChildren();
+a.appendChild(botao("Consultar Status",()=>{
+$("sProjeto").value=String(id);
+mostrarAba("status");carregarStatus();
+},"secondary"));
+if(podeEditarProjeto(id))
+a.appendChild(botao("Editar Projeto",()=>editarProjeto(id)));
 
-  if (error) {
-    lista.textContent = "Erro: " + error.message;
-    return;
-  }
-
-  lista.replaceChildren();
-
-  if (!data?.length) {
-    lista.textContent =
-      "Nenhum relatório publicado até o momento.";
-    return;
-  }
-
-  data.forEach(r => {
-    const card = document.createElement("div");
-    card.className = "item";
-
-    card.appendChild(elemento("h3",r.projeto_nome));
-
-    const geral = piorFarol(r);
-    card.appendChild(
-      elemento("span","Farol geral: "+geral,
-        "farol "+classeFarol(geral)));
-
-    card.appendChild(elemento("p",
-      "Referência: "+r.data_referencia));
-
-    card.appendChild(elemento("p",
-      "Planejado: "+texto(r.planejado)+"% | "+
-      "Realizado: "+texto(r.realizado)+"%"));
-
-    [
-      ["Escopo",r.farol_escopo],
-      ["Prazo",r.farol_prazo],
-      ["Custo",r.farol_custo],
-      ["Qualidade",r.farol_qualidade]
-    ].forEach(([nome,valor]) => {
-      const linha = document.createElement("p");
-      linha.appendChild(elemento("span",nome+": "));
-      linha.appendChild(elemento(
-        "span",texto(valor),"farol "+classeFarol(valor)));
-      card.appendChild(linha);
-    });
-
-    lista.appendChild(card);
-  });
+const {data,error}=await db.from("status_semanais")
+.select("data_referencia,planejado,realizado,situacao_publicacao")
+.eq("projeto_id",id)
+.order("data_referencia",{ascending:false}).limit(1);
+if(seq!==consultaProjetoSeq)return;
+if(!error&&data?.length){
+const r=data[0];
+$("detalheProjeto").textContent+=
+"\n\nÚltimo relatório: "+r.data_referencia+
+"\nPlanejado: "+texto(r.planejado)+
+"% | Realizado: "+texto(r.realizado)+
+"%\nPublicação: "+texto(r.situacao_publicacao);
+}
+$("detalheCard").scrollIntoView({behavior:"smooth"});
 }
 
-// AUDITORIA - APENAS ADMINISTRADOR
-
-async function carregarAuditoria() {
-  if (!admin()) return;
-
-  const lista = $("listaAuditoria");
-  lista.replaceChildren();
-  lista.textContent = "Consultando auditoria...";
-
-  const {data,error} =
-    await db.from("auditoria_alteracoes")
-      .select("*")
-      .order("alterado_em",{ascending:false})
-      .limit(50);
-
-  if (error) {
-    lista.textContent = "Erro: "+error.message;
-    return;
-  }
-
-  lista.replaceChildren();
-
-  if (!data?.length) {
-    lista.textContent = "Nenhum evento encontrado.";
-    return;
-  }
-
-  data.forEach(a => {
-    const item = document.createElement("div");
-    item.className = "item";
-
-    item.appendChild(elemento("h3",
-      a.operacao+" — "+a.tabela));
-
-    item.appendChild(elemento("p",
-      new Date(a.alterado_em).toLocaleString("pt-BR")+
-      " | "+texto(a.usuario_email || a.origem)));
-
-    item.appendChild(elemento("p",
-      "Registro: "+texto(a.registro_id)+
-      " | Projeto ID: "+texto(a.projeto_id)));
-
-    item.appendChild(elemento("p",
-      "Campos: "+(a.campos_alterados || []).join(", "),
-      "muted"));
-
-    const detalhes = document.createElement("details");
-    detalhes.appendChild(elemento(
-      "summary","Ver valores anteriores e novos"));
-
-    const pre = document.createElement("pre");
-    pre.className = "audit-detail";
-    pre.textContent =
-      "ANTES:\n"+JSON.stringify(a.dados_anteriores,null,2)+
-      "\n\nDEPOIS:\n"+
-      JSON.stringify(a.dados_novos,null,2);
-
-    detalhes.appendChild(pre);
-    item.appendChild(detalhes);
-    lista.appendChild(item);
-  });
+function limparProjeto(){
+$("formProjeto").reset();
+$("projetoId").value="";
+$("tituloFormProjeto").textContent="Novo Projeto";
+$("pGerente").readOnly=gerente();
+$("pGerente").value=gerente()&&usuarioAtual
+?usuarioAtual.email:"";
+$("avisoProjeto").textContent=gerente()
+?"O novo projeto será automaticamente vinculado à sua conta."
+:"O Administrador pode cadastrar e editar qualquer projeto.";
+msg("msgProjeto","");
 }
 
-// INICIALIZACAO
-
-function prepararFarois() {
-  const opcoes = [
-    ["","Selecione"],
-    ["No prazo","Verde — No prazo"],
-    ["Atenção","Amarelo — Atenção"],
-    ["Crítico","Vermelho — Crítico"],
-    ["N/A","Cinza — N/A"],
-    ["Não avaliado","Não avaliado"]
-  ];
-
-  document.querySelectorAll(".farolSelect")
-    .forEach(select => {
-      select.replaceChildren();
-      opcoes.forEach(([v,t]) => select.add(new Option(t,v)));
-    });
+function editarProjeto(id){
+if(!podeEditarProjeto(id))return;
+const p=projetos.find(x=>String(x.id)===String(id));
+if(!p)return;
+$("projetoId").value=p.id;
+$("pNome").value=p.nome||"";
+$("pObjetivo").value=p.objetivo||"";
+$("pContexto").value=p.contexto||"";
+$("pGerente").value=p.gerente||"";
+$("pFornecedor").value=p.fornecedor||"";
+$("pSponsor").value=p.sponsor||"";
+$("pSituacao").value=p.situacao||"Não iniciado";
+$("pGerente").readOnly=gerente();
+$("tituloFormProjeto").textContent="Editar Projeto: "+p.nome;
+$("avisoProjeto").textContent=gerente()
+?"Pode editar este projeto, mas não alterar o gerente."
+:"As alterações serão auditadas.";
+msg("msgProjeto","");
+mostrarAba("projeto");
 }
 
-function iniciar() {
-  if (!window.supabase) {
-    msg("loginMsg",
-      "Erro ao carregar Supabase.","error");
-    return;
-  }
+async function salvarProjeto(e){
+e.preventDefault();
+if(!admin()&&!gerente())return;
+const id=valor("projetoId");
+if(id&&!podeEditarProjeto(id)){
+msg("msgProjeto","Acesso não autorizado.","error");return;
+}
+const dados={
+nome:valor("pNome"),objetivo:valor("pObjetivo"),
+contexto:valor("pContexto"),fornecedor:valor("pFornecedor"),
+sponsor:valor("pSponsor"),situacao:valor("pSituacao")
+};
+if(admin())dados.gerente=valor("pGerente");
+$("salvarProjeto").disabled=true;
+msg("msgProjeto","Salvando...");
+try{
+let r;
+if(id)r=await db.from("projetos").update(dados)
+.eq("id",id).select("id");
+else r=await db.from("projetos").insert(dados).select("id");
+if(r.error)throw r.error;
+if(r.data?.length!==1)throw Error("Gravação não autorizada.");
+await atualizarProjetos();
+limparProjeto();
+msg("msgProjeto","Projeto salvo com sucesso!","success");
+}catch(err){
+msg("msgProjeto","Erro ao salvar: "+err.message,"error");
+}finally{$("salvarProjeto").disabled=false}
+}
 
-  db = window.supabase.createClient(
-    URL_SUPABASE,CHAVE_PUBLICA);
+function chaveStatus(){
+return valor("sProjeto")+"|"+valor("sData");
+}
 
-  prepararFarois();
-  $("sData").value = dataHoje();
+function limparCamposStatus(){
+camposStatus.forEach(id=>{$(id).value=""});
+relatorioAtual=null;
+}
 
-  $("loginForm").addEventListener("submit",entrar);
-  $("logout").addEventListener("click",sair);
+function permissaoStatus(){
+const id=valor("sProjeto");
+const autorizado=id&&podeEditarProjeto(id);
+const carregado=statusPronto&&statusChave===chaveStatus();
+const podeSalvar=Boolean(autorizado&&carregado);
+$("camposStatus").disabled=!podeSalvar;
+$("salvarStatus").disabled=!podeSalvar;
 
-  $("formProjeto").addEventListener("submit",salvarProjeto);
-  $("formStatus").addEventListener("submit",salvarStatus);
+if(!id)$("avisoStatus").textContent="Selecione um projeto.";
+else if(!autorizado)$("avisoStatus").textContent=
+"Somente consulta: projeto não atribuído a você.";
+else if(!carregado)$("avisoStatus").textContent=
+"Consultando relatório...";
+else $("avisoStatus").textContent=
+"Edição autorizada. Salvar publica imediatamente e registra na Auditoria.";
+}
 
-  $("novoProjeto").addEventListener("click",limparProjeto);
+async function carregarStatus(){
+const seq=++statusSeq;
+statusPronto=false;statusChave="";
+limparCamposStatus();permissaoStatus();
+const projeto=valor("sProjeto");
+const dataRef=valor("sData");
+if(!projeto||!dataRef){msg("msgStatus","");return}
+msg("msgStatus","Consultando relatório...");
+try{
+const {data,error}=await db.from("status_semanais")
+.select("*").eq("projeto_id",Number(projeto))
+.eq("data_referencia",dataRef).maybeSingle();
+if(seq!==statusSeq)return;
+if(error)throw error;
+if(data){
+relatorioAtual=data;
+const mapa={
+sPlanejado:"planejado",sRealizado:"realizado",
+sEscopo:"farol_escopo",sPrazo:"farol_prazo",
+sCusto:"farol_custo",sQualidade:"farol_qualidade",
+sFeito:"resumo_realizado",sAndamento:"resumo_andamento",
+sProximos:"resumo_proximos"
+};
+Object.entries(mapa).forEach(([id,col])=>{
+$(id).value=data[col]??"";
+});
+msg("msgStatus",
+"Relatório carregado: "+texto(data.situacao_publicacao),"success");
+}else{
+msg("msgStatus","Novo relatório para esta data.","warning");
+}
+statusPronto=true;statusChave=chaveStatus();
+permissaoStatus();
+}catch(err){
+if(seq!==statusSeq)return;
+statusPronto=false;permissaoStatus();
+msg("msgStatus","Erro ao consultar: "+err.message,"error");
+}
+}
 
-  $("sProjeto").addEventListener("change",carregarStatus);
-  $("sData").addEventListener("change",carregarStatus);
+function numeroOuNulo(id){
+const v=valor(id);if(v==="")return null;
+const n=Number(v);
+if(!Number.isFinite(n)||n<0||n>100)
+throw Error("Percentual inválido.");
+return n;
+}
 
-  $("publicarStatus").addEventListener("click",publicarStatus);
+async function salvarStatus(e){
+e.preventDefault();
+const p=valor("sProjeto"),d=valor("sData");
+if(!p||!d||!podeEditarProjeto(p)||
+!statusPronto||statusChave!==chaveStatus()){
+msg("msgStatus","Gravação não autorizada ou relatório não carregado.",
+"error");return;
+}
+const btn=$("salvarStatus");btn.disabled=true;
+try{
+const dados={
+projeto_id:Number(p),data_referencia:d,
+planejado:numeroOuNulo("sPlanejado"),
+realizado:numeroOuNulo("sRealizado"),
+farol_escopo:valor("sEscopo"),
+farol_prazo:valor("sPrazo"),
+farol_custo:valor("sCusto"),
+farol_qualidade:valor("sQualidade"),
+resumo_realizado:valor("sFeito"),
+resumo_andamento:valor("sAndamento"),
+resumo_proximos:valor("sProximos"),
+situacao_publicacao:"publicado"
+};
+msg("msgStatus","Salvando e publicando...");
+const {data,error}=await db.from("status_semanais")
+.upsert(dados,{onConflict:"projeto_id,data_referencia"})
+.select("id,situacao_publicacao");
+if(error)throw error;
+if(data?.length!==1)throw Error("O banco não confirmou a gravação.");
+await carregarStatus();
+msg("msgStatus","Relatório salvo e publicado com sucesso!","success");
+}catch(err){
+msg("msgStatus","Erro ao salvar/publicar: "+err.message,"error");
+}finally{permissaoStatus()}
+}
 
-  $("buscaProjeto").addEventListener("input",renderizarProjetos);
+// RESUMO EXECUTIVO AGRUPADO POR GERENTE
 
-  $("atualizarResumo").addEventListener("click",carregarResumo);
-  $("atualizarAuditoria")
-    .addEventListener("click",carregarAuditoria);
+function classeFarol(v){
+if(v==="Crítico")return "vermelho";
+if(v==="Atenção")return "amarelo";
+if(v==="No prazo")return "verde";
+return "cinza";
+}
 
-  document.querySelectorAll("nav button")
-    .forEach(b => b.addEventListener("click",
-      () => mostrarAba(b.dataset.tab)));
+async function carregarResumo(){
+const lista=$("listaResumo");
+lista.replaceChildren();
+lista.textContent="Carregando relatórios publicados...";
+try{
+const {data,error}=await db.rpc("resumo_publicado_por_gerente");
+if(error)throw error;
+lista.replaceChildren();
+if(!data?.length){
+lista.textContent="Nenhum relatório publicado até o momento.";
+return;
+}
 
-  verificarSessao();
+// O vínculo real determina o agrupamento.
+const grupos=new Map();
+data.forEach(r=>{
+const chave=r.gerente_id||"sem-gerente";
+if(!grupos.has(chave)){
+grupos.set(chave,{
+nome:r.gerente_identificacao||"Sem gerente atribuído",
+projetos:[]
+});
+}
+grupos.get(chave).projetos.push(r);
+});
+
+const ordenados=Array.from(grupos.values()).sort((a,b)=>
+a.nome.localeCompare(b.nome,"pt-BR"));
+
+ordenados.forEach(grupo=>{
+const bloco=document.createElement("details");
+bloco.className="gerente-grupo";
+bloco.open=true;
+
+const cabecalho=document.createElement("summary");
+const quantidade=grupo.projetos.length;
+cabecalho.textContent=
+"Gerente: "+grupo.nome+" — "+
+quantidade+" projeto"+(quantidade===1?"":"s");
+bloco.appendChild(cabecalho);
+
+const conteudo=document.createElement("div");
+conteudo.className="gerente-conteudo";
+const grade=document.createElement("div");
+grade.className="resumo-grid";
+
+grupo.projetos.sort((a,b)=>
+a.projeto_nome.localeCompare(b.projeto_nome,"pt-BR"));
+
+grupo.projetos.forEach(r=>{
+const card=document.createElement("div");
+card.className="resumo-card";
+card.appendChild(elemento("h3",r.projeto_nome));
+card.appendChild(elemento("p",
+"Data de referência: "+r.data_referencia,"muted"));
+
+const indicadores=document.createElement("div");
+indicadores.className="indicadores";
+[
+["Planejado",r.planejado],
+["Realizado",r.realizado]
+].forEach(([nome,numero])=>{
+const box=document.createElement("div");
+box.className="indicador";
+box.appendChild(elemento("span",nome));
+box.appendChild(elemento("strong",
+numero===null||numero===undefined?"—":numero+"%"));
+indicadores.appendChild(box);
+});
+card.appendChild(indicadores);
+
+[
+["Escopo",r.farol_escopo],
+["Prazo",r.farol_prazo],
+["Custo",r.farol_custo],
+["Qualidade",r.farol_qualidade]
+].forEach(([nome,v])=>{
+const linha=document.createElement("p");
+linha.appendChild(elemento("span",nome+": "));
+linha.appendChild(elemento("span",
+texto(v),"farol "+classeFarol(v)));
+card.appendChild(linha);
+});
+grade.appendChild(card);
+});
+conteudo.appendChild(grade);
+bloco.appendChild(conteudo);
+lista.appendChild(bloco);
+});
+}catch(err){
+lista.textContent="Erro ao consultar Resumo: "+err.message;
+}
+}
+
+// AUDITORIA
+
+function limiteData(id,diaSeguinte=false){
+const v=valor(id);
+if(!v)return null;
+const [a,m,d]=v.split("-").map(Number);
+return new Date(a,m-1,d+(diaSeguinte?1:0)).toISOString();
+}
+
+async function carregarAuditoria(){
+if(!admin())return;
+const lista=$("listaAuditoria");
+lista.replaceChildren();
+lista.textContent="Consultando auditoria...";
+try{
+const inicio=limiteData("audInicio");
+const fim=limiteData("audFim",true);
+if(inicio&&fim&&inicio>=fim)throw Error("Período inválido.");
+
+let q=db.from("auditoria_alteracoes")
+.select("*",{count:"exact"});
+
+if(valor("audResponsavel"))
+q=q.ilike("usuario_email","%"+valor("audResponsavel")+"%");
+if(valor("audOperacao"))q=q.eq("operacao",valor("audOperacao"));
+if(valor("audTabela"))q=q.eq("tabela",valor("audTabela"));
+if(valor("audProjeto"))
+q=q.eq("projeto_id",Number(valor("audProjeto")));
+if(inicio)q=q.gte("alterado_em",inicio);
+if(fim)q=q.lt("alterado_em",fim);
+
+const pos=auditoriaPagina*POR_PAGINA;
+const {data,error,count}=await q
+.order("alterado_em",{ascending:false})
+.order("id",{ascending:false})
+.range(pos,pos+POR_PAGINA-1);
+if(error)throw error;
+
+lista.replaceChildren();
+if(!data?.length)lista.textContent="Nenhum evento encontrado.";
+
+(data||[]).forEach(a=>{
+const item=document.createElement("div");item.className="item";
+item.appendChild(elemento("h3",a.operacao+" — "+a.tabela));
+item.appendChild(elemento("p",
+new Date(a.alterado_em).toLocaleString("pt-BR",
+{timeZone:"America/Sao_Paulo"})+
+" | "+texto(a.usuario_email||a.origem)));
+item.appendChild(elemento("p",
+"Registro: "+texto(a.registro_id)+
+" | Projeto ID: "+texto(a.projeto_id)));
+item.appendChild(elemento("p",
+"Campos: "+(a.campos_alterados||[]).join(", "),"muted"));
+
+const detalhes=document.createElement("details");
+detalhes.appendChild(elemento("summary",
+"Ver valores anteriores e novos"));
+const pre=document.createElement("pre");
+pre.className="audit-detail";
+pre.textContent="ANTES:\n"+
+JSON.stringify(a.dados_anteriores,null,2)+
+"\n\nDEPOIS:\n"+JSON.stringify(a.dados_novos,null,2);
+detalhes.appendChild(pre);item.appendChild(detalhes);
+lista.appendChild(item);
+});
+
+const total=count??0;
+const paginas=Math.max(1,Math.ceil(total/POR_PAGINA));
+$("audInfo").textContent="Eventos encontrados: "+total;
+$("audPaginacao").textContent=
+"Página "+(auditoriaPagina+1)+" de "+paginas;
+$("audAnterior").disabled=auditoriaPagina===0;
+$("audProximo").disabled=(auditoriaPagina+1)*POR_PAGINA>=total;
+}catch(err){
+lista.textContent="Erro: "+err.message;
+$("audInfo").textContent="";
+}
+}
+
+function limparFiltrosAuditoria(){
+["audResponsavel","audOperacao","audTabela",
+"audProjeto"].forEach(id=>{$(id).value=""});
+$("audInicio").value=diasAtras(30);
+$("audFim").value=hojeLocal();
+auditoriaPagina=0;carregarAuditoria();
+}
+
+function prepararFarois(){
+const opcoes=[
+["","Selecione"],["No prazo","Verde — No prazo"],
+["Atenção","Amarelo — Atenção"],
+["Crítico","Vermelho — Crítico"],
+["N/A","Cinza — N/A"],
+["Não avaliado","Não avaliado"]
+];
+document.querySelectorAll(".farolSelect").forEach(select=>{
+select.replaceChildren();
+opcoes.forEach(([v,t])=>select.add(new Option(t,v)));
+});
+}
+
+function iniciar(){
+if(!window.supabase){
+msg("loginMsg","Não foi possível carregar Supabase.","error");
+return;
+}
+db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+prepararFarois();
+$("sData").value=hojeLocal();
+$("audInicio").value=diasAtras(30);
+$("audFim").value=hojeLocal();
+
+$("loginForm").addEventListener("submit",entrar);
+$("logout").addEventListener("click",sair);
+$("formProjeto").addEventListener("submit",salvarProjeto);
+$("formStatus").addEventListener("submit",salvarStatus);
+$("novoProjeto").addEventListener("click",limparProjeto);
+$("sProjeto").addEventListener("change",carregarStatus);
+$("sData").addEventListener("change",carregarStatus);
+$("abrirData").addEventListener("click",
+()=>abrirCalendario("sData"));
+$("buscaProjeto").addEventListener("input",renderizarProjetos);
+$("atualizarResumo").addEventListener("click",carregarResumo);
+$("filtrarAuditoria").addEventListener("click",()=>{
+auditoriaPagina=0;carregarAuditoria();
+});
+$("limparAuditoria").addEventListener("click",limparFiltrosAuditoria);
+$("audAnterior").addEventListener("click",()=>{
+if(auditoriaPagina>0){auditoriaPagina--;carregarAuditoria()}
+});
+$("audProximo").addEventListener("click",()=>{
+auditoriaPagina++;carregarAuditoria();
+});
+document.querySelectorAll("nav button").forEach(b=>
+b.addEventListener("click",()=>mostrarAba(b.dataset.tab)));
+verificarSessao();
 }
 
 iniciar();
 </script>
-
 </body>
 </html>
