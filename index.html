@@ -7,402 +7,467 @@
 <title>PMO | Status Report</title>
 
 <style>
-  * { box-sizing: border-box; }
-  [hidden] { display: none !important; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
-  body {
-    margin: 0;
-    background: #101827;
-    color: #fff;
-    font-family: Arial, sans-serif;
-  }
-
-  header {
-    background: #19263a;
-    border-bottom: 3px solid #ec7900;
-    padding: 26px 40px;
-  }
-
-  header h2 { margin: 0; }
-
-  main {
-    max-width: 1150px;
-    margin: 45px auto;
-    padding: 20px;
-  }
-
-  h1 { margin-bottom: 8px; }
-
-  .muted { color: #bdc8d8; }
-
-  .card {
-    background: #1d2d43;
-    border: 1px solid #34465e;
-    border-radius: 12px;
-    padding: 26px;
-  }
-
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(
-      auto-fit, minmax(260px, 1fr)
-    );
-    gap: 20px;
-    margin: 24px 0 32px;
-  }
-
-  .topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .badge {
-    display: inline-block;
-    background: #254b40;
-    color: #80e2ac;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: bold;
-  }
-
-  input, select, textarea {
-    width: 100%;
-    background: #111c2b;
-    color: white;
-    border: 1px solid #52627a;
-    border-radius: 7px;
-    padding: 13px;
-    margin-top: 7px;
-    font: inherit;
-  }
-
-  input:focus, select:focus, textarea:focus {
-    outline: 2px solid #ec7900;
-  }
-
-  label {
-    display: block;
-    margin-bottom: 17px;
-    font-size: 14px;
-    font-weight: bold;
-  }
-
-  textarea {
-    min-height: 90px;
-    resize: vertical;
-  }
-
-  button {
-    background: #ec7900;
-    color: white;
-    padding: 13px 22px;
-    border: 0;
-    border-radius: 7px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-  button:hover { background: #ff8d19; }
-
-  button:disabled {
-    opacity: .6;
-    cursor: wait;
-  }
-
-  .secondary { background: #40516a; }
-  .secondary:hover { background: #536783; }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(
-      auto-fit, minmax(240px, 1fr)
-    );
-    gap: 18px;
-  }
-
-  .section {
-    margin-top: 32px;
-  }
-
-  .login-card {
-    max-width: 440px;
-    margin: 70px auto;
-  }
-
-  .message {
-    margin-top: 16px;
-    line-height: 1.5;
-  }
-
-  .success { color: #80e2ac; }
-  .error { color: #ff9999; }
-
-  .project-item {
-    margin-top: 10px;
-    padding: 15px;
-    background: #172438;
-    border-left: 3px solid #ec7900;
-    border-radius: 6px;
-  }
-
-  .project-item strong {
-    display: block;
-    margin-bottom: 7px;
-  }
-
-  .project-item span {
-    color: #bdc8d8;
-    font-size: 13px;
-  }
-
-  .footer {
-    margin-top: 35px;
-    color: #bdc8d8;
-    font-size: 13px;
-  }
-
-  @media(max-width:600px) {
-    header { padding: 20px; }
-    main { margin: 20px auto; }
-    .card { padding: 20px; }
-  }
+body {
+  margin: 0;
+  background: #101827;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+header {
+  background: #19263a;
+  border-bottom: 3px solid #ec7900;
+  padding: 25px 40px;
+}
+header h2 { margin: 0; }
+main {
+  max-width: 1200px;
+  margin: 35px auto;
+  padding: 20px;
+}
+h1 { margin-bottom: 8px; }
+h2 { margin-top: 0; }
+.muted { color: #bdc8d8; }
+.card {
+  background: #1d2d43;
+  border: 1px solid #34465e;
+  border-radius: 12px;
+  padding: 26px;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 18px;
+}
+label {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: bold;
+}
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 7px;
+  background: #111c2b;
+  color: white;
+  border: 1px solid #52627a;
+  border-radius: 7px;
+  font: inherit;
+}
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #ec7900;
+}
+button {
+  padding: 13px 20px;
+  background: #ec7900;
+  border: 0;
+  border-radius: 7px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 4px 8px 4px 0;
+}
+button:hover { background: #ff8d19; }
+button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+.secondary { background: #40516a; }
+.secondary:hover { background: #536783; }
+.badge {
+  display: inline-block;
+  padding: 7px 12px;
+  background: #254b40;
+  color: #80e2ac;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: bold;
+}
+.section { margin-top: 30px; }
+.login-card {
+  max-width: 440px;
+  margin: 65px auto;
+}
+.message {
+  margin-top: 15px;
+  line-height: 1.5;
+}
+.success { color: #80e2ac; }
+.error { color: #ff9999; }
+.warning { color: #ffd18a; }
+.project-item {
+  padding: 15px;
+  margin: 10px 0;
+  background: #172438;
+  border-left: 3px solid #ec7900;
+  border-radius: 6px;
+}
+.project-item strong {
+  display: block;
+  margin-bottom: 7px;
+}
+.project-item span {
+  color: #bdc8d8;
+  font-size: 13px;
+}
+.farol-group {
+  padding: 15px;
+  background: #172438;
+  border-radius: 9px;
+}
+.farol-group label { margin-bottom: 0; }
+.info {
+  background: #172438;
+  border-left: 3px solid #ec7900;
+  padding: 15px;
+  border-radius: 6px;
+  margin: 18px 0;
+  color: #d7dfeb;
+  line-height: 1.5;
+}
+.footer {
+  margin-top: 35px;
+  font-size: 13px;
+  color: #bdc8d8;
+}
+@media(max-width:600px) {
+  header { padding: 20px; }
+  main { margin: 20px auto; }
+  .card { padding: 18px; }
+}
 </style>
 </head>
 
 <body>
-
 <header>
   <h2>PMO | Status Report</h2>
 </header>
 
 <main>
 
-  <!-- LOGIN -->
-  <section id="login" class="card login-card">
-    <h2>Acesso ao Sistema</h2>
-    <p class="muted">Gestão de Portfólio</p>
+<!-- LOGIN -->
+<section id="login" class="card login-card">
+  <h2>Acesso ao Sistema</h2>
+  <p class="muted">Gestão de Portfólio</p>
 
-    <form id="formLogin">
-      <label for="email">
-        E-mail
-        <input id="email" type="email"
-          autocomplete="username" required>
-      </label>
+  <form id="formLogin">
+    <label>E-mail
+      <input id="email" type="email"
+        autocomplete="username" required>
+    </label>
+    <label>Senha
+      <input id="senha" type="password"
+        autocomplete="current-password" required>
+    </label>
+    <button id="btnEntrar" type="submit">Entrar</button>
+  </form>
 
-      <label for="senha">
-        Senha
-        <input id="senha" type="password"
-          autocomplete="current-password" required>
-      </label>
+  <p id="mensagemLogin" class="message" role="status"></p>
+</section>
 
-      <button type="submit" id="btnEntrar">
-        Entrar
+<!-- SISTEMA -->
+<section id="sistema" hidden>
+
+  <div class="topbar">
+    <div>
+      <h1>Gestão de Portfólio</h1>
+      <p id="usuarioLogado" class="muted"></p>
+      <span id="perfilUsuario" class="badge"></span>
+    </div>
+    <button id="btnSair" class="secondary">
+      Sair do sistema
+    </button>
+  </div>
+
+  <div class="cards">
+
+    <div id="cardAdmin" class="card">
+      <h2>Visão Administrativa</h2>
+      <p class="muted">
+        Cadastro e atualização dos projetos.
+      </p>
+      <button id="btnNovoProjeto">
+        Cadastrar Projeto
       </button>
-    </form>
-
-    <p id="mensagemLogin" class="message" role="status"></p>
-  </section>
-
-
-  <!-- SISTEMA -->
-  <section id="sistema" hidden>
-
-    <div class="topbar">
-      <div>
-        <h1>Gestão de Portfólio</h1>
-        <p id="usuarioLogado" class="muted"></p>
-        <span id="perfilUsuario" class="badge"></span>
-      </div>
-
-      <button id="btnSair" class="secondary">
-        Sair do sistema
+      <button id="btnNovoRelatorio" class="secondary">
+        Status Semanal
       </button>
     </div>
 
+    <div class="card">
+      <h2>Visão Executiva</h2>
+      <p class="muted">
+        Apresentação dos indicadores e
+        relatórios publicados.
+      </p>
+      <span class="badge">
+        Próxima etapa
+      </span>
+    </div>
 
-    <!-- VISÕES -->
-    <div class="cards">
+  </div>
 
-      <div class="card" id="cardAdministrativo">
-        <h2>Visão Administrativa</h2>
-        <p class="muted">
-          Cadastro e gerenciamento de projetos.
-        </p>
-        <button id="btnIrCadastro">
-          Cadastrar projeto
+  <!-- CADASTRO DE PROJETOS -->
+  <section id="secaoCadastro" class="section" hidden>
+    <div class="card">
+      <h2>Cadastro de Projeto</h2>
+
+      <form id="formProjeto">
+        <label>Nome do projeto *
+          <input id="projetoNome" maxlength="200" required>
+        </label>
+
+        <label>Objetivo
+          <textarea id="projetoObjetivo"></textarea>
+        </label>
+
+        <label>Contexto
+          <textarea id="projetoContexto"></textarea>
+        </label>
+
+        <div class="grid">
+          <label>Gerente
+            <input id="projetoGerente" maxlength="200">
+          </label>
+          <label>Fornecedor
+            <input id="projetoFornecedor" maxlength="200">
+          </label>
+        </div>
+
+        <div class="grid">
+          <label>Sponsor
+            <input id="projetoSponsor" maxlength="200">
+          </label>
+          <label>Situação
+            <select id="projetoSituacao">
+              <option>Não iniciado</option>
+              <option>Em andamento</option>
+              <option>Suspenso</option>
+              <option>Concluído</option>
+            </select>
+          </label>
+        </div>
+
+        <button id="btnSalvarProjeto" type="submit">
+          Salvar Projeto
         </button>
-      </div>
-
-      <div class="card">
-        <h2>Visão Executiva</h2>
-        <p class="muted">
-          Acompanhamento dos indicadores e
-          relatórios semanais.
-        </p>
-        <span class="badge">
-          Painel em desenvolvimento
-        </span>
-      </div>
-
+        <p id="mensagemCadastro" class="message" role="status"></p>
+      </form>
     </div>
-
-
-    <!-- FORMULÁRIO ADMINISTRATIVO -->
-    <section id="secaoCadastro" class="section" hidden>
-
-      <div class="card">
-
-        <h2>Cadastro de Projeto</h2>
-        <p class="muted">
-          Preencha os dados e clique em
-          Salvar Projeto.
-        </p>
-
-        <form id="formProjeto">
-
-          <label for="projetoNome">
-            Nome do projeto *
-            <input id="projetoNome"
-              type="text" maxlength="200" required>
-          </label>
-
-          <label for="projetoObjetivo">
-            Objetivo
-            <textarea id="projetoObjetivo"
-              maxlength="4000"></textarea>
-          </label>
-
-          <label for="projetoContexto">
-            Contexto
-            <textarea id="projetoContexto"
-              maxlength="4000"></textarea>
-          </label>
-
-          <div class="grid">
-
-            <label for="projetoGerente">
-              Gerente do projeto
-              <input id="projetoGerente"
-                type="text" maxlength="200">
-            </label>
-
-            <label for="projetoFornecedor">
-              Fornecedor
-              <input id="projetoFornecedor"
-                type="text" maxlength="200">
-            </label>
-
-          </div>
-
-          <div class="grid">
-
-            <label for="projetoSponsor">
-              Sponsor / Stakeholder
-              <input id="projetoSponsor"
-                type="text" maxlength="200">
-            </label>
-
-            <label for="projetoSituacao">
-              Situação do projeto
-              <select id="projetoSituacao" required>
-                <option value="Não iniciado">
-                  Não iniciado
-                </option>
-                <option value="Em andamento">
-                  Em andamento
-                </option>
-                <option value="Suspenso">
-                  Suspenso
-                </option>
-                <option value="Concluído">
-                  Concluído
-                </option>
-              </select>
-            </label>
-
-          </div>
-
-          <button type="submit" id="btnSalvarProjeto">
-            Salvar Projeto
-          </button>
-
-          <p id="mensagemCadastro"
-            class="message" role="status"></p>
-
-        </form>
-
-      </div>
-    </section>
-
-
-    <!-- LISTAGEM -->
-    <section class="section">
-      <h2>Projetos Cadastrados</h2>
-
-      <div class="card">
-
-        <p id="statusConexao" class="message">
-          Verificando conexão...
-        </p>
-
-        <div id="listaProjetos"></div>
-
-      </div>
-    </section>
-
   </section>
 
-  <p class="footer">
-    PMO | Ambiente inicial de demonstração
-  </p>
+  <!-- STATUS REPORT SEMANAL -->
+  <section id="secaoStatus" class="section" hidden>
+    <div class="card">
+      <h2>Status Report Semanal</h2>
+      <p class="muted">
+        Preenchimento dos indicadores do projeto.
+      </p>
+
+      <div class="info">
+        Cada projeto possui um relatório por data de referência.
+        Os dados são salvos como rascunho e podem ser
+        retomados posteriormente. Relatórios publicados
+        não podem ser editados por este formulário.
+      </div>
+
+      <form id="formStatus">
+
+        <div class="grid">
+          <label>Projeto *
+            <select id="statusProjeto" required>
+              <option value="">Selecione um projeto</option>
+            </select>
+          </label>
+
+          <label>Data de referência *
+            <input id="dataReferencia"
+              type="date" required>
+          </label>
+        </div>
+
+        <h3>Indicadores de Avanço</h3>
+
+        <div class="grid">
+          <label>Planejado (%)
+            <input id="planejado" type="number"
+              min="0" max="100" step="0.01"
+              placeholder="Ex.: 60">
+          </label>
+
+          <label>Realizado (%)
+            <input id="realizado" type="number"
+              min="0" max="100" step="0.01"
+              placeholder="Ex.: 61">
+          </label>
+        </div>
+
+        <h3>Saúde do Projeto — Faróis</h3>
+
+        <div class="grid">
+
+          <div class="farol-group">
+            <label>Escopo *
+              <select id="farolEscopo"
+                class="campo-farol" required></select>
+            </label>
+          </div>
+
+          <div class="farol-group">
+            <label>Prazo *
+              <select id="farolPrazo"
+                class="campo-farol" required></select>
+            </label>
+          </div>
+
+          <div class="farol-group">
+            <label>Custo *
+              <select id="farolCusto"
+                class="campo-farol" required></select>
+            </label>
+          </div>
+
+          <div class="farol-group">
+            <label>Qualidade *
+              <select id="farolQualidade"
+                class="campo-farol" required></select>
+            </label>
+          </div>
+
+        </div>
+
+        <h3 class="section">Acompanhamento Semanal</h3>
+
+        <label>Realizado
+          <textarea id="resumoRealizado"
+            placeholder="Entregas concluídas na semana"></textarea>
+        </label>
+
+        <label>Em Andamento
+          <textarea id="resumoAndamento"
+            placeholder="Atividades em execução"></textarea>
+        </label>
+
+        <label>Próximos Passos
+          <textarea id="resumoProximos"
+            placeholder="Atividades previstas e encaminhamentos"></textarea>
+        </label>
+
+        <button id="btnSalvarStatus" type="submit">
+          Salvar Rascunho
+        </button>
+
+        <p id="mensagemStatus" class="message" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- PROJETOS CADASTRADOS -->
+  <section class="section">
+    <h2>Projetos Cadastrados</h2>
+    <div class="card">
+      <p id="statusConexao" class="message"></p>
+      <div id="listaProjetos"></div>
+    </div>
+  </section>
+
+</section>
+
+<p class="footer">PMO | Ambiente de demonstração</p>
 
 </main>
 
-
-<!-- SUPABASE JS -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-
 const SUPABASE_URL =
   "https://ewemcwsatwefamtjxapv.supabase.co";
 
 const SUPABASE_KEY =
   "sb_publishable__s9nlB-x2xOslj8Oc3NtkA_QUotlldx";
 
-const login = document.getElementById("login");
-const sistema = document.getElementById("sistema");
-const mensagemLogin =
-  document.getElementById("mensagemLogin");
+const $ = id => document.getElementById(id);
 
 let db = null;
 let perfilAtual = null;
+let relatorioAtual = null;
+let versaoConsulta = 0;
 
 function valor(id) {
-  return document.getElementById(id).value.trim();
+  return $(id).value.trim();
 }
 
-function mostrarMensagem(elemento, texto, tipo = "") {
-  elemento.textContent = texto;
-  elemento.className = "message " + tipo;
+function mensagem(id, texto, tipo = "") {
+  $(id).textContent = texto;
+  $(id).className = "message " + tipo;
 }
 
 function mostrarLogin() {
-  login.hidden = false;
-  sistema.hidden = true;
+  $("login").hidden = false;
+  $("sistema").hidden = true;
   perfilAtual = null;
 }
 
-async function verificarAcesso() {
+function abrirModulo(tipo) {
+  $("secaoCadastro").hidden = tipo !== "cadastro";
+  $("secaoStatus").hidden = tipo !== "status";
 
+  const secao = tipo === "cadastro"
+    ? $("secaoCadastro") : $("secaoStatus");
+
+  secao.scrollIntoView({behavior:"smooth"});
+}
+
+function prepararFarois() {
+  const opcoes = [
+    ["", "Selecione"],
+    ["No prazo", "Verde — No prazo"],
+    ["Atenção", "Amarelo — Atenção"],
+    ["Crítico", "Vermelho — Crítico"],
+    ["N/A", "Cinza — N/A"],
+    ["Não avaliado", "Não avaliado — Sem farol"]
+  ];
+
+  document.querySelectorAll(".campo-farol")
+    .forEach(campo => {
+      campo.replaceChildren();
+      opcoes.forEach(([codigo, descricao]) => {
+        campo.add(new Option(descricao, codigo));
+      });
+    });
+}
+
+function hojeLocal() {
+  const d = new Date();
+  const n = v => String(v).padStart(2, "0");
+  return d.getFullYear() + "-" +
+    n(d.getMonth() + 1) + "-" + n(d.getDate());
+}
+
+async function verificarAcesso() {
   try {
-    const { data, error } =
-      await db.auth.getUser();
+    const {data, error} = await db.auth.getUser();
 
     if (error || !data.user) {
       mostrarLogin();
@@ -410,149 +475,113 @@ async function verificarAcesso() {
     }
 
     const usuario = data.user;
+    const resultado = await db.from("perfis")
+      .select("papel, ativo")
+      .eq("usuario_id", usuario.id)
+      .single();
 
-    const { data: perfil, error: erroPerfil } =
-      await db
-        .from("perfis")
-        .select("papel, ativo")
-        .eq("usuario_id", usuario.id)
-        .single();
-
-    if (erroPerfil || !perfil || !perfil.ativo) {
+    if (resultado.error || !resultado.data?.ativo) {
       await db.auth.signOut();
       mostrarLogin();
-      mostrarMensagem(
-        mensagemLogin,
-        "Usuário sem perfil ativo.",
-        "error"
-      );
+      mensagem("mensagemLogin",
+        "Usuário sem perfil ativo.", "error");
       return;
     }
 
-    perfilAtual = perfil.papel;
+    perfilAtual = resultado.data.papel;
 
-    login.hidden = true;
-    sistema.hidden = false;
+    $("login").hidden = true;
+    $("sistema").hidden = false;
 
-    document.getElementById("usuarioLogado")
-      .textContent = usuario.email;
+    $("usuarioLogado").textContent = usuario.email;
+    $("perfilUsuario").textContent =
+      "Perfil: " + perfilAtual;
 
-    document.getElementById("perfilUsuario")
-      .textContent = "Perfil: " + perfilAtual;
+    const podeEditar =
+      ["administrador", "gerente"].includes(perfilAtual);
 
-    const administrador =
-      perfilAtual === "administrador";
+    $("cardAdmin").hidden = !podeEditar;
+    $("btnNovoProjeto").hidden =
+      perfilAtual !== "administrador";
 
-    document.getElementById("cardAdministrativo")
-      .hidden = !administrador;
-
-    document.getElementById("secaoCadastro")
-      .hidden = !administrador;
+    $("secaoCadastro").hidden = true;
+    $("secaoStatus").hidden = true;
 
     await carregarProjetos();
 
   } catch (erro) {
     mostrarLogin();
-    mostrarMensagem(
-      mensagemLogin,
-      "Erro ao verificar acesso ao sistema.",
-      "error"
-    );
+    mensagem("mensagemLogin",
+      "Erro ao verificar acesso.", "error");
   }
 }
 
 async function entrar(evento) {
-
   evento.preventDefault();
-
-  const botao = document.getElementById("btnEntrar");
+  const botao = $("btnEntrar");
   botao.disabled = true;
-  botao.textContent = "Entrando...";
-
-  mostrarMensagem(
-    mensagemLogin,
-    "Validando credenciais..."
-  );
+  mensagem("mensagemLogin", "Verificando acesso...");
 
   try {
-    const { error } =
-      await db.auth.signInWithPassword({
-        email: valor("email"),
-        password:
-          document.getElementById("senha").value
-      });
+    const {error} = await db.auth.signInWithPassword({
+      email: valor("email"),
+      password: $("senha").value
+    });
 
     if (error) {
-      mostrarMensagem(
-        mensagemLogin,
-        "Não foi possível entrar. Verifique suas credenciais.",
-        "error"
-      );
+      mensagem("mensagemLogin",
+        "E-mail ou senha inválidos.", "error");
       return;
     }
 
-    document.getElementById("senha").value = "";
-    mostrarMensagem(mensagemLogin, "");
+    $("senha").value = "";
+    mensagem("mensagemLogin", "");
     await verificarAcesso();
 
   } catch (erro) {
-    mostrarMensagem(
-      mensagemLogin,
-      "Erro de conexão ao autenticar.",
-      "error"
-    );
+    mensagem("mensagemLogin",
+      "Erro na conexão de autenticação.", "error");
   } finally {
     botao.disabled = false;
-    botao.textContent = "Entrar";
   }
 }
 
 async function carregarProjetos() {
-
-  const lista =
-    document.getElementById("listaProjetos");
-
-  const status =
-    document.getElementById("statusConexao");
-
+  const lista = $("listaProjetos");
   lista.replaceChildren();
+  mensagem("statusConexao", "Carregando projetos...");
 
-  mostrarMensagem(status, "Consultando projetos...");
-
-  const { data, error } = await db
-    .from("projetos")
-    .select("id, nome, objetivo, gerente, situacao")
+  const {data, error} = await db.from("projetos")
+    .select("id,nome,gerente,situacao")
     .order("nome");
 
   if (error) {
-    mostrarMensagem(
-      status,
-      "Erro ao consultar projetos: " + error.message,
-      "error"
-    );
+    mensagem("statusConexao",
+      "Erro: " + error.message, "error");
     return;
   }
 
-  mostrarMensagem(
-    status,
+  mensagem("statusConexao",
     "Conexão com Supabase realizada com sucesso!",
-    "success"
+    "success");
+
+  const seletor = $("statusProjeto");
+  const valorAnterior = seletor.value;
+  seletor.replaceChildren(
+    new Option("Selecione um projeto", "")
   );
 
   if (!data || data.length === 0) {
-    lista.textContent =
-      "Nenhum projeto cadastrado até o momento.";
+    lista.textContent = "Nenhum projeto cadastrado.";
     return;
   }
 
   data.forEach(projeto => {
-
     const item = document.createElement("div");
     item.className = "project-item";
 
     const titulo = document.createElement("strong");
-    titulo.textContent =
-      projeto.nome || "Projeto sem nome";
+    titulo.textContent = projeto.nome;
 
     const detalhes = document.createElement("span");
     detalhes.textContent =
@@ -560,47 +589,32 @@ async function carregarProjetos() {
       " | Situação: " +
       (projeto.situacao || "Não informada");
 
-    item.appendChild(titulo);
-    item.appendChild(detalhes);
+    item.append(titulo, detalhes);
     lista.appendChild(item);
 
+    seletor.add(new Option(projeto.nome, String(projeto.id)));
   });
+
+  if (Array.from(seletor.options)
+      .some(o => o.value === valorAnterior)) {
+    seletor.value = valorAnterior;
+  }
 }
 
 async function salvarProjeto(evento) {
-
   evento.preventDefault();
 
-  const mensagem =
-    document.getElementById("mensagemCadastro");
-
-  // Verificação adicional de autenticação
-  const { data: autenticacao, error: erroAuth } =
-    await db.auth.getUser();
-
-  if (erroAuth || !autenticacao.user ||
-      perfilAtual !== "administrador") {
-    mostrarMensagem(
-      mensagem,
-      "Acesso não autorizado para cadastrar projetos.",
-      "error"
-    );
+  if (perfilAtual !== "administrador") {
+    mensagem("mensagemCadastro",
+      "Acesso não autorizado.", "error");
     return;
   }
 
-  const nome = valor("projetoNome");
-
-  if (!nome) {
-    mostrarMensagem(
-      mensagem,
-      "Informe o nome do projeto.",
-      "error"
-    );
-    return;
-  }
+  const botao = $("btnSalvarProjeto");
+  botao.disabled = true;
 
   const projeto = {
-    nome: nome,
+    nome: valor("projetoNome"),
     objetivo: valor("projetoObjetivo"),
     contexto: valor("projetoContexto"),
     gerente: valor("projetoGerente"),
@@ -609,106 +623,254 @@ async function salvarProjeto(evento) {
     situacao: valor("projetoSituacao")
   };
 
-  const botao =
-    document.getElementById("btnSalvarProjeto");
-
-  botao.disabled = true;
-  botao.textContent = "Salvando...";
-
-  mostrarMensagem(mensagem, "Salvando projeto...");
-
   try {
-
-    const { error } = await db
-      .from("projetos")
+    const {error} = await db.from("projetos")
       .insert(projeto);
 
     if (error) {
-      mostrarMensagem(
-        mensagem,
-        "Erro ao salvar: " + error.message,
-        "error"
-      );
+      mensagem("mensagemCadastro",
+        "Erro ao salvar: " + error.message, "error");
       return;
     }
 
-    document.getElementById("formProjeto").reset();
-
-    mostrarMensagem(
-      mensagem,
-      "Projeto salvo com sucesso!",
-      "success"
-    );
-
+    $("formProjeto").reset();
+    mensagem("mensagemCadastro",
+      "Projeto salvo com sucesso!", "success");
     await carregarProjetos();
 
   } catch (erro) {
-
-    mostrarMensagem(
-      mensagem,
-      "Erro de conexão ao salvar o projeto.",
-      "error"
-    );
-
+    mensagem("mensagemCadastro",
+      "Erro de conexão ao salvar.", "error");
   } finally {
-
     botao.disabled = false;
-    botao.textContent = "Salvar Projeto";
+  }
+}
 
+function limparRelatorio() {
+  relatorioAtual = null;
+
+  ["planejado","realizado","resumoRealizado",
+   "resumoAndamento","resumoProximos"]
+    .forEach(id => { $(id).value = ""; });
+
+  document.querySelectorAll(".campo-farol")
+    .forEach(campo => { campo.value = ""; });
+
+  $("btnSalvarStatus").disabled = false;
+  mensagem("mensagemStatus", "");
+}
+
+async function carregarRelatorio() {
+  const versao = ++versaoConsulta;
+  limparRelatorio();
+
+  const projetoId = valor("statusProjeto");
+  const dataRef = valor("dataReferencia");
+
+  if (!projetoId || !dataRef) return;
+
+  mensagem("mensagemStatus",
+    "Verificando relatório da semana...");
+
+  const {data, error} = await db
+    .from("status_semanais")
+    .select("*")
+    .eq("projeto_id", Number(projetoId))
+    .eq("data_referencia", dataRef)
+    .maybeSingle();
+
+  if (versao !== versaoConsulta) return;
+
+  if (error) {
+    mensagem("mensagemStatus",
+      "Erro ao consultar: " + error.message, "error");
+    return;
+  }
+
+  if (!data) {
+    mensagem("mensagemStatus",
+      "Nenhum relatório nesta data. Novo rascunho.",
+      "warning");
+    return;
+  }
+
+  relatorioAtual = data;
+
+  $("planejado").value = data.planejado ?? "";
+  $("realizado").value = data.realizado ?? "";
+  $("farolEscopo").value = data.farol_escopo ?? "";
+  $("farolPrazo").value = data.farol_prazo ?? "";
+  $("farolCusto").value = data.farol_custo ?? "";
+  $("farolQualidade").value = data.farol_qualidade ?? "";
+  $("resumoRealizado").value = data.resumo_realizado ?? "";
+  $("resumoAndamento").value = data.resumo_andamento ?? "";
+  $("resumoProximos").value = data.resumo_proximos ?? "";
+
+  if (data.situacao_publicacao === "publicado") {
+    $("btnSalvarStatus").disabled = true;
+    mensagem("mensagemStatus",
+      "Relatório publicado. Edição bloqueada nesta tela.",
+      "warning");
+  } else {
+    mensagem("mensagemStatus",
+      "Rascunho existente carregado para edição.",
+      "success");
+  }
+}
+
+function percentual(id) {
+  const texto = valor(id);
+  if (texto === "") return null;
+  const numero = Number(texto);
+  if (!Number.isFinite(numero) ||
+      numero < 0 || numero > 100) {
+    throw new Error("Percentual inválido: " + id);
+  }
+  return numero;
+}
+
+async function salvarStatus(evento) {
+  evento.preventDefault();
+
+  if (!["administrador","gerente"].includes(perfilAtual)) {
+    mensagem("mensagemStatus",
+      "Acesso não autorizado.", "error");
+    return;
+  }
+
+  const projetoId = valor("statusProjeto");
+  const dataRef = valor("dataReferencia");
+
+  if (!projetoId || !dataRef) {
+    mensagem("mensagemStatus",
+      "Selecione o projeto e a data.", "error");
+    return;
+  }
+
+  if (relatorioAtual?.situacao_publicacao === "publicado") {
+    mensagem("mensagemStatus",
+      "Relatório publicado: edição bloqueada.", "error");
+    return;
+  }
+
+  const botao = $("btnSalvarStatus");
+  botao.disabled = true;
+
+  try {
+    const registro = {
+      projeto_id: Number(projetoId),
+      data_referencia: dataRef,
+      planejado: percentual("planejado"),
+      realizado: percentual("realizado"),
+      farol_escopo: valor("farolEscopo"),
+      farol_prazo: valor("farolPrazo"),
+      farol_custo: valor("farolCusto"),
+      farol_qualidade: valor("farolQualidade"),
+      resumo_realizado: valor("resumoRealizado"),
+      resumo_andamento: valor("resumoAndamento"),
+      resumo_proximos: valor("resumoProximos"),
+      situacao_publicacao: "rascunho"
+    };
+
+    mensagem("mensagemStatus", "Salvando rascunho...");
+
+    let resultado;
+
+    if (relatorioAtual) {
+      resultado = await db.from("status_semanais")
+        .update(registro)
+        .eq("id", relatorioAtual.id)
+        .eq("situacao_publicacao", "rascunho")
+        .select("id");
+    } else {
+      resultado = await db.from("status_semanais")
+        .insert(registro)
+        .select("id");
+    }
+
+    if (resultado.error) {
+      mensagem("mensagemStatus",
+        "Erro ao salvar: " + resultado.error.message,
+        "error");
+      return;
+    }
+
+    if (!resultado.data || resultado.data.length !== 1) {
+      mensagem("mensagemStatus",
+        "Nenhum registro foi salvo. Confira sua permissão.",
+        "error");
+      return;
+    }
+
+    await carregarRelatorio();
+
+    mensagem("mensagemStatus",
+      "Status Report salvo como rascunho!",
+      "success");
+
+  } catch (erro) {
+    mensagem("mensagemStatus",
+      "Erro ao salvar: " + erro.message, "error");
+  } finally {
+    if (relatorioAtual?.situacao_publicacao !== "publicado") {
+      botao.disabled = false;
+    }
   }
 }
 
 async function sair() {
-
-  const { error } = await db.auth.signOut();
+  const {error} = await db.auth.signOut();
 
   if (error) {
-    alert("Não foi possível encerrar a sessão.");
+    alert("Erro ao encerrar sessão.");
     return;
   }
 
-  document.getElementById("senha").value = "";
-  document.getElementById("formProjeto").reset();
-  mostrarMensagem(mensagemLogin, "");
+  ++versaoConsulta;
+  $("senha").value = "";
+  $("formStatus").reset();
+  $("formProjeto").reset();
+  limparRelatorio();
   mostrarLogin();
 }
 
 function iniciar() {
-
   if (!window.supabase) {
-    mostrarMensagem(
-      mensagemLogin,
-      "Não foi possível carregar a biblioteca Supabase.",
-      "error"
-    );
+    mensagem("mensagemLogin",
+      "Falha ao carregar o Supabase.", "error");
     return;
   }
 
   db = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
+    SUPABASE_URL, SUPABASE_KEY
   );
 
-  document.getElementById("formLogin")
-    .addEventListener("submit", entrar);
+  prepararFarois();
+  $("dataReferencia").value = hojeLocal();
 
-  document.getElementById("formProjeto")
-    .addEventListener("submit", salvarProjeto);
+  $("formLogin").addEventListener("submit", entrar);
+  $("formProjeto").addEventListener("submit", salvarProjeto);
+  $("formStatus").addEventListener("submit", salvarStatus);
 
-  document.getElementById("btnSair")
-    .addEventListener("click", sair);
+  $("statusProjeto").addEventListener(
+    "change", carregarRelatorio
+  );
+  $("dataReferencia").addEventListener(
+    "change", carregarRelatorio
+  );
 
-  document.getElementById("btnIrCadastro")
-    .addEventListener("click", () => {
-      document.getElementById("secaoCadastro")
-        .scrollIntoView({ behavior: "smooth" });
-    });
+  $("btnNovoProjeto").addEventListener("click",
+    () => abrirModulo("cadastro"));
+
+  $("btnNovoRelatorio").addEventListener("click",
+    () => abrirModulo("status"));
+
+  $("btnSair").addEventListener("click", sair);
 
   verificarAcesso();
 }
 
 iniciar();
-
 </script>
 </body>
 </html>
