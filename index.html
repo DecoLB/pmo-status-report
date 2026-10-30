@@ -3,956 +3,2107 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PMO | Status Report</title>
 <style>
-*{box-sizing:border-box}
-[hidden]{display:none!important}
-body{margin:0;background:#101827;color:#fff;
-font-family:Arial,sans-serif;line-height:1.5}
-header{padding:24px 35px;background:#19263a;
-border-bottom:3px solid #ec7900}
-header h2{margin:0}
-main{max-width:1250px;margin:28px auto;padding:20px}
-h1,h2,h3{margin-top:0}
-.muted{color:#bdc8d8}
-.card{background:#1d2d43;border:1px solid #34465e;
-border-radius:12px;padding:24px;margin-bottom:20px}
-.grid{display:grid;
-grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-gap:16px}
-.topbar{display:flex;justify-content:space-between;
-align-items:center;flex-wrap:wrap;gap:15px}
-nav{display:flex;flex-wrap:wrap;gap:10px;margin:25px 0}
-button{padding:12px 19px;border:0;border-radius:7px;
-background:#ec7900;color:#fff;font-size:14px;
-font-weight:bold;cursor:pointer;margin:3px}
-button:hover{filter:brightness(1.1)}
-button:disabled{opacity:.45;cursor:not-allowed}
-.secondary,nav button{background:#40516a}
-nav button.active{background:#ec7900}
-label{display:block;margin-bottom:15px;font-size:14px;
-font-weight:bold}
-input,select,textarea{width:100%;margin-top:7px;padding:12px;
-background:#111c2b;color:white;border:1px solid #52627a;
-border-radius:7px;font:inherit}
-textarea{min-height:95px;resize:vertical}
-input:focus,select:focus,textarea:focus{
-outline:2px solid #ec7900}
-fieldset{border:0;margin:0;padding:0;min-width:0}
-.badge{display:inline-block;padding:6px 11px;
-background:#254b40;color:#80e2ac;border-radius:6px;
-font-weight:bold;font-size:13px}
-.item{background:#172438;border-left:3px solid #ec7900;
-padding:16px;margin:12px 0;border-radius:7px}
-.item h3{margin-bottom:5px}
-.item p{margin:7px 0}
-.info{background:#172438;border-left:3px solid #ec7900;
-padding:15px;border-radius:6px;margin:15px 0}
-.message{margin-top:12px;white-space:pre-wrap}
-.success{color:#80e2ac}
-.error{color:#ff9999}
-.warning{color:#ffd18a}
-.login{max-width:460px;margin:65px auto}
-.project-detail{white-space:pre-wrap;line-height:1.8}
-.farol{display:inline-block;border-radius:6px;
-padding:5px 9px;font-size:12px;font-weight:bold}
-.verde{background:#164d39;color:#83e7ae}
-.amarelo{background:#62461c;color:#ffe09a}
-.vermelho{background:#66303a;color:#ffc5ca}
-.cinza{background:#455064;color:#e0e5ec}
-.date-line{display:flex;align-items:center;gap:6px}
-.date-line input{flex:1;min-width:0}
-.date-line button{flex:0 0 auto}
-.gerente-grupo{border:1px solid #41536b;
-border-radius:12px;margin:18px 0;overflow:hidden}
-.gerente-grupo>summary{background:#263850;
-padding:20px;cursor:pointer;font-weight:bold;
-font-size:18px}
-.gerente-conteudo{padding:16px}
-.resumo-grid{display:grid;
-grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
-gap:14px}
-.resumo-card{background:#172438;border:1px solid #34465e;
-border-top:3px solid #ec7900;border-radius:9px;padding:18px}
-.resumo-card h3{margin:0 0 10px}
-.resumo-card p{margin:8px 0}
-.indicadores{display:flex;gap:12px;flex-wrap:wrap;
-margin:12px 0}
-.indicador{background:#263850;padding:12px;
-border-radius:7px;flex:1;min-width:100px}
-.indicador strong{display:block;font-size:22px}
-.audit-detail{white-space:pre-wrap;overflow-wrap:anywhere;
-font-size:12px;color:#c5cfdd}
-.footer{font-size:12px;color:#bdc8d8;margin-top:30px}
-@media(max-width:600px){
-header{padding:18px}main{margin:10px auto;padding:12px}
-.card{padding:17px}}
+:root {
+  color-scheme: dark;
+  --fundo: #101827;
+  --painel: #1d2d43;
+  --interno: #172438;
+  --borda: #40516a;
+  --texto: #ffffff;
+  --sub: #c5d0df;
+  --laranja: #ec7900;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+header {
+  padding: 22px 34px;
+  background: #19263a;
+  border-bottom: 3px solid var(--laranja);
+}
+header h2 { margin: 0; }
+main {
+  max-width: 1320px;
+  padding: 20px;
+  margin: 25px auto;
+}
+.card {
+  background: var(--painel);
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid #34465e;
+  border-radius: 12px;
+}
+.login { max-width: 460px; margin: 65px auto; }
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+.grid-wide {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 14px;
+}
+.muted { color: var(--sub); }
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 24px 0;
+}
+button {
+  background: var(--laranja);
+  border: 0;
+  border-radius: 7px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 12px 18px;
+  font-size: 14px;
+}
+button.secondary, nav button { background: var(--borda); }
+nav button.active { background: var(--laranja); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+button:hover:not(:disabled) { filter: brightness(1.08); }
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 0 14px;
+}
+input, textarea, select {
+  display: block;
+  margin-top: 7px;
+  width: 100%;
+  padding: 12px;
+  background: #111c2b;
+  border: 1px solid #52627a;
+  border-radius: 7px;
+  color: white;
+  font: inherit;
+}
+textarea { min-height: 85px; resize: vertical; }
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid var(--laranja);
+}
+fieldset { border: 0; padding: 0; min-width: 0; }
+h1, h2, h3 { margin-top: 0; }
+h3 { margin-bottom: 12px; }
+.badge {
+  display: inline-block;
+  padding: 6px 11px;
+  background: #254b40;
+  border-radius: 6px;
+  color: #80e2ac;
+  font-weight: bold;
+}
+.item {
+  background: var(--interno);
+  border-left: 3px solid var(--laranja);
+  padding: 16px;
+  margin: 12px 0;
+  border-radius: 7px;
+}
+.info {
+  background: var(--interno);
+  border-left: 3px solid var(--laranja);
+  border-radius: 6px;
+  padding: 15px;
+  margin: 15px 0;
+}
+.success { color: #80e2ac; }
+.error { color: #ff9999; }
+.warning { color: #ffd18a; }
+.message { white-space: pre-wrap; margin-top: 12px; }
+.farol {
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 13px;
+  font-weight: bold;
+  display: inline-block;
+  margin: 3px;
+}
+.verde { background: #164d39; color: #83e7ae; }
+.amarelo { background: #62461c; color: #ffe09a; }
+.vermelho { background: #66303a; color: #ffc5ca; }
+.cinza { background: #455064; color: #e0e5ec; }
+.group {
+  margin: 18px 0;
+  border: 1px solid #41536b;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.group > summary {
+  cursor: pointer;
+  padding: 18px;
+  background: #263850;
+  font-weight: bold;
+  font-size: 18px;
+}
+.group-content { padding: 16px; }
+.summary-card {
+  padding: 18px;
+  border: 1px solid #34465e;
+  border-top: 3px solid var(--laranja);
+  border-radius: 9px;
+  background: var(--interno);
+}
+.summary-card h3 { margin: 0; }
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0;
+}
+.stat {
+  flex: 1;
+  min-width: 115px;
+  border-radius: 7px;
+  background: #263850;
+  padding: 12px;
+}
+.stat strong { display: block; font-size: 22px; }
+.section {
+  margin: 23px 0;
+  padding: 17px;
+  border: 1px solid #40516a;
+  border-radius: 10px;
+  background: #1a293d;
+}
+.line {
+  padding: 14px;
+  margin: 12px 0;
+  background: var(--interno);
+  border-left: 3px solid var(--laranja);
+  border-radius: 6px;
+}
+.line .top { margin-bottom: 12px; }
+.pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  color: #d6deea;
+}
+.date-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.date-row input { flex: 1; min-width: 0; }
+.date-row button { flex-shrink: 0; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; }
+th, td {
+  padding: 9px 12px;
+  text-align: left;
+  border-bottom: 1px solid #41536b;
+}
+th { color: #e4edfa; }
+tr:hover td { background: #24364d; }
+.timeline {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: end;
+  min-height: 155px;
+}
+.weekbar { flex: 1; min-width: 85px; text-align: center; }
+.barbox {
+  height: 100px;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 5px;
+}
+.bar {
+  width: 22px;
+  min-height: 2px;
+  border-radius: 3px 3px 0 0;
+}
+.plan { background: #8194b2; }
+.real { background: var(--laranja); }
+.footer {
+  font-size: 12px;
+  color: #bdc8d8;
+  margin-top: 30px;
+}
+.small { font-size: 12px; }
+.compact { margin: 5px 0; }
+.readonly { opacity: .85; }
+@media(max-width:700px) {
+  main { padding: 12px; margin: 8px auto; }
+  .card { padding: 16px; }
+  .grid, .grid-wide { grid-template-columns: 1fr; }
+  header { padding: 17px; }
+}
 </style>
 </head>
 <body>
-
 <header><h2>PMO | Status Report</h2></header>
-
 <main>
 
 <section id="loginBox" class="card login">
-<h2>Acesso ao Sistema</h2>
-<p class="muted">Gestão de Portfólio</p>
-<form id="loginForm">
-<label>E-mail
-<input id="email" type="email" autocomplete="username" required>
-</label>
-<label>Senha
-<input id="senha" type="password"
-autocomplete="current-password" required>
-</label>
-<button id="loginBtn" type="submit">Entrar</button>
-</form>
-<p id="loginMsg" class="message" role="status"></p>
+  <h2>Acesso ao Sistema</h2>
+  <p class="muted">Gestão de Portfólio</p>
+  <form id="loginForm">
+    <label>E-mail
+      <input id="email" type="email" autocomplete="username" required>
+    </label>
+    <label>Senha
+      <input id="senha" type="password" autocomplete="current-password" required>
+    </label>
+    <button id="loginBtn" type="submit">Entrar</button>
+  </form>
+  <p id="loginMsg" class="message" role="status"></p>
 </section>
 
 <section id="app" hidden>
-<div class="topbar">
-<div>
-<h1>Gestão de Portfólio</h1>
-<p id="usuario" class="muted"></p>
-<span id="perfil" class="badge"></span>
-</div>
-<button id="logout" class="secondary">Sair</button>
-</div>
+  <div class="top">
+    <div>
+      <h1>Gestão de Portfólio</h1>
+      <p id="usuario" class="muted"></p>
+      <span id="perfil" class="badge"></span>
+    </div>
+    <button id="logout" class="secondary" type="button">Sair</button>
+  </div>
 
-<nav>
-<button id="navConsulta" data-tab="consulta">Consulta Geral</button>
-<button id="navProjeto" data-tab="projeto">Cadastro / Edição</button>
-<button id="navStatus" data-tab="status">Status Semanal</button>
-<button id="navResumo" data-tab="resumo">Resumo Executivo</button>
-<button id="navAuditoria" data-tab="auditoria">Auditoria</button>
-</nav>
+  <nav>
+    <button data-tab="consulta" id="navConsulta">Consulta Geral</button>
+    <button data-tab="projeto" id="navProjeto">Cadastro / Edição</button>
+    <button data-tab="status" id="navStatus">Status Semanal</button>
+    <button data-tab="resumo" id="navResumo">Resumo Executivo</button>
+    <button data-tab="auditoria" id="navAuditoria">Auditoria</button>
+  </nav>
 
-<section id="tabConsulta" hidden>
-<div class="card">
-<h2>Consulta Geral de Projetos</h2>
-<p class="muted">A edição depende das atribuições do usuário.</p>
-<input id="buscaProjeto" placeholder="Pesquisar projeto">
-<div id="listaProjetos"></div>
-</div>
-<div id="detalheCard" class="card" hidden>
-<h2>Detalhes do Projeto</h2>
-<div id="detalheProjeto" class="project-detail"></div>
-<div id="detalheAcoes"></div>
-</div>
+  <section id="tabConsulta" hidden>
+    <div class="card">
+      <h2>Consulta Geral de Projetos</h2>
+      <p class="muted">
+        Todos os projetos; somente projetos atribuídos podem ser editados por Gerentes.
+      </p>
+      <input id="buscaProjeto" placeholder="Pesquisar projeto">
+      <div id="listaProjetos"></div>
+    </div>
+
+    <div id="detalheCard" class="card" hidden>
+      <h2>Detalhes do Projeto</h2>
+      <div id="detalheProjeto" style="white-space:pre-wrap"></div>
+      <div id="detalheAcoes"></div>
+    </div>
+  </section>
+
+  <section id="tabProjeto" hidden>
+    <div class="card">
+      <div class="top">
+        <h2 id="tituloFormProjeto">Novo Projeto</h2>
+        <button class="secondary" id="novoProjeto" type="button">
+          Limpar / Novo Projeto
+        </button>
+      </div>
+      <p id="avisoProjeto" class="muted"></p>
+
+      <form id="formProjeto">
+        <input type="hidden" id="projetoId">
+        <label>Nome do projeto *
+          <input id="pNome" maxlength="200" required>
+        </label>
+        <label>Objetivo
+          <textarea id="pObjetivo"></textarea>
+        </label>
+        <label>Contexto
+          <textarea id="pContexto"></textarea>
+        </label>
+
+        <div class="grid">
+          <label>Gerente informado (não altera atribuição)
+            <input id="pGerente" maxlength="200">
+          </label>
+          <label>Fornecedor
+            <input id="pFornecedor" maxlength="200">
+          </label>
+          <label>Sponsor / Stakeholder
+            <input id="pSponsor" maxlength="200">
+          </label>
+          <label>Situação
+            <select id="pSituacao">
+              <option>Não iniciado</option>
+              <option>Em andamento</option>
+              <option>Suspenso</option>
+              <option>Concluído</option>
+            </select>
+          </label>
+        </div>
+        <button id="salvarProjeto" type="submit">Salvar projeto</button>
+        <p id="msgProjeto" class="message" role="status"></p>
+      </form>
+
+      <div class="info">
+        O vínculo efetivo entre Gerente e projeto é definido na tabela
+        <code>projeto_gerentes</code>. Apenas o Administrador pode transferir
+        esse vínculo; editar o campo de texto não altera permissões.
+      </div>
+    </div>
+  </section>
+
+  <section id="tabStatus" hidden>
+    <div class="card">
+      <h2>Status Report Semanal</h2>
+      <p class="muted">
+        O Gerente responsável salva e publica automaticamente; não há aprovação
+        administrativa. Cada semana mantém seu próprio registro e pode ser
+        comparada com a anterior.
+      </p>
+
+      <form id="formStatus">
+        <div class="grid">
+          <label>Projeto *
+            <select id="sProjeto" required></select>
+          </label>
+          <label>Data de referência *
+            <div class="date-row">
+              <input id="sData" type="date" required>
+              <button id="abrirData" class="secondary" type="button"
+                      title="Abrir calendário">📅</button>
+            </div>
+          </label>
+        </div>
+        <div id="avisoStatus" class="info">Selecione um projeto.</div>
+        <div id="sComparativo" class="info">Sem comparação disponível.</div>
+        <button id="sCopiar" type="button" class="secondary" hidden>
+          Usar última semana como ponto de partida
+        </button>
+
+        <fieldset id="camposStatus" disabled>
+          <div class="section">
+            <h3>Planejamento e indicadores</h3>
+            <div class="grid">
+              <label>Planejado (%)
+                <input id="sPlanejado" type="number" min="0" max="100"
+                       step="0.01">
+              </label>
+              <label>Avanço realizado (%)
+                <input id="sRealizado" type="number" min="0" max="100"
+                       step="0.01">
+              </label>
+              <label>SPI (conforme baseline homologado)
+                <input id="sSpi" type="number" min="0" step="0.0001">
+              </label>
+              <label>Status geral
+                <input id="sStatusGeral"
+                       placeholder="Em atraso, No prazo, Crítico ou TBD">
+              </label>
+            </div>
+            <p class="muted small">
+              Quando os marcos possuem percentuais informados, o avanço é
+              calculado pela média ponderada dos pesos, ou pela média simples
+              se nenhum peso estiver definido. O SPI não é estimado
+              automaticamente.
+            </p>
+          </div>
+
+          <div class="section">
+            <h3>Datas, responsáveis e custos</h3>
+            <div class="grid">
+              <label>Início baseline
+                <input type="date" id="sInicioBaseline">
+              </label>
+              <label>Início: informação / TBD
+                <input id="sInicioDescricao"
+                       placeholder="Ex.: Setembro 2026 ou TBD">
+              </label>
+              <label>Go-Live baseline
+                <input type="date" id="sGoLiveBaseline">
+              </label>
+              <label>Go-Live forecast
+                <input type="date" id="sGoLiveForecast">
+              </label>
+              <label>Go-Live: nota ou TBD
+                <input id="sGoLiveDescricao">
+              </label>
+              <label>Líder Naturgy
+                <input id="sLider">
+              </label>
+              <label>Fornecedor / líder fornecedor
+                <input id="sFornecedorReport">
+              </label>
+              <label>Sponsor / Stakeholder
+                <input id="sStakeholder">
+              </label>
+              <label>Classificação de custo
+                <input id="sModalidade" placeholder="Interno | CAPEX ou N/A">
+              </label>
+              <label>Custo aprovado (acesso gerencial)
+                <input type="number" step="0.01" min="0"
+                       id="sCustoAprovado">
+              </label>
+              <label>Custo realizado (acesso gerencial)
+                <input type="number" step="0.01" min="0"
+                       id="sCustoRealizado">
+              </label>
+              <label>Observações de custo
+                <input id="sCustoObs">
+              </label>
+            </div>
+            <p id="sDiasGoLive" class="info">Dias até Go-Live: —</p>
+            <label>Observações gerenciais
+              <textarea id="sObsGerenciais"></textarea>
+            </label>
+          </div>
+
+          <div class="section">
+            <h3>Saúde do projeto</h3>
+            <div class="grid">
+              <label>Escopo *
+                <select id="sEscopo" class="farolSelect" required></select>
+              </label>
+              <label>Prazo *
+                <select id="sPrazo" class="farolSelect" required></select>
+              </label>
+              <label>Custo *
+                <select id="sCusto" class="farolSelect" required></select>
+              </label>
+              <label>Qualidade *
+                <select id="sQualidade" class="farolSelect" required></select>
+              </label>
+            </div>
+            <div id="sFarolGeral" class="info">Farol geral: —</div>
+          </div>
+
+          <div id="secMarcos" class="section">
+            <h3>Marcos e entregas</h3>
+            <p class="muted">
+              Informe responsável, datas, situação, percentual e peso,
+              quando aplicável. Baseline e forecast devem permanecer
+              distinguíveis.
+            </p>
+            <div id="linhasMarcos"></div>
+            <button type="button" class="secondary" data-adicionar="marcos">
+              + Adicionar marco
+            </button>
+          </div>
+
+          <div id="secRiscos" class="section">
+            <h3>Riscos e impedimentos</h3>
+            <p class="muted">
+              Registre descrição, severidade, ação ou mitigação,
+              responsável e situação. Uma semana sem riscos deve ser
+              justificada no acompanhamento.
+            </p>
+            <div id="linhasRiscos"></div>
+            <button type="button" class="secondary" data-adicionar="riscos">
+              + Adicionar risco
+            </button>
+          </div>
+
+          <div id="secAcoes" class="section">
+            <h3>Próximos passos estruturados</h3>
+            <p class="muted">
+              O quê, quem e quando. Use a mesma ação nas próximas semanas
+              para comparar evolução.
+            </p>
+            <div id="linhasAcoes"></div>
+            <button type="button" class="secondary" data-adicionar="acoes">
+              + Adicionar ação
+            </button>
+          </div>
+
+          <div class="section">
+            <h3>Acompanhamento</h3>
+            <label>Realizado
+              <textarea id="sFeito"></textarea>
+            </label>
+            <label>Em andamento
+              <textarea id="sAndamento"></textarea>
+            </label>
+            <label>Próximos passos — síntese
+              <textarea id="sProximos"></textarea>
+            </label>
+          </div>
+        </fieldset>
+
+        <button id="salvarStatus" type="submit" disabled>
+          Salvar e publicar relatório
+        </button>
+        <p id="msgStatus" class="message" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="tabResumo" hidden>
+    <div class="card">
+      <div class="top">
+        <div>
+          <h2>Resumo Executivo por Gerente</h2>
+          <p class="muted">
+            Último relatório publicado de cada projeto, agrupado pelo vínculo
+            real do Gerente. Clique em “Relatório completo” para ver a evolução.
+          </p>
+        </div>
+        <button id="atualizarResumo" class="secondary" type="button">
+          Atualizar
+        </button>
+      </div>
+      <div id="listaResumo"></div>
+    </div>
+  </section>
+
+  <section id="tabAuditoria" hidden>
+    <div class="card">
+      <h2>Auditoria de Alterações</h2>
+      <p class="muted">
+        Acesso exclusivo do Administrador. Filtros por operação,
+        projeto, responsável e período.
+      </p>
+      <div class="grid">
+        <label>Responsável pela alteração
+          <input id="audResponsavel" placeholder="E-mail">
+        </label>
+        <label>Operação
+          <select id="audOperacao">
+            <option value="">Todas</option>
+            <option value="INSERT">Inclusão</option>
+            <option value="UPDATE">Alteração</option>
+            <option value="DELETE">Exclusão</option>
+          </select>
+        </label>
+        <label>Tipo de alteração
+          <select id="audTabela">
+            <option value="">Todas</option>
+            <option value="projetos">Projetos</option>
+            <option value="status_semanais">Status Semanal</option>
+            <option value="projeto_gerentes">Atribuição de Gerentes</option>
+            <option value="perfis">Perfis</option>
+            <option value="relatorio_marcos_semanais">Marcos</option>
+            <option value="relatorio_riscos_semanais">Riscos</option>
+            <option value="relatorio_proximos_passos_semanais">Próximos passos</option>
+          </select>
+        </label>
+        <label>Projeto
+          <select id="audProjeto">
+            <option value="">Todos</option>
+          </select>
+        </label>
+        <label>Data inicial
+          <input id="audInicio" type="date">
+        </label>
+        <label>Data final
+          <input id="audFim" type="date">
+        </label>
+      </div>
+      <button id="filtrarAuditoria" type="button">Aplicar filtros</button>
+      <button id="limparAuditoria" class="secondary" type="button">
+        Limpar filtros
+      </button>
+      <p id="audInfo" class="muted"></p>
+      <div id="listaAuditoria"></div>
+      <div class="top">
+        <button id="audAnterior" class="secondary" type="button">Anterior</button>
+        <span id="audPaginacao" class="muted"></span>
+        <button id="audProximo" class="secondary" type="button">Próxima</button>
+      </div>
+    </div>
+  </section>
 </section>
 
-<section id="tabProjeto" hidden>
-<div class="card">
-<div class="topbar">
-<h2 id="tituloFormProjeto">Novo Projeto</h2>
-<button id="novoProjeto" class="secondary">Limpar / Novo Projeto</button>
-</div>
-<p id="avisoProjeto" class="muted"></p>
-<form id="formProjeto">
-<input id="projetoId" type="hidden">
-<label>Nome do Projeto *
-<input id="pNome" required maxlength="200">
-</label>
-<label>Objetivo
-<textarea id="pObjetivo"></textarea></label>
-<label>Contexto
-<textarea id="pContexto"></textarea></label>
-<div class="grid">
-<label>Gerente responsável (campo informativo)
-<input id="pGerente" maxlength="200"></label>
-<label>Fornecedor
-<input id="pFornecedor" maxlength="200"></label>
-</div>
-<div class="grid">
-<label>Sponsor / Stakeholder
-<input id="pSponsor" maxlength="200"></label>
-<label>Situação
-<select id="pSituacao">
-<option>Não iniciado</option>
-<option>Em andamento</option>
-<option>Suspenso</option>
-<option>Concluído</option>
-</select></label>
-</div>
-<button id="salvarProjeto" type="submit">Salvar Projeto</button>
-<p id="msgProjeto" class="message" role="status"></p>
-</form>
-<div class="info">
-As permissões reais de edição são determinadas pela tabela
-projeto_gerentes. A administração dos vínculos de gerentes
-permanece exclusiva do Administrador.
-</div>
-</div>
-</section>
-
-<section id="tabStatus" hidden>
-<div class="card">
-<h2>Status Report Semanal</h2>
-<p class="muted">
-Salvar e Publicar disponibiliza imediatamente os dados
-no Resumo Executivo.
+<p class="footer">
+  PMO | Ambiente de demonstração — dados fictícios
 </p>
-<form id="formStatus">
-<div class="grid">
-<label>Projeto *
-<select id="sProjeto" required></select></label>
-<label>Data de referência *
-<div class="date-line">
-<input id="sData" type="date" required>
-<button id="abrirData" type="button" class="secondary"
-title="Abrir calendário">📅</button>
-</div></label>
-</div>
-<div id="avisoStatus" class="info">
-Selecione um projeto e uma data.
-</div>
-<fieldset id="camposStatus" disabled>
-<h3>Indicadores de Avanço</h3>
-<div class="grid">
-<label>Planejado (%)
-<input id="sPlanejado" type="number"
-min="0" max="100" step="0.01"></label>
-<label>Realizado (%)
-<input id="sRealizado" type="number"
-min="0" max="100" step="0.01"></label>
-</div>
-<h3>Saúde do Projeto</h3>
-<div class="grid">
-<label>Escopo *
-<select id="sEscopo" class="farolSelect" required></select></label>
-<label>Prazo *
-<select id="sPrazo" class="farolSelect" required></select></label>
-<label>Custo *
-<select id="sCusto" class="farolSelect" required></select></label>
-<label>Qualidade *
-<select id="sQualidade" class="farolSelect" required></select></label>
-</div>
-<h3>Acompanhamento</h3>
-<label>Realizado
-<textarea id="sFeito"></textarea></label>
-<label>Em Andamento
-<textarea id="sAndamento"></textarea></label>
-<label>Próximos Passos
-<textarea id="sProximos"></textarea></label>
-</fieldset>
-<button id="salvarStatus" type="submit" disabled>
-Salvar e Publicar
-</button>
-<p id="msgStatus" class="message" role="status"></p>
-</form>
-</div>
-</section>
-
-<section id="tabResumo" hidden>
-<div class="card">
-<div class="topbar">
-<div>
-<h2>Resumo Executivo por Gerente</h2>
-<p class="muted">
-Último Status Report publicado por projeto,
-agrupado por gerente responsável.
-</p>
-</div>
-<button id="atualizarResumo" class="secondary">Atualizar</button>
-</div>
-<div id="listaResumo"></div>
-</div>
-</section>
-
-<section id="tabAuditoria" hidden>
-<div class="card">
-<h2>Auditoria de Alterações</h2>
-<p class="muted">Consulta exclusiva do Administrador.</p>
-<h3>Filtros</h3>
-<div class="grid">
-<label>Responsável pela alteração
-<input id="audResponsavel" placeholder="E-mail"></label>
-<label>Operação
-<select id="audOperacao">
-<option value="">Todas</option>
-<option value="INSERT">Inclusão</option>
-<option value="UPDATE">Alteração</option>
-<option value="DELETE">Exclusão</option>
-</select></label>
-<label>Tipo de alteração
-<select id="audTabela">
-<option value="">Todos</option>
-<option value="projetos">Projetos</option>
-<option value="status_semanais">Status Semanal</option>
-<option value="projeto_gerentes">Atribuição de Gerentes</option>
-<option value="perfis">Perfis</option>
-</select></label>
-<label>Projeto
-<select id="audProjeto"><option value="">Todos</option></select>
-</label>
-<label>Data inicial
-<input id="audInicio" type="date"></label>
-<label>Data final
-<input id="audFim" type="date"></label>
-</div>
-<button id="filtrarAuditoria">Aplicar Filtros</button>
-<button id="limparAuditoria" class="secondary">Limpar Filtros</button>
-<p id="audInfo" class="muted"></p>
-<div id="listaAuditoria"></div>
-<div class="topbar">
-<button id="audAnterior" class="secondary">Anterior</button>
-<span id="audPaginacao" class="muted"></span>
-<button id="audProximo" class="secondary">Próxima</button>
-</div>
-</div>
-</section>
-
-</section>
-<p class="footer">PMO | Ambiente de demonstração — dados fictícios</p>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
 "use strict";
 
-const SUPABASE_URL =
-"https://ewemcwsatwefamtjxapv.supabase.co";
-const SUPABASE_KEY =
-"sb_publishable__s9nlB-x2xOslj8Oc3NtkA_QUotlldx";
+const SUPABASE_URL = "https://ewemcwsatwefamtjxapv.supabase.co";
+const SUPABASE_KEY = "sb_publishable__s9nlB-x2xOslj8Oc3NtkA_QUotlldx";
 
 const $ = id => document.getElementById(id);
-let db, usuarioAtual=null, papelAtual=null;
-let projetos=[], vinculos=new Set();
-let relatorioAtual=null, statusPronto=false;
-let statusChave="", statusSeq=0;
-let auditoriaPagina=0, consultaProjetoSeq=0;
-const POR_PAGINA=25;
-
-const camposStatus=[
-"sPlanejado","sRealizado","sEscopo","sPrazo",
-"sCusto","sQualidade","sFeito","sAndamento","sProximos"
-];
-
-function valor(id){return $(id).value.trim()}
-function texto(v){
-return v===null||v===undefined||v===""
-?"Não informado":String(v)}
-function msg(id,tipoTexto,tipo=""){
-$(id).textContent=tipoTexto;
-$(id).className="message "+tipo;
-}
-function elemento(tag,conteudo,classe=""){
-const el=document.createElement(tag);
-el.textContent=conteudo;
-if(classe)el.className=classe;
-return el;
-}
-function botao(rotulo,acao,classe=""){
-const b=elemento("button",rotulo,classe);
-b.type="button";b.addEventListener("click",acao);return b;
-}
-function admin(){return papelAtual==="administrador"}
-function gerente(){return papelAtual==="gerente"}
-function podeEditarProjeto(id){
-return admin()||(gerente()&&vinculos.has(String(id)));
-}
-function dataLocal(d){
-const n=x=>String(x).padStart(2,"0");
-return d.getFullYear()+"-"+n(d.getMonth()+1)+"-"+n(d.getDate());
-}
-function hojeLocal(){return dataLocal(new Date())}
-function diasAtras(n){
-const d=new Date();d.setDate(d.getDate()-n);
-return dataLocal(d);
-}
-function abrirCalendario(id){
-const e=$(id);
-try{
-if(e.showPicker)e.showPicker();
-else e.focus();
-}catch(err){e.focus()}
-}
-
-function mostrarAba(nome){
-const permitidas=admin()
-?["consulta","projeto","status","resumo","auditoria"]
-:gerente()
-?["consulta","projeto","status","resumo"]
-:["resumo"];
-if(!permitidas.includes(nome))nome="resumo";
-
-["consulta","projeto","status","resumo","auditoria"]
-.forEach(aba=>{
-$("tab"+aba[0].toUpperCase()+aba.slice(1)).hidden=aba!==nome;
-});
-document.querySelectorAll("nav button").forEach(b=>{
-b.classList.toggle("active",b.dataset.tab===nome);
-});
-if(nome==="resumo")carregarResumo();
-if(nome==="auditoria")carregarAuditoria();
-}
-
-async function entrar(e){
-e.preventDefault();
-$("loginBtn").disabled=true;
-msg("loginMsg","Verificando credenciais...");
-try{
-const {error}=await db.auth.signInWithPassword({
-email:valor("email"),password:$("senha").value
-});
-if(error)throw error;
-$("senha").value="";
-await verificarSessao();
-}catch(err){
-msg("loginMsg","Não foi possível autenticar. Verifique os dados.","error");
-}finally{$("loginBtn").disabled=false}
-}
-
-async function verificarSessao(){
-try{
-const {data,error}=await db.auth.getUser();
-if(error||!data.user){
-$("loginBox").hidden=false;$("app").hidden=true;return;
-}
-const {data:pf,error:ep}=await db.from("perfis")
-.select("papel,ativo")
-.eq("usuario_id",data.user.id).single();
-if(ep||!pf?.ativo||
-!["administrador","gerente","executivo"].includes(pf.papel)){
-await db.auth.signOut();
-throw new Error("Usuário sem perfil ativo.");
-}
-usuarioAtual=data.user;papelAtual=pf.papel;
-$("usuario").textContent=usuarioAtual.email;
-$("perfil").textContent="Perfil: "+
-(papelAtual==="executivo"?"Usuário — Resumo":papelAtual);
-$("navConsulta").hidden=papelAtual==="executivo";
-$("navProjeto").hidden=papelAtual==="executivo";
-$("navStatus").hidden=papelAtual==="executivo";
-$("navAuditoria").hidden=!admin();
-
-if(papelAtual!=="executivo")await atualizarProjetos();
-$("loginBox").hidden=true;$("app").hidden=false;
-if(papelAtual==="executivo")mostrarAba("resumo");
-else{limparProjeto();mostrarAba("consulta")}
-}catch(err){
-$("loginBox").hidden=false;$("app").hidden=true;
-msg("loginMsg","Erro ao validar acesso: "+err.message,"error");
-}
-}
-
-async function sair(){
-const {error}=await db.auth.signOut();
-if(error){alert("Não foi possível sair.");return}
-++statusSeq;++consultaProjetoSeq;
-usuarioAtual=null;papelAtual=null;
-projetos=[];vinculos.clear();
-relatorioAtual=null;statusPronto=false;statusChave="";
-$("app").hidden=true;$("loginBox").hidden=false;
-$("senha").value="";
-}
-
-async function atualizarProjetos(){
-const {data,error}=await db.from("projetos")
-.select("id,nome,objetivo,contexto,gerente,fornecedor,sponsor,situacao")
-.order("nome");
-if(error)throw error;
-projetos=data||[];
-vinculos=new Set();
-
-if(gerente()){
-const {data:v,error:ev}=await db.from("projeto_gerentes")
-.select("projeto_id").eq("usuario_id",usuarioAtual.id);
-if(ev)throw ev;
-vinculos=new Set((v||[]).map(x=>String(x.projeto_id)));
-}
-
-const antigo=$("sProjeto").value;
-$("sProjeto").replaceChildren(new Option("Selecione um projeto",""));
-$("audProjeto").replaceChildren(new Option("Todos",""));
-projetos.forEach(p=>{
-$("sProjeto").add(new Option(p.nome,String(p.id)));
-$("audProjeto").add(new Option(p.nome,String(p.id)));
-});
-if(projetos.some(p=>String(p.id)===antigo)){
-$("sProjeto").value=antigo;
-}
-renderizarProjetos();
-}
-
-function renderizarProjetos(){
-const lista=$("listaProjetos");lista.replaceChildren();
-const busca=valor("buscaProjeto").toLowerCase();
-const encontrados=projetos.filter(p=>
-(p.nome||"").toLowerCase().includes(busca));
-if(!encontrados.length){
-lista.textContent="Nenhum projeto encontrado.";return;
-}
-encontrados.forEach(p=>{
-const item=document.createElement("div");item.className="item";
-item.appendChild(elemento("h3",p.nome));
-item.appendChild(elemento("p",
-"Situação: "+texto(p.situacao)+
-" | Responsável informado: "+texto(p.gerente),"muted"));
-item.appendChild(botao("Consultar",
-()=>consultarProjeto(p.id),"secondary"));
-if(podeEditarProjeto(p.id)){
-item.appendChild(botao("Editar",()=>editarProjeto(p.id)));
-}else item.appendChild(elemento("span"," Somente leitura","muted"));
-lista.appendChild(item);
-});
-}
-
-async function consultarProjeto(id){
-const seq=++consultaProjetoSeq;
-const p=projetos.find(x=>String(x.id)===String(id));
-if(!p)return;
-$("detalheCard").hidden=false;
-$("detalheProjeto").textContent=
-"Projeto: "+texto(p.nome)+"\n"+
-"Objetivo: "+texto(p.objetivo)+"\n"+
-"Contexto: "+texto(p.contexto)+"\n"+
-"Gerente informado: "+texto(p.gerente)+"\n"+
-"Fornecedor: "+texto(p.fornecedor)+"\n"+
-"Sponsor: "+texto(p.sponsor)+"\n"+
-"Situação: "+texto(p.situacao);
-
-const a=$("detalheAcoes");a.replaceChildren();
-a.appendChild(botao("Consultar Status",()=>{
-$("sProjeto").value=String(id);
-mostrarAba("status");carregarStatus();
-},"secondary"));
-if(podeEditarProjeto(id))
-a.appendChild(botao("Editar Projeto",()=>editarProjeto(id)));
-
-const {data,error}=await db.from("status_semanais")
-.select("data_referencia,planejado,realizado,situacao_publicacao")
-.eq("projeto_id",id)
-.order("data_referencia",{ascending:false}).limit(1);
-if(seq!==consultaProjetoSeq)return;
-if(!error&&data?.length){
-const r=data[0];
-$("detalheProjeto").textContent+=
-"\n\nÚltimo relatório: "+r.data_referencia+
-"\nPlanejado: "+texto(r.planejado)+
-"% | Realizado: "+texto(r.realizado)+
-"%\nPublicação: "+texto(r.situacao_publicacao);
-}
-$("detalheCard").scrollIntoView({behavior:"smooth"});
-}
-
-function limparProjeto(){
-$("formProjeto").reset();
-$("projetoId").value="";
-$("tituloFormProjeto").textContent="Novo Projeto";
-$("pGerente").readOnly=gerente();
-$("pGerente").value=gerente()&&usuarioAtual
-?usuarioAtual.email:"";
-$("avisoProjeto").textContent=gerente()
-?"O novo projeto será automaticamente vinculado à sua conta."
-:"O Administrador pode cadastrar e editar qualquer projeto.";
-msg("msgProjeto","");
-}
-
-function editarProjeto(id){
-if(!podeEditarProjeto(id))return;
-const p=projetos.find(x=>String(x.id)===String(id));
-if(!p)return;
-$("projetoId").value=p.id;
-$("pNome").value=p.nome||"";
-$("pObjetivo").value=p.objetivo||"";
-$("pContexto").value=p.contexto||"";
-$("pGerente").value=p.gerente||"";
-$("pFornecedor").value=p.fornecedor||"";
-$("pSponsor").value=p.sponsor||"";
-$("pSituacao").value=p.situacao||"Não iniciado";
-$("pGerente").readOnly=gerente();
-$("tituloFormProjeto").textContent="Editar Projeto: "+p.nome;
-$("avisoProjeto").textContent=gerente()
-?"Pode editar este projeto, mas não alterar o gerente."
-:"As alterações serão auditadas.";
-msg("msgProjeto","");
-mostrarAba("projeto");
-}
-
-async function salvarProjeto(e){
-e.preventDefault();
-if(!admin()&&!gerente())return;
-const id=valor("projetoId");
-if(id&&!podeEditarProjeto(id)){
-msg("msgProjeto","Acesso não autorizado.","error");return;
-}
-const dados={
-nome:valor("pNome"),objetivo:valor("pObjetivo"),
-contexto:valor("pContexto"),fornecedor:valor("pFornecedor"),
-sponsor:valor("pSponsor"),situacao:valor("pSituacao")
+const E = (tag, txt = "", cls = "") => {
+  const x = document.createElement(tag);
+  x.textContent = txt;
+  if (cls) x.className = cls;
+  return x;
 };
-if(admin())dados.gerente=valor("pGerente");
-$("salvarProjeto").disabled=true;
-msg("msgProjeto","Salvando...");
-try{
-let r;
-if(id)r=await db.from("projetos").update(dados)
-.eq("id",id).select("id");
-else r=await db.from("projetos").insert(dados).select("id");
-if(r.error)throw r.error;
-if(r.data?.length!==1)throw Error("Gravação não autorizada.");
-await atualizarProjetos();
-limparProjeto();
-msg("msgProjeto","Projeto salvo com sucesso!","success");
-}catch(err){
-msg("msgProjeto","Erro ao salvar: "+err.message,"error");
-}finally{$("salvarProjeto").disabled=false}
-}
-
-function chaveStatus(){
-return valor("sProjeto")+"|"+valor("sData");
-}
-
-function limparCamposStatus(){
-camposStatus.forEach(id=>{$(id).value=""});
-relatorioAtual=null;
-}
-
-function permissaoStatus(){
-const id=valor("sProjeto");
-const autorizado=id&&podeEditarProjeto(id);
-const carregado=statusPronto&&statusChave===chaveStatus();
-const podeSalvar=Boolean(autorizado&&carregado);
-$("camposStatus").disabled=!podeSalvar;
-$("salvarStatus").disabled=!podeSalvar;
-
-if(!id)$("avisoStatus").textContent="Selecione um projeto.";
-else if(!autorizado)$("avisoStatus").textContent=
-"Somente consulta: projeto não atribuído a você.";
-else if(!carregado)$("avisoStatus").textContent=
-"Consultando relatório...";
-else $("avisoStatus").textContent=
-"Edição autorizada. Salvar publica imediatamente e registra na Auditoria.";
-}
-
-async function carregarStatus(){
-const seq=++statusSeq;
-statusPronto=false;statusChave="";
-limparCamposStatus();permissaoStatus();
-const projeto=valor("sProjeto");
-const dataRef=valor("sData");
-if(!projeto||!dataRef){msg("msgStatus","");return}
-msg("msgStatus","Consultando relatório...");
-try{
-const {data,error}=await db.from("status_semanais")
-.select("*").eq("projeto_id",Number(projeto))
-.eq("data_referencia",dataRef).maybeSingle();
-if(seq!==statusSeq)return;
-if(error)throw error;
-if(data){
-relatorioAtual=data;
-const mapa={
-sPlanejado:"planejado",sRealizado:"realizado",
-sEscopo:"farol_escopo",sPrazo:"farol_prazo",
-sCusto:"farol_custo",sQualidade:"farol_qualidade",
-sFeito:"resumo_realizado",sAndamento:"resumo_andamento",
-sProximos:"resumo_proximos"
+const V = id => $(id).value.trim();
+const T = v => v === null || v === undefined || v === ""
+  ? "Não informado" : String(v);
+const M = (id, msg, classe = "") => {
+  $(id).textContent = msg;
+  $(id).className = "message " + classe;
 };
-Object.entries(mapa).forEach(([id,col])=>{
-$(id).value=data[col]??"";
-});
-msg("msgStatus",
-"Relatório carregado: "+texto(data.situacao_publicacao),"success");
-}else{
-msg("msgStatus","Novo relatório para esta data.","warning");
-}
-statusPronto=true;statusChave=chaveStatus();
-permissaoStatus();
-}catch(err){
-if(seq!==statusSeq)return;
-statusPronto=false;permissaoStatus();
-msg("msgStatus","Erro ao consultar: "+err.message,"error");
-}
-}
-
-function numeroOuNulo(id){
-const v=valor(id);if(v==="")return null;
-const n=Number(v);
-if(!Number.isFinite(n)||n<0||n>100)
-throw Error("Percentual inválido.");
-return n;
-}
-
-async function salvarStatus(e){
-e.preventDefault();
-const p=valor("sProjeto"),d=valor("sData");
-if(!p||!d||!podeEditarProjeto(p)||
-!statusPronto||statusChave!==chaveStatus()){
-msg("msgStatus","Gravação não autorizada ou relatório não carregado.",
-"error");return;
-}
-const btn=$("salvarStatus");btn.disabled=true;
-try{
-const dados={
-projeto_id:Number(p),data_referencia:d,
-planejado:numeroOuNulo("sPlanejado"),
-realizado:numeroOuNulo("sRealizado"),
-farol_escopo:valor("sEscopo"),
-farol_prazo:valor("sPrazo"),
-farol_custo:valor("sCusto"),
-farol_qualidade:valor("sQualidade"),
-resumo_realizado:valor("sFeito"),
-resumo_andamento:valor("sAndamento"),
-resumo_proximos:valor("sProximos"),
-situacao_publicacao:"publicado"
+const btn = (txt, fn, cls = "secondary") => {
+  const b = E("button", txt, cls);
+  b.type = "button";
+  b.onclick = fn;
+  return b;
 };
-msg("msgStatus","Salvando e publicando...");
-const {data,error}=await db.from("status_semanais")
-.upsert(dados,{onConflict:"projeto_id,data_referencia"})
-.select("id,situacao_publicacao");
-if(error)throw error;
-if(data?.length!==1)throw Error("O banco não confirmou a gravação.");
-await carregarStatus();
-msg("msgStatus","Relatório salvo e publicado com sucesso!","success");
-}catch(err){
-msg("msgStatus","Erro ao salvar/publicar: "+err.message,"error");
-}finally{permissaoStatus()}
+
+function dateLocal(d) {
+  const z = v => String(v).padStart(2, "0");
+  return d.getFullYear() + "-" + z(d.getMonth() + 1) + "-" + z(d.getDate());
+}
+function hoje() { return dateLocal(new Date()); }
+function diasAtras(n) {
+  const d = new Date();
+  d.setDate(d.getDate() - n);
+  return dateLocal(d);
+}
+function semanaInicio(s) {
+  const d = new Date(s + "T12:00:00");
+  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+  return dateLocal(d);
+}
+function dataBR(s) {
+  if (!s) return "—";
+  const a = String(s).slice(0, 10).split("-");
+  return a.length === 3 ? a[2] + "/" + a[1] + "/" + a[0] : String(s);
+}
+function dataSeguinte(s, n) {
+  const d = new Date(s + "T12:00:00");
+  d.setDate(d.getDate() + n);
+  return dateLocal(d);
+}
+function num(id, limite = false) {
+  const v = V(id);
+  if (!v) return null;
+  const n = Number(v);
+  if (!Number.isFinite(n) || n < 0 || (limite && n > 100)) {
+    throw Error("Número inválido no campo " + id);
+  }
+  return n;
+}
+function cred(role) { return papel === role; }
+function podeEditar(id) {
+  return cred("administrador") ||
+    (cred("gerente") && vinculos.has(String(id)));
+}
+function classeFarol(v) {
+  return v === "Crítico" ? "vermelho" :
+    v === "Atenção" ? "amarelo" :
+    v === "No prazo" ? "verde" : "cinza";
+}
+function atualizarDiasGoLive() {
+  const base = V("sGoLiveForecast") || V("sGoLiveBaseline");
+  const ref = V("sData");
+  if (!base || !ref) {
+    $("sDiasGoLive").textContent = "Dias até Go-Live: — (TBD)";
+    return;
+  }
+  const n = Math.round(
+    (new Date(base + "T12:00:00") -
+     new Date(ref + "T12:00:00")) / 86400000
+  );
+  $("sDiasGoLive").textContent =
+    "Dias até Go-Live: " +
+    (n < 0 ? Math.abs(n) + " dia(s) após a data prevista" : n + " dia(s)") +
+    " | Referência: " + dataBR(ref);
+}
+function farolGeral() {
+  const v = ["sEscopo", "sPrazo", "sCusto", "sQualidade"].map(V);
+  return v.includes("Crítico") ? "Crítico" :
+    v.includes("Atenção") ? "Atenção" :
+    v.some(x => !x || x === "Não avaliado") ? "Não avaliado" :
+    v.every(x => x === "N/A") ? "N/A" : "No prazo";
+}
+function abrirCalendario(id) {
+  try {
+    if ($(id).showPicker) $(id).showPicker();
+    else $(id).focus();
+  } catch (_) {
+    $(id).focus();
+  }
 }
 
-// RESUMO EXECUTIVO AGRUPADO POR GERENTE
+let db, usu = null, papel = null;
+let projetos = [], vinculos = new Set();
+let relatorio = null, anterior = null;
+let linhas = { marcos: [], riscos: [], acoes: [] };
+let historico = [], statusPronto = false;
+let sequencia = 0, sequenciaResumo = 0, audPagina = 0;
 
-function classeFarol(v){
-if(v==="Crítico")return "vermelho";
-if(v==="Atenção")return "amarelo";
-if(v==="No prazo")return "verde";
-return "cinza";
+const colunas = {
+  sPlanejado: "planejado",
+  sRealizado: "realizado",
+  sSpi: "spi",
+  sStatusGeral: "status_geral",
+  sInicioBaseline: "inicio_baseline",
+  sInicioDescricao: "inicio_descricao",
+  sGoLiveBaseline: "go_live_baseline",
+  sGoLiveForecast: "go_live_forecast",
+  sGoLiveDescricao: "go_live_descricao",
+  sLider: "lider_naturgy",
+  sFornecedorReport: "fornecedor_report",
+  sStakeholder: "stakeholder_report",
+  sModalidade: "custo_modalidade",
+  sCustoAprovado: "custo_aprovado",
+  sCustoRealizado: "custo_realizado",
+  sCustoObs: "custo_observacoes",
+  sObsGerenciais: "observacoes_gerenciais",
+  sEscopo: "farol_escopo",
+  sPrazo: "farol_prazo",
+  sCusto: "farol_custo",
+  sQualidade: "farol_qualidade",
+  sFeito: "resumo_realizado",
+  sAndamento: "resumo_andamento",
+  sProximos: "resumo_proximos"
+};
+
+const defs = {
+  marcos: {
+    container: "linhasMarcos",
+    table: "relatorio_marcos_semanais",
+    key: "marco_chave",
+    fields: [
+      ["descricao", "Marco / entrega *", "textarea"],
+      ["responsavel", "Responsável", "text"],
+      ["data_inicio", "Início", "date"],
+      ["inicio_descricao", "Nota início / TBD", "text"],
+      ["data_fim_baseline", "Fim baseline", "date"],
+      ["fim_descricao", "Nota fim / TBD", "text"],
+      ["data_fim_forecast", "Fim forecast", "date"],
+      ["percentual_concluido", "Concluído (%)", "percent"],
+      ["peso", "Peso (opcional)", "number"],
+      ["situacao", "Situação", "marco"],
+      ["observacoes", "Observações", "textarea"]
+    ]
+  },
+  riscos: {
+    container: "linhasRiscos",
+    table: "relatorio_riscos_semanais",
+    key: "risco_chave",
+    fields: [
+      ["descricao", "Risco / impedimento *", "textarea"],
+      ["severidade", "Severidade", "severidade"],
+      ["acao_mitigacao", "Ação / mitigação", "textarea"],
+      ["responsavel", "Responsável", "text"],
+      ["prazo", "Prazo", "date"],
+      ["prazo_descricao", "Nota prazo / TBD", "text"],
+      ["situacao", "Situação", "risco"],
+      ["observacoes", "Observações", "textarea"]
+    ]
+  },
+  acoes: {
+    container: "linhasAcoes",
+    table: "relatorio_proximos_passos_semanais",
+    key: "acao_chave",
+    fields: [
+      ["descricao", "Próximo passo *", "textarea"],
+      ["responsavel", "Responsável", "text"],
+      ["prazo", "Prazo", "date"],
+      ["prazo_descricao", "Nota prazo / TBD", "text"],
+      ["situacao", "Situação", "acao"],
+      ["data_conclusao", "Conclusão", "date"],
+      ["observacoes", "Observações", "textarea"]
+    ]
+  }
+};
+
+const options = {
+  marco: [
+    "Não Iniciado", "Em Execução", "Atrasado", "Bloqueado",
+    "Concluído", "Cancelado", "TBD"
+  ],
+  risco: [
+    "Aberto", "Em mitigação", "Monitorado", "Resolvido", "Cancelado"
+  ],
+  acao: [
+    "Pendente", "Em andamento", "Atrasado", "Concluído", "Cancelado"
+  ],
+  severidade: ["Baixo", "Médio", "Alto", "Crítico", "TBD"]
+};
+
+function mostrarAba(tab) {
+  const permitidas = cred("administrador")
+    ? ["consulta", "projeto", "status", "resumo", "auditoria"]
+    : cred("gerente")
+      ? ["consulta", "projeto", "status", "resumo"]
+      : ["resumo"];
+
+  if (!permitidas.includes(tab)) tab = "resumo";
+
+  for (const x of ["consulta", "projeto", "status", "resumo", "auditoria"]) {
+    $("tab" + x[0].toUpperCase() + x.slice(1)).hidden = x !== tab;
+  }
+
+  document.querySelectorAll("nav button").forEach(b => {
+    b.classList.toggle("active", b.dataset.tab === tab);
+  });
+
+  if (tab === "resumo") carregarResumo();
+  if (tab === "auditoria") carregarAuditoria();
 }
 
-async function carregarResumo(){
-const lista=$("listaResumo");
-lista.replaceChildren();
-lista.textContent="Carregando relatórios publicados...";
-try{
-const {data,error}=await db.rpc("resumo_publicado_por_gerente");
-if(error)throw error;
-lista.replaceChildren();
-if(!data?.length){
-lista.textContent="Nenhum relatório publicado até o momento.";
-return;
+async function entrar(e) {
+  e.preventDefault();
+  $("loginBtn").disabled = true;
+  M("loginMsg", "Autenticando...");
+  try {
+    const r = await db.auth.signInWithPassword({
+      email: V("email"),
+      password: $("senha").value
+    });
+    if (r.error) throw r.error;
+    $("senha").value = "";
+    await sessao();
+  } catch (e) {
+    M("loginMsg", "Acesso não autorizado ou credenciais inválidas.", "error");
+  } finally {
+    $("loginBtn").disabled = false;
+  }
 }
 
-// O vínculo real determina o agrupamento.
-const grupos=new Map();
-data.forEach(r=>{
-const chave=r.gerente_id||"sem-gerente";
-if(!grupos.has(chave)){
-grupos.set(chave,{
-nome:r.gerente_identificacao||"Sem gerente atribuído",
-projetos:[]
-});
-}
-grupos.get(chave).projetos.push(r);
-});
+async function sessao() {
+  try {
+    const { data, error } = await db.auth.getUser();
+    if (error || !data.user) {
+      $("loginBox").hidden = false;
+      $("app").hidden = true;
+      return;
+    }
 
-const ordenados=Array.from(grupos.values()).sort((a,b)=>
-a.nome.localeCompare(b.nome,"pt-BR"));
+    const r = await db.from("perfis")
+      .select("papel,ativo")
+      .eq("usuario_id", data.user.id)
+      .single();
 
-ordenados.forEach(grupo=>{
-const bloco=document.createElement("details");
-bloco.className="gerente-grupo";
-bloco.open=true;
+    if (r.error || !r.data?.ativo ||
+        !["administrador", "gerente", "executivo"].includes(r.data.papel)) {
+      await db.auth.signOut();
+      throw Error("Usuário sem perfil ativo");
+    }
 
-const cabecalho=document.createElement("summary");
-const quantidade=grupo.projetos.length;
-cabecalho.textContent=
-"Gerente: "+grupo.nome+" — "+
-quantidade+" projeto"+(quantidade===1?"":"s");
-bloco.appendChild(cabecalho);
+    usu = data.user;
+    papel = r.data.papel;
+    $("usuario").textContent = usu.email;
+    $("perfil").textContent = "Perfil: " +
+      (cred("executivo") ? "Usuário — Resumo" : papel);
 
-const conteudo=document.createElement("div");
-conteudo.className="gerente-conteudo";
-const grade=document.createElement("div");
-grade.className="resumo-grid";
+    $("navConsulta").hidden = cred("executivo");
+    $("navProjeto").hidden = cred("executivo");
+    $("navStatus").hidden = cred("executivo");
+    $("navAuditoria").hidden = !cred("administrador");
 
-grupo.projetos.sort((a,b)=>
-a.projeto_nome.localeCompare(b.projeto_nome,"pt-BR"));
+    if (!cred("executivo")) await atualizarProjetos();
 
-grupo.projetos.forEach(r=>{
-const card=document.createElement("div");
-card.className="resumo-card";
-card.appendChild(elemento("h3",r.projeto_nome));
-card.appendChild(elemento("p",
-"Data de referência: "+r.data_referencia,"muted"));
-
-const indicadores=document.createElement("div");
-indicadores.className="indicadores";
-[
-["Planejado",r.planejado],
-["Realizado",r.realizado]
-].forEach(([nome,numero])=>{
-const box=document.createElement("div");
-box.className="indicador";
-box.appendChild(elemento("span",nome));
-box.appendChild(elemento("strong",
-numero===null||numero===undefined?"—":numero+"%"));
-indicadores.appendChild(box);
-});
-card.appendChild(indicadores);
-
-[
-["Escopo",r.farol_escopo],
-["Prazo",r.farol_prazo],
-["Custo",r.farol_custo],
-["Qualidade",r.farol_qualidade]
-].forEach(([nome,v])=>{
-const linha=document.createElement("p");
-linha.appendChild(elemento("span",nome+": "));
-linha.appendChild(elemento("span",
-texto(v),"farol "+classeFarol(v)));
-card.appendChild(linha);
-});
-grade.appendChild(card);
-});
-conteudo.appendChild(grade);
-bloco.appendChild(conteudo);
-lista.appendChild(bloco);
-});
-}catch(err){
-lista.textContent="Erro ao consultar Resumo: "+err.message;
-}
+    $("loginBox").hidden = true;
+    $("app").hidden = false;
+    limparProjeto();
+    mostrarAba(cred("executivo") ? "resumo" : "consulta");
+  } catch (e) {
+    $("app").hidden = true;
+    $("loginBox").hidden = false;
+    M("loginMsg", "Erro ao validar o perfil: " + e.message, "error");
+  }
 }
 
-// AUDITORIA
-
-function limiteData(id,diaSeguinte=false){
-const v=valor(id);
-if(!v)return null;
-const [a,m,d]=v.split("-").map(Number);
-return new Date(a,m-1,d+(diaSeguinte?1:0)).toISOString();
+async function sair() {
+  const r = await db.auth.signOut();
+  if (r.error) {
+    alert("Erro ao sair");
+    return;
+  }
+  sequencia++;
+  sequenciaResumo++;
+  usu = null;
+  papel = null;
+  projetos = [];
+  vinculos.clear();
+  $("app").hidden = true;
+  $("loginBox").hidden = false;
+  $("senha").value = "";
 }
 
-async function carregarAuditoria(){
-if(!admin())return;
-const lista=$("listaAuditoria");
-lista.replaceChildren();
-lista.textContent="Consultando auditoria...";
-try{
-const inicio=limiteData("audInicio");
-const fim=limiteData("audFim",true);
-if(inicio&&fim&&inicio>=fim)throw Error("Período inválido.");
+async function atualizarProjetos() {
+  const r = await db.from("projetos")
+    .select("id,nome,objetivo,contexto,gerente,fornecedor,sponsor,situacao")
+    .order("nome");
 
-let q=db.from("auditoria_alteracoes")
-.select("*",{count:"exact"});
+  if (r.error) throw r.error;
+  projetos = r.data || [];
+  vinculos = new Set();
 
-if(valor("audResponsavel"))
-q=q.ilike("usuario_email","%"+valor("audResponsavel")+"%");
-if(valor("audOperacao"))q=q.eq("operacao",valor("audOperacao"));
-if(valor("audTabela"))q=q.eq("tabela",valor("audTabela"));
-if(valor("audProjeto"))
-q=q.eq("projeto_id",Number(valor("audProjeto")));
-if(inicio)q=q.gte("alterado_em",inicio);
-if(fim)q=q.lt("alterado_em",fim);
+  if (cred("gerente")) {
+    const v = await db.from("projeto_gerentes")
+      .select("projeto_id")
+      .eq("usuario_id", usu.id);
+    if (v.error) throw v.error;
+    vinculos = new Set((v.data || []).map(x => String(x.projeto_id)));
+  }
 
-const pos=auditoriaPagina*POR_PAGINA;
-const {data,error,count}=await q
-.order("alterado_em",{ascending:false})
-.order("id",{ascending:false})
-.range(pos,pos+POR_PAGINA-1);
-if(error)throw error;
+  const escolhido = V("sProjeto");
+  $("sProjeto").replaceChildren(new Option("Selecione um projeto", ""));
+  $("audProjeto").replaceChildren(new Option("Todos", ""));
 
-lista.replaceChildren();
-if(!data?.length)lista.textContent="Nenhum evento encontrado.";
+  projetos.forEach(p => {
+    $("sProjeto").add(new Option(p.nome, p.id));
+    $("audProjeto").add(new Option(p.nome, p.id));
+  });
 
-(data||[]).forEach(a=>{
-const item=document.createElement("div");item.className="item";
-item.appendChild(elemento("h3",a.operacao+" — "+a.tabela));
-item.appendChild(elemento("p",
-new Date(a.alterado_em).toLocaleString("pt-BR",
-{timeZone:"America/Sao_Paulo"})+
-" | "+texto(a.usuario_email||a.origem)));
-item.appendChild(elemento("p",
-"Registro: "+texto(a.registro_id)+
-" | Projeto ID: "+texto(a.projeto_id)));
-item.appendChild(elemento("p",
-"Campos: "+(a.campos_alterados||[]).join(", "),"muted"));
-
-const detalhes=document.createElement("details");
-detalhes.appendChild(elemento("summary",
-"Ver valores anteriores e novos"));
-const pre=document.createElement("pre");
-pre.className="audit-detail";
-pre.textContent="ANTES:\n"+
-JSON.stringify(a.dados_anteriores,null,2)+
-"\n\nDEPOIS:\n"+JSON.stringify(a.dados_novos,null,2);
-detalhes.appendChild(pre);item.appendChild(detalhes);
-lista.appendChild(item);
-});
-
-const total=count??0;
-const paginas=Math.max(1,Math.ceil(total/POR_PAGINA));
-$("audInfo").textContent="Eventos encontrados: "+total;
-$("audPaginacao").textContent=
-"Página "+(auditoriaPagina+1)+" de "+paginas;
-$("audAnterior").disabled=auditoriaPagina===0;
-$("audProximo").disabled=(auditoriaPagina+1)*POR_PAGINA>=total;
-}catch(err){
-lista.textContent="Erro: "+err.message;
-$("audInfo").textContent="";
-}
+  if (projetos.some(p => String(p.id) === escolhido)) {
+    $("sProjeto").value = escolhido;
+  }
+  listarProjetos();
 }
 
-function limparFiltrosAuditoria(){
-["audResponsavel","audOperacao","audTabela",
-"audProjeto"].forEach(id=>{$(id).value=""});
-$("audInicio").value=diasAtras(30);
-$("audFim").value=hojeLocal();
-auditoriaPagina=0;carregarAuditoria();
+function listarProjetos() {
+  const el = $("listaProjetos");
+  el.replaceChildren();
+
+  const ps = projetos.filter(x =>
+    x.nome.toLowerCase().includes(V("buscaProjeto").toLowerCase())
+  );
+
+  if (!ps.length) {
+    el.textContent = "Nenhum projeto encontrado";
+    return;
+  }
+
+  ps.forEach(p => {
+    const d = E("div", "", "item");
+    d.appendChild(E("h3", p.nome));
+    d.appendChild(E("p",
+      "Situação: " + T(p.situacao) +
+      " | Responsável informado: " + T(p.gerente), "muted"));
+    d.appendChild(btn("Consultar", () => consultarProjeto(p.id)));
+
+    if (podeEditar(p.id)) {
+      d.appendChild(btn("Editar", () => editarProjeto(p.id), ""));
+    } else {
+      d.appendChild(E("span", " Somente leitura", "muted"));
+    }
+    el.appendChild(d);
+  });
 }
 
-function prepararFarois(){
-const opcoes=[
-["","Selecione"],["No prazo","Verde — No prazo"],
-["Atenção","Amarelo — Atenção"],
-["Crítico","Vermelho — Crítico"],
-["N/A","Cinza — N/A"],
-["Não avaliado","Não avaliado"]
-];
-document.querySelectorAll(".farolSelect").forEach(select=>{
-select.replaceChildren();
-opcoes.forEach(([v,t])=>select.add(new Option(t,v)));
-});
+function consultarProjeto(id) {
+  const p = projetos.find(x => String(x.id) === String(id));
+  if (!p) return;
+
+  $("detalheCard").hidden = false;
+  $("detalheProjeto").textContent = [
+    "Projeto: " + T(p.nome),
+    "Objetivo: " + T(p.objetivo),
+    "Contexto: " + T(p.contexto),
+    "Responsável informado: " + T(p.gerente),
+    "Fornecedor: " + T(p.fornecedor),
+    "Sponsor: " + T(p.sponsor),
+    "Situação: " + T(p.situacao)
+  ].join("\n");
+
+  const a = $("detalheAcoes");
+  a.replaceChildren();
+
+  a.appendChild(btn("Consultar Status", () => {
+    $("sProjeto").value = String(id);
+    mostrarAba("status");
+    carregarStatus();
+  }));
+
+  if (podeEditar(id)) {
+    a.appendChild(btn("Editar Projeto", () => editarProjeto(id), ""));
+  }
+  $("detalheCard").scrollIntoView({ behavior: "smooth" });
 }
 
-function iniciar(){
-if(!window.supabase){
-msg("loginMsg","Não foi possível carregar Supabase.","error");
-return;
-}
-db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-prepararFarois();
-$("sData").value=hojeLocal();
-$("audInicio").value=diasAtras(30);
-$("audFim").value=hojeLocal();
+function limparProjeto() {
+  $("formProjeto").reset();
+  $("projetoId").value = "";
+  $("tituloFormProjeto").textContent = "Novo Projeto";
+  $("pGerente").readOnly = cred("gerente");
+  $("pGerente").value = cred("gerente") && usu ? usu.email : "";
 
-$("loginForm").addEventListener("submit",entrar);
-$("logout").addEventListener("click",sair);
-$("formProjeto").addEventListener("submit",salvarProjeto);
-$("formStatus").addEventListener("submit",salvarStatus);
-$("novoProjeto").addEventListener("click",limparProjeto);
-$("sProjeto").addEventListener("change",carregarStatus);
-$("sData").addEventListener("change",carregarStatus);
-$("abrirData").addEventListener("click",
-()=>abrirCalendario("sData"));
-$("buscaProjeto").addEventListener("input",renderizarProjetos);
-$("atualizarResumo").addEventListener("click",carregarResumo);
-$("filtrarAuditoria").addEventListener("click",()=>{
-auditoriaPagina=0;carregarAuditoria();
-});
-$("limparAuditoria").addEventListener("click",limparFiltrosAuditoria);
-$("audAnterior").addEventListener("click",()=>{
-if(auditoriaPagina>0){auditoriaPagina--;carregarAuditoria()}
-});
-$("audProximo").addEventListener("click",()=>{
-auditoriaPagina++;carregarAuditoria();
-});
-document.querySelectorAll("nav button").forEach(b=>
-b.addEventListener("click",()=>mostrarAba(b.dataset.tab)));
-verificarSessao();
+  $("avisoProjeto").textContent = cred("gerente")
+    ? "Projetos criados pelo Gerente são vinculados automaticamente à sua conta."
+    : "Atribuições efetivas não são alteradas por este campo informativo.";
+  M("msgProjeto", "");
+}
+
+function editarProjeto(id) {
+  if (!podeEditar(id)) return;
+
+  const p = projetos.find(x => String(x.id) === String(id));
+  if (!p) return;
+
+  $("projetoId").value = p.id;
+  for (const [e, v] of [
+    ["pNome", p.nome],
+    ["pObjetivo", p.objetivo],
+    ["pContexto", p.contexto],
+    ["pGerente", p.gerente],
+    ["pFornecedor", p.fornecedor],
+    ["pSponsor", p.sponsor],
+    ["pSituacao", p.situacao || "Não iniciado"]
+  ]) {
+    $(e).value = v ?? "";
+  }
+
+  $("pGerente").readOnly = cred("gerente");
+  $("tituloFormProjeto").textContent = "Editar Projeto: " + p.nome;
+  $("avisoProjeto").textContent = cred("gerente")
+    ? "Pode editar os dados, mas não transferir o vínculo de Gerente."
+    : "Correções administrativas ficam auditadas.";
+  M("msgProjeto", "");
+  mostrarAba("projeto");
+}
+
+async function salvarProjeto(e) {
+  e.preventDefault();
+  const id = V("projetoId");
+
+  if (!cred("administrador") && !cred("gerente")) return;
+
+  if (id && !podeEditar(id)) {
+    M("msgProjeto", "Sem permissão de edição", "error");
+    return;
+  }
+
+  const dados = {
+    nome: V("pNome"),
+    objetivo: V("pObjetivo"),
+    contexto: V("pContexto"),
+    fornecedor: V("pFornecedor"),
+    sponsor: V("pSponsor"),
+    situacao: V("pSituacao")
+  };
+
+  if (cred("administrador")) dados.gerente = V("pGerente");
+  $("salvarProjeto").disabled = true;
+
+  try {
+    const r = id
+      ? await db.from("projetos").update(dados).eq("id", id).select("id")
+      : await db.from("projetos").insert(dados).select("id");
+
+    if (r.error) throw r.error;
+    if (r.data?.length !== 1) throw Error("Sem confirmação de gravação");
+
+    await atualizarProjetos();
+    limparProjeto();
+    M("msgProjeto", "Projeto salvo com sucesso!", "success");
+  } catch (e) {
+    M("msgProjeto", "Erro: " + e.message, "error");
+  } finally {
+    $("salvarProjeto").disabled = false;
+  }
+}
+
+function montarLinha(tipo, registro = {}) {
+  const def = defs[tipo];
+  const box = E("div", "", "line");
+  const grid = E("div", "", "grid");
+
+  box.dataset.chave = registro[def.key] || crypto.randomUUID();
+  box.dataset.registro = registro.id ? "salvo" : "novo";
+
+  const top = E("div", "", "top");
+  top.appendChild(E("strong",
+    tipo === "marcos" ? "Marco / entrega" :
+    tipo === "riscos" ? "Risco / impedimento" : "Próxima ação"));
+
+  const remover = btn(registro.id ? "Cancelar registro" : "Remover linha", () => {
+    if (registro.id) {
+      const s = box.querySelector('[data-field="situacao"]');
+      if (s) {
+        s.value = "Cancelado";
+        remover.disabled = true;
+      }
+    } else {
+      box.remove();
+    }
+  });
+
+  top.appendChild(remover);
+  box.appendChild(top);
+
+  for (const [col, nome, tipoInput] of def.fields) {
+    const label = E("label", nome);
+    let inp;
+
+    if (tipoInput === "textarea") {
+      inp = document.createElement("textarea");
+    } else if (options[tipoInput]) {
+      inp = document.createElement("select");
+      inp.add(new Option("Selecione", ""));
+      options[tipoInput].forEach(x => inp.add(new Option(x, x)));
+    } else {
+      inp = document.createElement("input");
+      inp.type = tipoInput === "percent" ? "number" : tipoInput;
+      if (inp.type === "number") {
+        inp.step = col === "peso" ? "0.0001" : "0.01";
+        inp.min = "0";
+        if (col === "percentual_concluido") inp.max = "100";
+      }
+    }
+
+    inp.dataset.field = col;
+    inp.value = registro[col] ?? "";
+    label.appendChild(inp);
+    grid.appendChild(label);
+  }
+
+  box.appendChild(grid);
+  $(def.container).appendChild(box);
+  return box;
+}
+
+function coletarLinhas(tipo) {
+  const d = defs[tipo];
+  return Array.from($(d.container).children).map((box, i) => {
+    const o = { [d.key]: box.dataset.chave, ordem: i };
+
+    box.querySelectorAll("[data-field]").forEach(input => {
+      o[input.dataset.field] = input.value.trim();
+    });
+
+    if (!o.descricao) {
+      throw Error("Preencha a descrição das linhas de " + tipo);
+    }
+    return o;
+  });
+}
+
+function limparLinhas() {
+  Object.values(defs).forEach(d => $(d.container).replaceChildren());
+}
+
+function preencherLinhas(tipo, regs = []) {
+  $(defs[tipo].container).replaceChildren();
+  regs.forEach(r => montarLinha(tipo, r));
+}
+
+function calcularAvanco(ms) {
+  const arr = ms.filter(m =>
+    m.situacao !== "Cancelado" && m.percentual_concluido !== "");
+
+  if (!arr.length) return null;
+
+  for (const x of arr) {
+    const n = Number(x.percentual_concluido);
+    if (!Number.isFinite(n) || n < 0 || n > 100) {
+      throw Error("Percentual inválido em marco");
+    }
+  }
+
+  const comPeso = arr.filter(x => x.peso !== "");
+  if (comPeso.length && comPeso.length !== arr.length) {
+    throw Error(
+      "Preencha os pesos de todos os marcos mensurados ou de nenhum"
+    );
+  }
+
+  const pesos = arr.map(x =>
+    comPeso.length ? Number(x.peso) : 1);
+
+  if (pesos.some(x => !Number.isFinite(x) || x < 0)) {
+    throw Error("Peso inválido");
+  }
+
+  const soma = pesos.reduce((a, b) => a + b, 0);
+  if (soma <= 0) {
+    throw Error("Soma de pesos deve ser maior que zero");
+  }
+
+  return Math.round(
+    arr.reduce(
+      (s, x, i) =>
+        s + Number(x.percentual_concluido) * pesos[i], 0
+    ) / soma * 100
+  ) / 100;
+}
+
+function limparFormularioStatus() {
+  for (const id of Object.keys(colunas)) $(id).value = "";
+  limparLinhas();
+  relatorio = null;
+  anterior = null;
+  historico = [];
+  statusPronto = false;
+  $("sCopiar").hidden = true;
+  $("sComparativo").textContent =
+    "Sem relatório anterior para comparação";
+}
+
+function bloquearStatus() {
+  const id = V("sProjeto");
+  const autorizado = id && podeEditar(id);
+  const publicado = relatorio?.situacao_publicacao === "publicado";
+  const habilitado = Boolean(
+    statusPronto && autorizado &&
+    (!cred("administrador") || publicado)
+  );
+
+  $("camposStatus").disabled = !habilitado;
+  $("salvarStatus").disabled = !habilitado;
+
+  if (!id) {
+    $("avisoStatus").textContent = "Selecione um projeto";
+  } else if (!autorizado) {
+    $("avisoStatus").textContent =
+      "Somente leitura: projeto não atribuído a você";
+  } else if (!statusPronto) {
+    $("avisoStatus").textContent =
+      "Consultando relatório e permissões...";
+  } else if (cred("administrador") && !publicado) {
+    $("avisoStatus").textContent =
+      "A primeira publicação é do Gerente responsável. " +
+      "O Administrador pode corrigir relatórios publicados.";
+  } else {
+    $("avisoStatus").textContent =
+      "Edição autorizada. Salvar publica imediatamente " +
+      "e registra a auditoria.";
+  }
+}
+
+function preencherStatus(r) {
+  for (const [id, col] of Object.entries(colunas)) {
+    $(id).value = r?.[col] ?? "";
+  }
+  $("sFarolGeral").textContent =
+    "Farol geral (pior dimensão): " + farolGeral();
+  atualizarDiasGoLive();
+}
+
+function compararStatus(a, b) {
+  const out = $("sComparativo");
+  out.replaceChildren();
+
+  if (!b) {
+    out.textContent =
+      "Sem relatório publicado anterior para comparação.";
+    return;
+  }
+
+  out.appendChild(E(
+    "strong",
+    "Evolução desde " + dataBR(b.data_referencia)
+  ));
+
+  for (const [t, col] of [
+    ["Planejado", "planejado"],
+    ["Realizado", "realizado"]
+  ]) {
+    const av = a?.[col];
+    const bv = b[col];
+    const dif = av == null || bv == null
+      ? "—"
+      : ((Number(av) - Number(bv) > 0 ? "+" : "") +
+         (Number(av) - Number(bv)).toFixed(2) + " p.p.");
+
+    out.appendChild(E(
+      "p",
+      t + ": " + T(bv) + "% → " + T(av) +
+      "% | variação: " + dif,
+      "compact"
+    ));
+  }
+
+  out.appendChild(E(
+    "p",
+    "Prazo: " + T(b.farol_prazo) + " → " + T(a?.farol_prazo),
+    "compact"
+  ));
+}
+
+async function carregarStatus() {
+  const seq = ++sequencia;
+  statusPronto = false;
+  limparFormularioStatus();
+  bloquearStatus();
+
+  const pid = Number(V("sProjeto"));
+  const dt = V("sData");
+  if (!pid || !dt) {
+    M("msgStatus", "");
+    return;
+  }
+
+  M("msgStatus", "Consultando relatório...");
+
+  try {
+    const ini = semanaInicio(dt);
+    const fim = dataSeguinte(ini, 7);
+
+    const q = await db.from("status_semanais")
+      .select("id,data_referencia")
+      .eq("projeto_id", pid)
+      .gte("data_referencia", ini)
+      .lt("data_referencia", fim)
+      .limit(2);
+
+    if (q.error) throw q.error;
+    if (q.data?.length > 1) {
+      throw Error(
+        "Mais de um relatório na semana; regularize antes de editar"
+      );
+    }
+
+    const dataReferencia = q.data?.[0]?.data_referencia || dt;
+    if (seq !== sequencia) return;
+
+    if (q.data?.length) $("sData").value = dataReferencia;
+
+    const r = await db.rpc("pmo_ler_relatorio_completo", {
+      p_projeto_id: pid,
+      p_data_referencia: dataReferencia
+    });
+
+    if (r.error) throw r.error;
+    if (seq !== sequencia) return;
+
+    const payload = r.data || {};
+
+    if (payload.encontrado) {
+      relatorio = payload.relatorio;
+      preencherStatus(relatorio);
+
+      for (const [tipo, prop] of [
+        ["marcos", "marcos"],
+        ["riscos", "riscos"],
+        ["acoes", "proximos_passos"]
+      ]) {
+        preencherLinhas(tipo, payload[prop] || []);
+      }
+
+      historico = payload.historico_semanal || [];
+      anterior = payload.relatorio_anterior || null;
+      compararStatus(relatorio, anterior);
+
+      M(
+        "msgStatus",
+        "Relatório carregado: " + T(relatorio.situacao_publicacao),
+        "success"
+      );
+    } else {
+      M(
+        "msgStatus",
+        "Nova semana. Preencha o relatório ou copie os dados " +
+        "da semana anterior.",
+        "warning"
+      );
+
+      const p = await db.from("status_semanais")
+        .select("*")
+        .eq("projeto_id", pid)
+        .eq("situacao_publicacao", "publicado")
+        .lt("data_referencia", ini)
+        .order("data_referencia", { ascending: false })
+        .limit(1);
+
+      if (p.error) throw p.error;
+      if (seq !== sequencia) return;
+
+      anterior = p.data?.[0] || null;
+      compararStatus(null, anterior);
+    }
+
+    $("sCopiar").hidden =
+      !anterior || !!relatorio || !podeEditar(pid);
+
+    statusPronto = true;
+    bloquearStatus();
+
+  } catch (e) {
+    if (seq !== sequencia) return;
+    statusPronto = false;
+    bloquearStatus();
+    M("msgStatus", "Erro ao carregar: " + e.message, "error");
+  }
+}
+
+async function copiarSemanaAnterior() {
+  if (!anterior || relatorio || !podeEditar(V("sProjeto"))) return;
+
+  preencherStatus(anterior);
+  const id = anterior.id;
+
+  try {
+    for (const [tipo, def] of Object.entries(defs)) {
+      const r = await db.from(def.table)
+        .select("*")
+        .eq("relatorio_id", id)
+        .order("ordem");
+
+      if (r.error) throw r.error;
+
+      preencherLinhas(
+        tipo,
+        (r.data || []).map(x => ({ ...x, id: null }))
+      );
+    }
+
+    M(
+      "msgStatus",
+      "Semana anterior copiada. Revise cada campo, marco, risco, " +
+      "situação e prazo antes de publicar.",
+      "warning"
+    );
+  } catch (e) {
+    M("msgStatus", "Erro ao copiar detalhes: " + e.message, "error");
+  }
+}
+
+async function salvarStatus(e) {
+  e.preventDefault();
+
+  const pid = Number(V("sProjeto"));
+  const dt = V("sData");
+
+  if (!statusPronto || !podeEditar(pid) || !dt) {
+    M(
+      "msgStatus",
+      "Gravação não autorizada ou carregamento incompleto",
+      "error"
+    );
+    return;
+  }
+
+  if (cred("administrador") &&
+      relatorio?.situacao_publicacao !== "publicado") {
+    M(
+      "msgStatus",
+      "A publicação inicial cabe ao Gerente responsável",
+      "error"
+    );
+    return;
+  }
+
+  $("salvarStatus").disabled = true;
+
+  try {
+    const marcos = coletarLinhas("marcos");
+    const riscos = coletarLinhas("riscos");
+    const acoes = coletarLinhas("acoes");
+
+    const campos = {};
+    for (const [id, col] of Object.entries(colunas)) {
+      campos[col] = V(id);
+    }
+
+    for (const col of [
+      "farol_escopo",
+      "farol_prazo",
+      "farol_custo",
+      "farol_qualidade"
+    ]) {
+      if (!campos[col]) {
+        throw Error("Selecione os quatro faróis");
+      }
+    }
+
+    const realizado = calcularAvanco(marcos);
+    if (realizado !== null) {
+      campos.realizado = String(realizado);
+      $("sRealizado").value = campos.realizado;
+    }
+
+    num("sPlanejado", true);
+    num("sRealizado", true);
+    num("sSpi");
+
+    if (
+      riscos.length === 0 &&
+      !campos.resumo_andamento &&
+      !campos.observacoes_gerenciais
+    ) {
+      throw Error(
+        "Registre riscos ou justifique formalmente a ausência " +
+        "de riscos no acompanhamento/observações"
+      );
+    }
+
+    M("msgStatus", "Gravando e publicando relatório completo...");
+
+    const r = await db.rpc("pmo_salvar_relatorio_completo", {
+      p_projeto_id: pid,
+      p_data_referencia: dt,
+      p_campos: campos,
+      p_marcos: marcos,
+      p_riscos: riscos,
+      p_proximos: acoes
+    });
+
+    if (r.error) throw r.error;
+    if (!r.data?.id) throw Error("O banco não confirmou o relatório");
+
+    $("sData").value = r.data.data_referencia || dt;
+    await carregarStatus();
+
+    M(
+      "msgStatus",
+      "Relatório publicado! ID " + r.data.id +
+      " | Marcos: " + r.data.marcos_processados +
+      " | Riscos: " + r.data.riscos_processados +
+      " | Ações: " + r.data.proximos_processados,
+      "success"
+    );
+  } catch (err) {
+    M("msgStatus", "Erro: " + err.message, "error");
+  } finally {
+    bloquearStatus();
+  }
+}
+
+function desenharBarras(container, h) {
+  const vis = (h || []).filter(x =>
+    x.planejado !== null || x.realizado !== null
+  ).slice(-12);
+
+  if (!vis.length) return;
+
+  container.appendChild(E(
+    "p",
+    "Planejado (cinza) x Realizado (laranja)",
+    "muted small"
+  ));
+
+  const graph = E("div", "", "timeline");
+
+  vis.forEach(x => {
+    const c = E("div", "", "weekbar");
+    const b = E("div", "", "barbox");
+
+    for (const [key, cls] of [
+      ["planejado", "plan"],
+      ["realizado", "real"]
+    ]) {
+      const val = x[key] === null || x[key] === undefined
+        ? 0
+        : Math.max(0, Math.min(100, Number(x[key])));
+
+      const e = E("div", "", "bar " + cls);
+      e.style.height = val + "%";
+      e.title = key + ": " + T(x[key]) + "%";
+      b.appendChild(e);
+    }
+
+    c.appendChild(b);
+    c.appendChild(E("small", dataBR(x.data_referencia).slice(0, 5)));
+    graph.appendChild(c);
+  });
+
+  container.appendChild(graph);
+}
+
+function tabelaSemanal(pai, h) {
+  const wrap = E("div", "", "table-wrap");
+  const tab = document.createElement("table");
+  const tr = document.createElement("tr");
+
+  ["Data", "Planejado", "Realizado", "SPI", "Prazo"].forEach(t =>
+    tr.appendChild(E("th", t))
+  );
+  tab.appendChild(tr);
+
+  h.forEach(x => {
+    const r = document.createElement("tr");
+    [
+      dataBR(x.data_referencia),
+      x.planejado == null ? "—" : x.planejado + "%",
+      x.realizado == null ? "—" : x.realizado + "%",
+      T(x.spi),
+      T(x.farol_prazo)
+    ].forEach(y => r.appendChild(E("td", y)));
+    tab.appendChild(r);
+  });
+
+  wrap.appendChild(tab);
+  pai.appendChild(wrap);
+}
+
+function compararItens(pai, nome, atual, antes, chave) {
+  pai.appendChild(E("h4", "Evolução de " + nome));
+  const mapa = new Map((antes || []).map(x => [x[chave], x]));
+
+  for (const x of atual || []) {
+    const ant = mapa.get(x[chave]);
+    pai.appendChild(E(
+      "p",
+      (ant ? "Mantido / alterado: " : "Novo: ") +
+      T(x.descricao) + " | " +
+      (ant ? T(ant.situacao) : "—") +
+      " → " + T(x.situacao),
+      "compact"
+    ));
+    mapa.delete(x[chave]);
+  }
+
+  for (const x of mapa.values()) {
+    pai.appendChild(E(
+      "p",
+      "Sem registro nesta semana: " + T(x.descricao),
+      "compact"
+    ));
+  }
+}
+
+function detalheExecutivo(pai, pacote) {
+  pai.replaceChildren();
+  const r = pacote?.relatorio;
+
+  if (!r) {
+    pai.textContent = "Nenhum relatório publicado";
+    return;
+  }
+
+  pai.appendChild(E(
+    "h3", "Relatório completo — " + dataBR(r.data_referencia)
+  ));
+
+  const g = E("div", "", "grid-wide");
+  const c1 = E("div");
+  const c2 = E("div");
+
+  for (const [titulo, v] of [
+    ["Objetivo", r.objetivo],
+    ["Contexto", r.contexto],
+    ["Status geral", r.status_geral],
+    ["SPI", r.spi],
+    ["Início baseline", dataBR(r.inicio_baseline)],
+    ["Go-Live baseline", dataBR(r.go_live_baseline)],
+    ["Go-Live forecast", dataBR(r.go_live_forecast)],
+    ["Líder Naturgy", r.lider_naturgy],
+    ["Fornecedor", r.fornecedor_report],
+    ["Sponsor", r.stakeholder_report]
+  ]) {
+    c1.appendChild(E("p", titulo + ": " + T(v)));
+  }
+
+  for (const [titulo, v] of [
+    ["Escopo", r.farol_escopo],
+    ["Prazo", r.farol_prazo],
+    ["Custo", r.farol_custo],
+    ["Qualidade", r.farol_qualidade],
+    ["Classificação de custo", r.custo_modalidade],
+    ["Custo aprovado", r.custo_aprovado],
+    ["Custo realizado", r.custo_realizado],
+    ["Observações de custo", r.custo_observacoes],
+    ["Observações gerenciais", r.observacoes_gerenciais]
+  ]) {
+    if (
+      (titulo === "Custo aprovado" || titulo === "Custo realizado") &&
+      cred("executivo")
+    ) continue;
+    c2.appendChild(E("p", titulo + ": " + T(v)));
+  }
+
+  g.append(c1, c2);
+  pai.appendChild(g);
+
+  for (const [t, v] of [
+    ["Realizado", r.resumo_realizado],
+    ["Em andamento", r.resumo_andamento],
+    ["Próximos passos", r.resumo_proximos]
+  ]) {
+    pai.appendChild(E("h4", t));
+    pai.appendChild(E("p", T(v), "muted"));
+  }
+
+  for (const [nome, campo] of [
+    ["Marcos e entregas", "marcos"],
+    ["Riscos e impedimentos", "riscos"],
+    ["Próximos passos estruturados", "proximos"]
+  ]) {
+    pai.appendChild(E("h4", nome));
+    const ar = pacote[campo] || [];
+
+    if (!ar.length) {
+      pai.appendChild(E("p", "Sem registros", "muted"));
+    }
+
+    for (const x of ar) {
+      const ds = x.data_fim_forecast ||
+        x.data_fim_baseline || x.prazo;
+
+      let info = T(x.descricao) + " | " +
+        T(x.situacao) + " | Resp.: " + T(x.responsavel);
+
+      if (ds) info += " | Data: " + dataBR(ds);
+      if (
+        x.percentual_concluido !== null &&
+        x.percentual_concluido !== undefined
+      ) {
+        info += " | " + x.percentual_concluido + "%";
+      }
+      if (x.severidade) info += " | Sev.: " + x.severidade;
+      if (x.acao_mitigacao) {
+        info += " | Mitigação: " + x.acao_mitigacao;
+      }
+      pai.appendChild(E("p", info, "compact"));
+    }
+  }
+
+  const hist = pacote.historico || [];
+  pai.appendChild(E("h4", "Histórico semanal"));
+
+  if (hist.length) {
+    desenharBarras(pai, hist);
+    tabelaSemanal(pai, hist);
+  } else {
+    pai.appendChild(E("p", "Sem histórico"));
+  }
+
+  if (hist.length > 1) {
+    const a = hist[hist.length - 1];
+    const b = hist[hist.length - 2];
+    const delta = (x, y) => x == null || y == null
+      ? "—"
+      : ((x - y > 0 ? "+" : "") +
+         (Number(x) - Number(y)).toFixed(2) + " p.p.");
+
+    pai.appendChild(E(
+      "p",
+      "Variação Planejado: " + delta(a.planejado, b.planejado) +
+      " | Realizado: " + delta(a.realizado, b.realizado)
+    ));
+  }
+
+  if (hist.length > 1) {
+    compararItens(
+      pai, "marcos", pacote.marcos,
+      pacote.marcos_anteriores, "marco_chave"
+    );
+    compararItens(
+      pai, "riscos", pacote.riscos,
+      pacote.riscos_anteriores, "risco_chave"
+    );
+    compararItens(
+      pai, "ações", pacote.proximos,
+      pacote.proximos_anteriores, "acao_chave"
+    );
+  }
+}
+
+async function carregarResumo() {
+  const seq = ++sequenciaResumo;
+  const alvo = $("listaResumo");
+  alvo.textContent = "Carregando relatórios publicados...";
+
+  const r = await db.rpc("resumo_publicado_por_gerente");
+  if (seq !== sequenciaResumo) return;
+
+  if (r.error) {
+    alvo.textContent = "Erro: " + r.error.message;
+    return;
+  }
+
+  alvo.replaceChildren();
+
+  if (!r.data?.length) {
+    alvo.textContent = "Nenhum relatório publicado até o momento.";
+    return;
+  }
+
+  const groups = new Map();
+
+  r.data.forEach(x => {
+    const k = x.gerente_id || "sem-gerente";
+
+    if (!groups.has(k)) {
+      groups.set(k, {
+        nome: x.gerente_identificacao || "Sem gerente atribuído",
+        list: []
+      });
+    }
+    groups.get(k).list.push(x);
+  });
+
+  Array.from(groups.values())
+    .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"))
+    .forEach(g => {
+      const d = document.createElement("details");
+      d.open = true;
+      d.className = "group";
+      d.appendChild(E(
+        "summary",
+        "Gerente: " + g.nome + " — " + g.list.length + " projeto(s)"
+      ));
+
+      const cont = E("div", "", "group-content");
+      const grade = E("div", "", "grid-wide");
+
+      g.list
+        .sort((a, b) =>
+          a.projeto_nome.localeCompare(b.projeto_nome, "pt-BR"))
+        .forEach(x => {
+          const card = E("div", "", "summary-card");
+          card.appendChild(E("h3", x.projeto_nome));
+          card.appendChild(E(
+            "p",
+            "Referência: " + dataBR(x.data_referencia),
+            "muted"
+          ));
+
+          const stats = E("div", "", "stats");
+
+          for (const [nome, v] of [
+            ["Planejado", x.planejado],
+            ["Realizado", x.realizado]
+          ]) {
+            const s = E("div", "", "stat");
+            s.appendChild(E("span", nome));
+            s.appendChild(E("strong", v == null ? "—" : v + "%"));
+            stats.appendChild(s);
+          }
+          card.appendChild(stats);
+
+          for (const [n, v] of [
+            ["Escopo", x.farol_escopo],
+            ["Prazo", x.farol_prazo],
+            ["Custo", x.farol_custo],
+            ["Qualidade", x.farol_qualidade]
+          ]) {
+            const p = E("p", n + ": ");
+            p.appendChild(E("span", T(v),
+              "farol " + classeFarol(v)));
+            card.appendChild(p);
+          }
+
+          const detalhes = E("div");
+
+          card.appendChild(btn(
+            "Abrir relatório completo e evolução",
+            async () => {
+              detalhes.textContent = "Carregando relatório...";
+              const p = await db.rpc("pmo_detalhe_publicado", {
+                p_projeto_id: x.projeto_id
+              });
+              if (p.error) {
+                detalhes.textContent = "Erro: " + p.error.message;
+                return;
+              }
+              detalheExecutivo(detalhes, p.data);
+            }
+          ));
+
+          card.appendChild(detalhes);
+          grade.appendChild(card);
+        });
+
+      cont.appendChild(grade);
+      d.appendChild(cont);
+      alvo.appendChild(d);
+    });
+}
+
+function isoLocal(date, maisUm = false) {
+  if (!date) return null;
+  const [a, m, d] = date.split("-").map(Number);
+  const dt = new Date(a, m - 1, d + (maisUm ? 1 : 0));
+  return dt.toISOString();
+}
+
+async function carregarAuditoria() {
+  if (!cred("administrador")) return;
+
+  const alvo = $("listaAuditoria");
+  alvo.textContent = "Carregando auditoria...";
+
+  try {
+    const ini = isoLocal(V("audInicio"));
+    const fim = isoLocal(V("audFim"), true);
+
+    if (ini && fim && ini >= fim) throw Error("Período inválido");
+
+    let q = db.from("auditoria_alteracoes")
+      .select("*", { count: "exact" });
+
+    if (V("audResponsavel")) {
+      q = q.ilike(
+        "usuario_email",
+        "%" + V("audResponsavel") + "%"
+      );
+    }
+    if (V("audOperacao")) {
+      q = q.eq("operacao", V("audOperacao"));
+    }
+    if (V("audTabela")) {
+      q = q.eq("tabela", V("audTabela"));
+    }
+    if (V("audProjeto")) {
+      q = q.eq("projeto_id", Number(V("audProjeto")));
+    }
+    if (ini) q = q.gte("alterado_em", ini);
+    if (fim) q = q.lt("alterado_em", fim);
+
+    const off = audPagina * 25;
+
+    const r = await q
+      .order("alterado_em", { ascending: false })
+      .order("id", { ascending: false })
+      .range(off, off + 24);
+
+    if (r.error) throw r.error;
+    alvo.replaceChildren();
+
+    if (!r.data?.length) {
+      alvo.textContent = "Nenhum evento encontrado";
+    }
+
+    for (const a of r.data || []) {
+      const item = E("div", "", "item");
+      item.appendChild(E("h3", a.operacao + " — " + a.tabela));
+      item.appendChild(E(
+        "p",
+        new Date(a.alterado_em).toLocaleString("pt-BR", {
+          timeZone: "America/Sao_Paulo"
+        }) + " | " + T(a.usuario_email || a.origem)
+      ));
+      item.appendChild(E(
+        "p",
+        "Registro: " + T(a.registro_id) +
+        " | Projeto ID: " + T(a.projeto_id)
+      ));
+      item.appendChild(E(
+        "p",
+        "Campos: " + (a.campos_alterados || []).join(", "),
+        "muted"
+      ));
+
+      const detalhes = document.createElement("details");
+      detalhes.appendChild(E(
+        "summary", "Ver valores anteriores e novos"
+      ));
+      detalhes.appendChild(E(
+        "pre",
+        "ANTES:\n" +
+        JSON.stringify(a.dados_anteriores, null, 2) +
+        "\n\nDEPOIS:\n" +
+        JSON.stringify(a.dados_novos, null, 2),
+        "pre"
+      ));
+
+      item.appendChild(detalhes);
+      alvo.appendChild(item);
+    }
+
+    const total = r.count ?? 0;
+    $("audInfo").textContent = "Eventos encontrados: " + total;
+    $("audPaginacao").textContent =
+      "Página " + (audPagina + 1) +
+      " de " + Math.max(1, Math.ceil(total / 25));
+    $("audAnterior").disabled = audPagina === 0;
+    $("audProximo").disabled = (audPagina + 1) * 25 >= total;
+  } catch (e) {
+    alvo.textContent = "Erro: " + e.message;
+  }
+}
+
+function limparAuditoria() {
+  for (const x of [
+    "audResponsavel", "audOperacao", "audTabela", "audProjeto"
+  ]) {
+    $(x).value = "";
+  }
+  $("audInicio").value = diasAtras(30);
+  $("audFim").value = hoje();
+  audPagina = 0;
+  carregarAuditoria();
+}
+
+function iniciar() {
+  if (!window.supabase) {
+    M(
+      "loginMsg",
+      "Erro: biblioteca Supabase indisponível",
+      "error"
+    );
+    return;
+  }
+
+  db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  for (const s of document.querySelectorAll(".farolSelect")) {
+    for (const [a, b] of [
+      ["", "Selecione"],
+      ["No prazo", "Verde — No prazo"],
+      ["Atenção", "Amarelo — Atenção"],
+      ["Crítico", "Vermelho — Crítico"],
+      ["N/A", "Cinza — N/A"],
+      ["Não avaliado", "Não avaliado"],
+      ["TBD", "TBD"]
+    ]) {
+      s.add(new Option(b, a));
+    }
+  }
+
+  $("sData").value = hoje();
+  $("audInicio").value = diasAtras(30);
+  $("audFim").value = hoje();
+
+  $("loginForm").onsubmit = entrar;
+  $("formProjeto").onsubmit = salvarProjeto;
+  $("formStatus").onsubmit = salvarStatus;
+  $("logout").onclick = sair;
+  $("novoProjeto").onclick = limparProjeto;
+  $("sProjeto").onchange = carregarStatus;
+  $("sData").onchange = carregarStatus;
+  $("abrirData").onclick = () => abrirCalendario("sData");
+  $("sCopiar").onclick = copiarSemanaAnterior;
+
+  for (const el of [
+    "sGoLiveForecast",
+    "sGoLiveBaseline",
+    "sData"
+  ]) {
+    $(el).addEventListener("change", atualizarDiasGoLive);
+  }
+
+  $("buscaProjeto").oninput = listarProjetos;
+  $("atualizarResumo").onclick = carregarResumo;
+
+  $("filtrarAuditoria").onclick = () => {
+    audPagina = 0;
+    carregarAuditoria();
+  };
+
+  $("limparAuditoria").onclick = limparAuditoria;
+
+  $("audAnterior").onclick = () => {
+    audPagina--;
+    carregarAuditoria();
+  };
+  $("audProximo").onclick = () => {
+    audPagina++;
+    carregarAuditoria();
+  };
+
+  document.querySelectorAll("nav button").forEach(b => {
+    b.onclick = () => mostrarAba(b.dataset.tab);
+  });
+  document.querySelectorAll("[data-adicionar]").forEach(b => {
+    b.onclick = () => montarLinha(b.dataset.adicionar);
+  });
+
+  for (const s of [
+    "sEscopo", "sPrazo", "sCusto", "sQualidade"
+  ]) {
+    $(s).onchange = () => {
+      $("sFarolGeral").textContent =
+        "Farol geral (pior dimensão): " + farolGeral();
+    };
+  }
+
+  sessao();
 }
 
 iniciar();
