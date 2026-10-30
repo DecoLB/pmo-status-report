@@ -3,60 +3,512 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PMO | Status Report</title>
+
   <style>
+    * { box-sizing: border-box; }
+
+    [hidden] { display: none !important; }
+
     body {
       margin: 0;
       background: #101827;
       color: #ffffff;
       font-family: Arial, sans-serif;
     }
+
     header {
       background: #19263a;
-      padding: 24px 40px;
+      padding: 26px 40px;
       border-bottom: 3px solid #ec7900;
     }
+
+    header h2 { margin: 0; }
+
     main {
-      max-width: 1000px;
-      margin: 60px auto;
+      max-width: 1100px;
+      margin: 55px auto;
       padding: 20px;
     }
-    .cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
+
+    h1 { margin-bottom: 12px; }
+
     .card {
-      flex: 1 1 260px;
-      padding: 30px;
       background: #1d2d43;
       border: 1px solid #34465e;
       border-radius: 12px;
+      padding: 28px;
     }
-    .card p { color: #bdc8d8; }
+
+    .cards {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 25px;
+    }
+
+    .muted { color: #bdc8d8; }
+
+    .login-card {
+      max-width: 440px;
+      margin: 60px auto;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin: 14px 0;
+      background: #111c2b;
+      color: #ffffff;
+      border: 1px solid #50617a;
+      border-radius: 7px;
+      font-size: 15px;
+    }
+
+    input:focus {
+      outline: 2px solid #ec7900;
+    }
+
+    button {
+      border: none;
+      border-radius: 7px;
+      padding: 13px 25px;
+      background: #ec7900;
+      color: white;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    button:hover { background: #ff8d19; }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    .secondary { background: #40516a; }
+
+    .secondary:hover { background: #556783; }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #254b40;
+      color: #80e2ac;
+      border-radius: 6px;
+      padding: 7px 12px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .section-title { margin-top: 35px; }
+
+    .status {
+      margin-top: 18px;
+      line-height: 1.6;
+    }
+
+    .project-item {
+      padding: 13px;
+      margin-top: 10px;
+      background: #172438;
+      border-left: 3px solid #ec7900;
+      border-radius: 5px;
+    }
+
+    .error { color: #ff9999; }
+
+    .success { color: #80e2ac; }
+
+    @media (max-width: 600px) {
+      header { padding: 22px; }
+      main { margin: 25px auto; }
+      .card { padding: 20px; }
+    }
   </style>
 </head>
+
 <body>
+
   <header>
     <h2>PMO | Status Report</h2>
   </header>
 
   <main>
-    <h1>Gestão de Portfólio</h1>
-    <p>Ambiente inicial de demonstração</p>
 
-    <div class="cards">
-      <div class="card">
-        <h2>Visão Administrativa</h2>
-        <p>Preenchimento dos gerentes de projetos.</p>
+    <!-- TELA DE LOGIN -->
+    <section id="login" class="card login-card">
+
+      <h2>Acesso ao Sistema</h2>
+
+      <p class="muted">
+        Gestão de Portfólio e Status Report Semanal
+      </p>
+
+      <form id="formLogin">
+
+        <label for="email">E-mail</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Seu e-mail"
+          autocomplete="username"
+          required
+        >
+
+        <label for="senha">Senha</label>
+        <input
+          id="senha"
+          type="password"
+          placeholder="Sua senha"
+          autocomplete="current-password"
+          required
+        >
+
+        <button id="btnEntrar" type="submit">
+          Entrar
+        </button>
+
+      </form>
+
+      <p id="mensagem" class="status" role="status"></p>
+
+    </section>
+
+
+    <!-- ÁREA AUTENTICADA -->
+    <section id="sistema" hidden>
+
+      <div class="topbar">
+
+        <div>
+          <h1>Gestão de Portfólio</h1>
+          <p id="usuarioLogado" class="muted"></p>
+          <span id="perfilUsuario" class="badge"></span>
+        </div>
+
+        <button id="btnSair" class="secondary">
+          Sair do sistema
+        </button>
+
       </div>
-      <div class="card">
-        <h2>Visão Executiva</h2>
-        <p>Acompanhamento e apresentação dos projetos.</p>
+
+
+      <!-- DUAS VISÕES -->
+      <div class="cards">
+
+        <div id="cardAdministrativo" class="card">
+          <h2>Visão Administrativa</h2>
+
+          <p class="muted">
+            Cadastro de projetos, atualização de
+            indicadores, faróis, marcos e riscos.
+          </p>
+
+          <span class="badge">
+            Módulo em construção
+          </span>
+        </div>
+
+        <div class="card">
+          <h2>Visão Executiva</h2>
+
+          <p class="muted">
+            Consulta e apresentação dos indicadores
+            dos projetos e Status Reports.
+          </p>
+
+          <span class="badge">
+            Módulo em construção
+          </span>
+        </div>
+
       </div>
-    </div>
+
+
+      <!-- TESTE DE CONEXÃO -->
+      <h2 class="section-title">
+        Conexão com Supabase
+      </h2>
+
+      <div class="card">
+
+        <p id="statusConexao" class="status">
+          Verificando conexão...
+        </p>
+
+        <h3>Projetos cadastrados</h3>
+
+        <div id="listaProjetos" class="muted">
+          Consultando banco de dados...
+        </div>
+
+      </div>
+
+    </section>
+
+    <p class="muted" style="margin-top:35px">
+      PMO | Ambiente inicial de demonstração
+    </p>
+
   </main>
+
+
+  <!-- BIBLIOTECA SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+
+    // CONFIGURAÇÃO DO PROJETO SUPABASE
+    // Apenas chave pública: nunca utilizar secret/service_role.
+
+    const SUPABASE_URL =
+      "https://ewemcwsatwefamtjxapv.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable__s9nlB-x2xOslj8Oc3NtkA_QUotlldx";
+
+
+    const login = document.getElementById("login");
+    const sistema = document.getElementById("sistema");
+    const mensagem = document.getElementById("mensagem");
+    const btnEntrar = document.getElementById("btnEntrar");
+
+    let db;
+
+    if (!window.supabase) {
+      mensagem.textContent =
+        "Não foi possível carregar a biblioteca Supabase.";
+      mensagem.className = "status error";
+    } else {
+
+      db = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+      iniciarAplicacao();
+    }
+
+
+    function mostrarLogin() {
+      sistema.hidden = true;
+      login.hidden = false;
+    }
+
+
+    async function iniciarAplicacao() {
+
+      document.getElementById("formLogin")
+        .addEventListener("submit", entrar);
+
+      document.getElementById("btnSair")
+        .addEventListener("click", sair);
+
+      await verificarAcesso();
+    }
+
+
+    async function entrar(evento) {
+
+      evento.preventDefault();
+
+      btnEntrar.disabled = true;
+      btnEntrar.textContent = "Entrando...";
+
+      mensagem.textContent = "Verificando credenciais...";
+      mensagem.className = "status";
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("senha").value;
+
+      try {
+
+        const { error } =
+          await db.auth.signInWithPassword({
+            email: email,
+            password: password
+          });
+
+        if (error) {
+          mensagem.textContent =
+            "Não foi possível autenticar. Confira e-mail e senha.";
+          mensagem.className = "status error";
+          return;
+        }
+
+        document.getElementById("senha").value = "";
+
+        await verificarAcesso();
+
+      } catch (erro) {
+
+        mensagem.textContent =
+          "Erro de conexão. Tente novamente.";
+        mensagem.className = "status error";
+
+      } finally {
+
+        btnEntrar.disabled = false;
+        btnEntrar.textContent = "Entrar";
+
+      }
+    }
+
+
+    async function verificarAcesso() {
+
+      try {
+
+        const { data, error } =
+          await db.auth.getUser();
+
+        if (error || !data.user) {
+          mostrarLogin();
+          return;
+        }
+
+        const usuario = data.user;
+
+        // Consultar o perfil do usuário autenticado
+        const { data: perfil, error: erroPerfil } =
+          await db
+            .from("perfis")
+            .select("papel, ativo")
+            .eq("usuario_id", usuario.id)
+            .single();
+
+        if (erroPerfil || !perfil || !perfil.ativo) {
+
+          await db.auth.signOut();
+
+          mostrarLogin();
+
+          mensagem.textContent =
+            "Usuário sem perfil ativo ou sem permissão.";
+          mensagem.className = "status error";
+
+          return;
+        }
+
+        // Autenticação validada
+        login.hidden = true;
+        sistema.hidden = false;
+
+        document.getElementById("usuarioLogado")
+          .textContent = usuario.email;
+
+        document.getElementById("perfilUsuario")
+          .textContent = "Perfil: " + perfil.papel;
+
+        // Executivos não recebem interface de edição
+        document.getElementById("cardAdministrativo")
+          .hidden = perfil.papel === "executivo";
+
+        await carregarProjetos();
+
+      } catch (erro) {
+
+        mostrarLogin();
+
+        mensagem.textContent =
+          "Não foi possível verificar seu acesso.";
+        mensagem.className = "status error";
+
+      }
+    }
+
+
+    async function carregarProjetos() {
+
+      const status =
+        document.getElementById("statusConexao");
+
+      const lista =
+        document.getElementById("listaProjetos");
+
+      status.textContent = "Consultando banco de dados...";
+      status.className = "status";
+      lista.replaceChildren();
+
+      const { data: projetos, error } =
+        await db
+          .from("projetos")
+          .select("id, nome")
+          .order("nome");
+
+      if (error) {
+
+        status.textContent =
+          "Erro ao consultar projetos: " + error.message;
+
+        status.className = "status error";
+
+        lista.textContent =
+          "Não foi possível carregar os projetos.";
+
+        return;
+      }
+
+      status.textContent =
+        "Conexão com Supabase realizada com sucesso!";
+
+      status.className = "status success";
+
+      if (!projetos || projetos.length === 0) {
+
+        lista.textContent =
+          "Nenhum projeto cadastrado até o momento.";
+
+        return;
+      }
+
+      projetos.forEach(function(projeto) {
+
+        const item = document.createElement("div");
+
+        item.className = "project-item";
+
+        item.textContent =
+          projeto.nome || "Projeto sem nome";
+
+        lista.appendChild(item);
+
+      });
+    }
+
+
+    async function sair() {
+
+      const { error } = await db.auth.signOut();
+
+      if (error) {
+        alert("Não foi possível encerrar a sessão.");
+        return;
+      }
+
+      document.getElementById("senha").value = "";
+
+      mensagem.textContent = "";
+
+      mostrarLogin();
+    }
+
+  </script>
+
 </body>
 </html>
