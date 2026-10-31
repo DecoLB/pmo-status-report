@@ -1719,45 +1719,122 @@ async function salvarStatus(e) {
   }
 }
 
+
+const graficosHistoricoPMO = new WeakMap();
+
 function desenharBarras(container, h) {
-  const vis = (h || []).filter(x =>
-    x.planejado !== null || x.realizado !== null
-  ).slice(-12);
+  const graficoAnterior = graficosHistoricoPMO.get(container);
+  if (graficoAnterior) {
+    graficoAnterior.destroy();
+    graficosHistoricoPMO.delete(container);
+  }
 
-  if (!vis.length) return;
+  const historico = (h || [])
+    .filter(x =>
+      x.planejado != null ||
+      x.realizado != null
+    )
+    .sort((a, b) =>
+      String(a.data_referencia || "").localeCompare(
+        String(b.data_referencia || "")
+      )
+    )
+    .slice(-12);
 
-  container.appendChild(E(
-    "p",
-    "Planejado (cinza) x Realizado (laranja)",
-    "muted small"
-  ));
+  if (!historico.length) {
+    container.appendChild(
+      E("p", "Sem dados históricos para o gráfico.", "muted")
+    );
+    return;
+  }
 
-  const graph = E("div", "", "timeline");
+  const area = E("div", "", "pmo-grafico");
+  area.style.height = "260px";
 
-  vis.forEach(x => {
-    const c = E("div", "", "weekbar");
-    const b = E("div", "", "barbox");
+  const canvas = document.createElement("canvas");
+  area.appendChild(canvas);
+  container.appendChild(area);
 
-    for (const [key, cls] of [
-      ["planejado", "plan"],
-      ["realizado", "real"]
-    ]) {
-      const val = x[key] === null || x[key] === undefined
-        ? 0
-        : Math.max(0, Math.min(100, Number(x[key])));
+  if (typeof Chart === "undefined") {
+    area.textContent = "Chart.js não carregado.";
+    return;
+  }
 
-      const e = E("div", "", "bar " + cls);
-      e.style.height = val + "%";
-      e.title = key + ": " + T(x[key]) + "%";
-      b.appendChild(e);
+  const percentual = valor =>
+    valor === null || valor === undefined || valor === ""
+      ? null
+      : Number(valor);
+
+  const grafico = new Chart(canvas, {
+    type: "line",
+    data: {
+      labels: historico.map(x =>
+        dataBR(x.data_referencia).slice(0, 5)
+      ),
+      datasets: [
+        {
+          label: "Planejado",
+          data: historico.map(x => percentual(x.planejado)),
+          borderColor: "#b8c7dd",
+          backgroundColor: "#b8c7dd",
+          borderWidth: 3,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          tension: 0.25,
+          spanGaps: false
+        },
+        {
+          label: "Realizado",
+          data: historico.map(x => percentual(x.realizado)),
+          borderColor: "#f28c00",
+          backgroundColor: "#f28c00",
+          borderWidth: 3,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          tension: 0.25,
+          spanGaps: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: "top",
+          labels: {
+            color: "#ffffff",
+            usePointStyle: true,
+            padding: 18
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: contexto =>
+              contexto.dataset.label + ": " +
+              contexto.parsed.y + "%"
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: "#c5d0df" },
+          grid: { color: "rgba(255,255,255,0.06)" }
+        },
+        y: {
+          min: 0,
+          max: 100,
+          ticks: {
+            color: "#c5d0df",
+            callback: valor => valor + "%"
+          },
+          grid: { color: "rgba(255,255,255,0.08)" }
+        }
+      }
     }
-
-    c.appendChild(b);
-    c.appendChild(E("small", dataBR(x.data_referencia).slice(0, 5)));
-    graph.appendChild(c);
   });
 
-  container.appendChild(graph);
+  graficosHistoricoPMO.set(container, grafico);
 }
 
 function tabelaSemanal(pai, h) {
