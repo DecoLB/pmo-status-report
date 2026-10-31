@@ -1996,6 +1996,8 @@ async function carregarResumo() {
 
       const cont = E("div", "", "group-content");
       const grade = E("div", "", "pmo-carrossel");
+      const detalhes = E("div", "", "pmo-onepage");
+      detalhes.style.display = "none";
 
       g.list
         .sort((a, b) =>
@@ -2034,11 +2036,10 @@ async function carregarResumo() {
             card.appendChild(p);
           }
 
-          const detalhes = E("div");
-
           card.appendChild(btn(
             "Abrir relatório completo e evolução",
             async () => {
+              detalhes.style.display = "block";
               detalhes.textContent = "Carregando relatório...";
               const p = await db.rpc("pmo_detalhe_publicado", {
                 p_projeto_id: x.projeto_id
@@ -2051,11 +2052,11 @@ async function carregarResumo() {
             }
           ));
 
-          card.appendChild(detalhes);
           grade.appendChild(card);
         });
 
       cont.appendChild(grade);
+      cont.appendChild(detalhes);
       d.appendChild(cont);
       alvo.appendChild(d);
     });
