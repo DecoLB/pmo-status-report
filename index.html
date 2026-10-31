@@ -409,6 +409,108 @@ tr:hover td { background: #24364d; }
   }
 }
 
+
+/* PMO Executivo V3 — apresentação compacta e acessível */
+:root { --pmo-soft:#263850; --pmo-accent:#f28c00; --pmo-muted:#c5d0df; }
+main { max-width: 1560px; }
+button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--pmo-accent); outline-offset: 3px;
+}
+.pmo-carrossel { display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory;
+  scroll-behavior:smooth; padding:4px 2px 12px; scrollbar-width:thin; }
+.pmo-projeto-card { flex:0 0 100%; max-width:none; scroll-snap-align:start;
+  border-top:3px solid var(--pmo-accent); padding:18px 20px; }
+.pmo-gerente { overflow:visible; }
+.pmo-gerente > summary { border-radius:10px 10px 0 0; }
+.pmo-carrossel-navegacao { display:flex; align-items:center; justify-content:flex-end;
+  gap:10px; flex-wrap:wrap; margin:0 0 10px; }
+.pmo-carrossel-navegacao button { min-width:42px; padding:8px 13px; }
+.pmo-projeto-corpo { display:grid; grid-template-columns:minmax(280px,.9fr) minmax(300px,1.1fr);
+  gap:20px; align-items:start; }
+.pmo-projeto-metricas { display:grid; gap:12px; }
+.pmo-cartao-topo { display:flex; align-items:start; justify-content:space-between; gap:15px; }
+.pmo-cartao-topo h3 { font-size:clamp(20px,2vw,25px); overflow-wrap:anywhere; }
+.pmo-farois { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.pmo-farol-linha { display:flex; align-items:center; justify-content:space-between; gap:5px;
+  border:1px solid rgba(255,255,255,.08); border-radius:9px; padding:7px 9px; }
+.pmo-farol-linha .farol { white-space:nowrap; }
+.pmo-cartao-rodape { display:flex; gap:10px; justify-content:flex-end; align-items:center; flex-wrap:wrap; }
+.pmo-carrossel .pmo-grafico { height:205px; margin:0; }
+.pmo-grafico canvas { max-height:100%; }
+.pmo-onepage { margin-top:16px; padding:20px; border:1px solid var(--borda);
+  border-radius:14px; background:var(--painel); }
+.pmo-rel-cabecalho { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.pmo-rel-cabecalho h3 { margin:0; font-size:clamp(21px,2vw,27px); }
+.pmo-rel-sub { font-size:13px; color:var(--sub); margin:5px 0 0; }
+.pmo-rel-kpis { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin:16px 0; }
+.pmo-rel-kpi { border-radius:10px; padding:11px 13px; background:var(--pmo-soft); min-width:0; }
+.pmo-rel-kpi span { font-size:12px; color:var(--sub); display:block; }
+.pmo-rel-kpi strong { font-size:clamp(18px,2vw,26px); overflow-wrap:anywhere; display:block; }
+.pmo-tabs { display:flex; overflow-x:auto; gap:8px; padding:4px 0 12px; margin:0 0 12px;
+  scrollbar-width:thin; }
+.pmo-tabs button { background:#344a67; color:#fff; padding:9px 13px; white-space:nowrap;
+  border-radius:8px; flex:0 0 auto; }
+.pmo-tabs button[aria-selected="true"] { background:var(--laranja); }
+.pmo-pane[hidden], [data-pmo-pane][hidden] { display:none!important; }
+.pmo-rel-grid { display:grid; grid-template-columns: minmax(0,1.12fr) minmax(0,.88fr); gap:14px; align-items:start; }
+.pmo-rel-section { min-width:0; background:#172438; border:1px solid var(--borda);
+  border-radius:10px; padding:14px; }
+.pmo-rel-section h4 { margin:0 0 9px; font-size:16px; }
+.pmo-rel-chart { height:260px; }
+.pmo-campos { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 16px; }
+.pmo-campo { border-bottom:1px solid rgba(255,255,255,.075); padding:6px 0; min-width:0; }
+.pmo-campo small { color:var(--sub); display:block; font-size:11px; }
+.pmo-campo span { display:block; overflow-wrap:anywhere; white-space:pre-wrap; font-size:13px; }
+.pmo-lista-linha { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:9px; align-items:start;
+  padding:12px 0; border-bottom:1px solid var(--borda); }
+.pmo-lista-linha:last-child { border-bottom:0; }
+.pmo-lista-linha strong { display:block; }
+.pmo-lista-linha small { display:block; color:var(--sub); }
+.pmo-detalhe-item { margin-top:9px; }
+.pmo-detalhe-item > summary { cursor:pointer; color:#e5eefa; font-size:13px; }
+.pmo-rel-section .pmo-grafico { height:255px; }
+.pmo-rodape-status { position:sticky; bottom:0; z-index:4; background:#172438;
+  border:1px solid #41536b; padding:12px 14px; border-radius:10px; margin-top:12px;
+  display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px; }
+.pmo-rodape-status button { margin:0; }
+.pmo-status-info { font-size:12px; color:var(--sub); }
+.pmo-form-nav { display:flex; gap:8px; overflow-x:auto; padding:12px 0 8px; margin-top:10px;
+  scrollbar-width:thin; }
+.pmo-form-nav button { background:#344a67; border-radius:10px; padding:11px 15px;
+  flex:0 0 auto; white-space:nowrap; }
+.pmo-form-nav button[aria-selected="true"] { background:var(--laranja); }
+.pmo-status-pane { margin:8px 0; min-height:230px; }
+.pmo-status-pane .grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+.pmo-status-pane label { margin-bottom:8px; }
+.pmo-status-pane input,.pmo-status-pane textarea,.pmo-status-pane select { margin-top:5px; padding:10px; }
+.pmo-status-pane textarea { min-height:72px; }
+.pmo-status-pane .line { margin:10px 0; padding:13px; }
+.pmo-status-pane .line .grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.pmo-status-pane .line .top { position:relative; }
+.pmo-status-pane .line textarea { min-height:64px; }
+.pmo-status-pane h3 { margin-bottom:9px; }
+.pmo-status-pane .info { margin:8px 0; }
+.pmo-acao-resumo { background:var(--interno); border-radius:8px; padding:9px 11px; }
+.pmo-mobile-hint { font-size:12px; color:var(--sub); }
+@media(max-width:1050px) {
+ .pmo-projeto-corpo,.pmo-rel-grid { grid-template-columns:1fr; }
+ .pmo-rel-kpis { grid-template-columns:repeat(3,minmax(0,1fr)); }
+ .pmo-status-pane .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .pmo-status-pane .line .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:650px) {
+ .pmo-rel-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .pmo-campos,.pmo-status-pane .grid,.pmo-status-pane .line .grid,
+ .pmo-farois { grid-template-columns:1fr; }
+ .pmo-projeto-card,.pmo-onepage { padding:13px; }
+ .pmo-carrossel-navegacao { justify-content:space-between; }
+ .pmo-rodape-status { position:static; }
+}
+@media print {
+ nav,.pmo-form-nav,.pmo-rodape-status,.pmo-carrossel-navegacao { display:none!important; }
+ .pmo-onepage { border:0; box-shadow:none; }
+}
+
 </style>
 </head>
 <body>
@@ -522,9 +624,8 @@ tr:hover td { background: #24364d; }
     <div class="card">
       <h2>Status Report Semanal</h2>
       <p class="muted">
-        O Gerente responsável salva e publica automaticamente; não há aprovação
-        administrativa. Cada semana mantém seu próprio registro e pode ser
-        comparada com a anterior.
+        Preencha por seções. O Gerente responsável salva e publica automaticamente;
+        cada semana preserva seu próprio histórico para comparação.
       </p>
 
       <form id="formStatus">
@@ -546,8 +647,9 @@ tr:hover td { background: #24364d; }
           Usar última semana como ponto de partida
         </button>
 
+        <div id="pmoFormNav" class="pmo-form-nav" role="tablist" aria-label="Seções do relatório semanal"></div>
         <fieldset id="camposStatus" disabled>
-          <div class="section">
+          <div class="section pmo-status-pane" data-pmo-pane="indicadores">
             <h3>Planejamento e indicadores</h3>
             <div class="grid">
               <label>Planejado (%)
@@ -574,7 +676,7 @@ tr:hover td { background: #24364d; }
             </p>
           </div>
 
-          <div class="section">
+          <div class="section pmo-status-pane" data-pmo-pane="datas" hidden>
             <h3>Datas, responsáveis e custos</h3>
             <div class="grid">
               <label>Início baseline
@@ -623,7 +725,7 @@ tr:hover td { background: #24364d; }
             </label>
           </div>
 
-          <div class="section">
+          <div class="section pmo-status-pane" data-pmo-pane="saude" hidden>
             <h3>Saúde do projeto</h3>
             <div class="grid">
               <label>Escopo *
@@ -642,7 +744,7 @@ tr:hover td { background: #24364d; }
             <div id="sFarolGeral" class="info">Farol geral: —</div>
           </div>
 
-          <div id="secMarcos" class="section">
+          <div id="secMarcos" class="section pmo-status-pane" data-pmo-pane="marcos" hidden>
             <h3>Marcos e entregas</h3>
             <p class="muted">
               Informe responsável, datas, situação, percentual e peso,
@@ -655,7 +757,7 @@ tr:hover td { background: #24364d; }
             </button>
           </div>
 
-          <div id="secRiscos" class="section">
+          <div id="secRiscos" class="section pmo-status-pane" data-pmo-pane="riscos" hidden>
             <h3>Riscos e impedimentos</h3>
             <p class="muted">
               Registre descrição, severidade, ação ou mitigação,
@@ -668,7 +770,7 @@ tr:hover td { background: #24364d; }
             </button>
           </div>
 
-          <div id="secAcoes" class="section">
+          <div id="secAcoes" class="section pmo-status-pane" data-pmo-pane="acoes" hidden>
             <h3>Próximos passos estruturados</h3>
             <p class="muted">
               O quê, quem e quando. Use a mesma ação nas próximas semanas
@@ -680,7 +782,7 @@ tr:hover td { background: #24364d; }
             </button>
           </div>
 
-          <div class="section">
+          <div class="section pmo-status-pane" data-pmo-pane="acompanhamento" hidden>
             <h3>Acompanhamento</h3>
             <label>Realizado
               <textarea id="sFeito"></textarea>
@@ -694,9 +796,17 @@ tr:hover td { background: #24364d; }
           </div>
         </fieldset>
 
-        <button id="salvarStatus" type="submit" disabled>
-          Salvar e publicar relatório
-        </button>
+        <div class="pmo-rodape-status">
+          <div>
+            <strong id="pmoStatusTitulo">Planejamento e indicadores</strong>
+            <div id="pmoStatusProgresso" class="pmo-status-info">Seção 1 de 7</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button id="pmoStatusAnterior" type="button" class="secondary">Anterior</button>
+            <button id="pmoStatusProximo" type="button" class="secondary">Próxima seção</button>
+            <button id="salvarStatus" type="submit" disabled>Salvar e publicar</button>
+          </div>
+        </div>
         <p id="msgStatus" class="message" role="status"></p>
       </form>
     </div>
@@ -708,8 +818,8 @@ tr:hover td { background: #24364d; }
         <div>
           <h2>Resumo Executivo por Gerente</h2>
           <p class="muted">
-            Último relatório publicado de cada projeto, agrupado pelo vínculo
-            real do Gerente. Clique em “Relatório completo” para ver a evolução.
+              Projetos agrupados por gerente, com navegação horizontal, indicadores,
+              gráficos de evolução e relatório completo em visão compacta.
           </p>
         </div>
         <button id="atualizarResumo" class="secondary" type="button">
@@ -1289,6 +1399,11 @@ function montarLinha(tipo, registro = {}) {
   });
 
   top.appendChild(remover);
+  const recolher = btn("Recolher campos", () => {
+    grid.hidden = !grid.hidden;
+    recolher.textContent = grid.hidden ? "Expandir campos" : "Recolher campos";
+  }, "secondary");
+  top.appendChild(recolher);
   box.appendChild(top);
 
   for (const [col, nome, tipoInput] of def.fields) {
@@ -1620,6 +1735,7 @@ async function copiarSemanaAnterior() {
 
 async function salvarStatus(e) {
   e.preventDefault();
+  if (!pmoValidarObrigatorios()) return;
 
   const pid = Number(V("sProjeto"));
   const dt = V("sData");
@@ -1714,6 +1830,9 @@ async function salvarStatus(e) {
     );
   } catch (err) {
     M("msgStatus", "Erro: " + err.message, "error");
+    for (const t of ["marcos", "riscos", "acoes"]) {
+      if (String(err.message).includes("linhas de " + t)) mostrarPainelStatus(t);
+    }
   } finally {
     bloquearStatus();
   }
@@ -1722,7 +1841,7 @@ async function salvarStatus(e) {
 
 const graficosHistoricoPMO = new WeakMap();
 
-function desenharBarras(container, h) {
+function desenharBarras(container, h, altura = 260) {
   const graficoAnterior = graficosHistoricoPMO.get(container);
   if (graficoAnterior) {
     graficoAnterior.destroy();
@@ -1749,7 +1868,7 @@ function desenharBarras(container, h) {
   }
 
   const area = E("div", "", "pmo-grafico");
-  area.style.height = "260px";
+  area.style.height = altura + "px";
 
   const canvas = document.createElement("canvas");
   area.appendChild(canvas);
@@ -1889,262 +2008,386 @@ function compararItens(pai, nome, atual, antes, chave) {
   }
 }
 
-function detalheExecutivo(pai, pacote) {
-  pai.replaceChildren();
-  const r = pacote?.relatorio;
-
-  if (!r) {
-    pai.textContent = "Nenhum relatório publicado";
-    return;
-  }
-
-  pai.appendChild(E(
-    "h3", "Relatório completo — " + dataBR(r.data_referencia)
-  ));
-
-  const g = E("div", "", "grid-wide");
-  const c1 = E("div");
-  const c2 = E("div");
-
-  for (const [titulo, v] of [
-    ["Objetivo", r.objetivo],
-    ["Contexto", r.contexto],
-    ["Status geral", r.status_geral],
-    ["SPI", r.spi],
-    ["Início baseline", dataBR(r.inicio_baseline)],
-    ["Go-Live baseline", dataBR(r.go_live_baseline)],
-    ["Go-Live forecast", dataBR(r.go_live_forecast)],
-    ["Líder Naturgy", r.lider_naturgy],
-    ["Fornecedor", r.fornecedor_report],
-    ["Sponsor", r.stakeholder_report]
-  ]) {
-    c1.appendChild(E("p", titulo + ": " + T(v)));
-  }
-
-  for (const [titulo, v] of [
-    ["Escopo", r.farol_escopo],
-    ["Prazo", r.farol_prazo],
-    ["Custo", r.farol_custo],
-    ["Qualidade", r.farol_qualidade],
-    ["Classificação de custo", r.custo_modalidade],
-    ["Custo aprovado", r.custo_aprovado],
-    ["Custo realizado", r.custo_realizado],
-    ["Observações de custo", r.custo_observacoes],
-    ["Observações gerenciais", r.observacoes_gerenciais]
-  ]) {
-    if (
-      (titulo === "Custo aprovado" || titulo === "Custo realizado") &&
-      cred("executivo")
-    ) continue;
-    c2.appendChild(E("p", titulo + ": " + T(v)));
-  }
-
-  g.append(c1, c2);
-  pai.appendChild(g);
-
-  for (const [t, v] of [
-    ["Realizado", r.resumo_realizado],
-    ["Em andamento", r.resumo_andamento],
-    ["Próximos passos", r.resumo_proximos]
-  ]) {
-    pai.appendChild(E("h4", t));
-    pai.appendChild(E("p", T(v), "muted"));
-  }
-
-  for (const [nome, campo] of [
-    ["Marcos e entregas", "marcos"],
-    ["Riscos e impedimentos", "riscos"],
-    ["Próximos passos estruturados", "proximos"]
-  ]) {
-    pai.appendChild(E("h4", nome));
-    const ar = pacote[campo] || [];
-
-    if (!ar.length) {
-      pai.appendChild(E("p", "Sem registros", "muted"));
-    }
-
-    for (const x of ar) {
-      const ds = x.data_fim_forecast ||
-        x.data_fim_baseline || x.prazo;
-
-      let info = T(x.descricao) + " | " +
-        T(x.situacao) + " | Resp.: " + T(x.responsavel);
-
-      if (ds) info += " | Data: " + dataBR(ds);
-      if (
-        x.percentual_concluido !== null &&
-        x.percentual_concluido !== undefined
-      ) {
-        info += " | " + x.percentual_concluido + "%";
-      }
-      if (x.severidade) info += " | Sev.: " + x.severidade;
-      if (x.acao_mitigacao) {
-        info += " | Mitigação: " + x.acao_mitigacao;
-      }
-      pai.appendChild(E("p", info, "compact"));
-    }
-  }
-
-  const hist = pacote.historico || [];
-  pai.appendChild(E("h4", "Histórico semanal"));
-
-if (hist.length) {
-  desenharBarras(pai, hist);
-
-  const tabelaHistorica = document.createElement("details");
-
-  tabelaHistorica.appendChild(
-    E("summary", "Ver tabela histórica detalhada")
-  );
-
-  tabelaSemanal(tabelaHistorica, hist);
-
-  pai.appendChild(tabelaHistorica);
-} else {
-  pai.appendChild(E("p", "Sem histórico"));
+function pmoCampo(pai, titulo, valor, data = false) {
+  const el = E("div", "", "pmo-campo");
+  el.appendChild(E("small", titulo));
+  const vazio = valor === null || valor === undefined || valor === "";
+  el.appendChild(E("span", vazio ? "—" : (data ? dataBR(valor) : String(valor))));
+  pai.appendChild(el);
 }
 
-  if (hist.length > 1) {
-    const a = hist[hist.length - 1];
-    const b = hist[hist.length - 2];
-    const delta = (x, y) => x == null || y == null
-      ? "—"
-      : ((x - y > 0 ? "+" : "") +
-         (Number(x) - Number(y)).toFixed(2) + " p.p.");
+function pmoKpi(pai, titulo, valor) {
+  const d = E("div", "", "pmo-rel-kpi");
+  d.appendChild(E("span", titulo));
+  d.appendChild(E("strong", valor === null || valor === undefined || valor === "" ? "—" : String(valor)));
+  pai.appendChild(d);
+}
 
-    pai.appendChild(E(
-      "p",
-      "Variação Planejado: " + delta(a.planejado, b.planejado) +
-      " | Realizado: " + delta(a.realizado, b.realizado)
-    ));
+function pmoBloco(titulo) {
+  const b = E("section", "", "pmo-rel-section");
+  b.appendChild(E("h4", titulo));
+  return b;
+}
+
+function pmoPainelInfo(titulo, itens) {
+  const b = pmoBloco(titulo);
+  const grade = E("div", "", "pmo-campos");
+  itens.forEach(([nome, valor, data]) => pmoCampo(grade, nome, valor, !!data));
+  b.appendChild(grade);
+  return b;
+}
+
+function pmoListaEstruturada(titulo, arr, tipo) {
+  const b = pmoBloco(titulo + " (" + (arr || []).length + ")");
+  if (!(arr || []).length) {
+    b.appendChild(E("p", "Nenhum registro nesta semana.", "muted small"));
+    return b;
+  }
+  for (const x of arr) {
+    const it = E("div", "", "pmo-lista-linha");
+    const principal = E("div");
+    principal.appendChild(E("strong", T(x.descricao)));
+    principal.appendChild(E("small", "Responsável: " + T(x.responsavel) + " · " + T(x.situacao)));
+    const classe = tipo === "riscos" && x.severidade === "Crítico" ? "vermelho" :
+      (tipo === "marcos" && x.situacao === "Concluído" ? "verde" : "cinza");
+    const rotulo = tipo === "marcos" && x.percentual_concluido != null
+      ? x.percentual_concluido + "%" : (tipo === "riscos" ? T(x.severidade) : T(x.situacao));
+    it.appendChild(principal);
+    it.appendChild(E("span", rotulo, "farol " + classe));
+    const campos = tipo === "marcos" ? [
+      ["Início", x.data_inicio, true], ["Nota de início / TBD", x.inicio_descricao],
+      ["Fim baseline", x.data_fim_baseline, true], ["Nota de fim / TBD", x.fim_descricao],
+      ["Fim forecast", x.data_fim_forecast, true], ["Concluído (%)", x.percentual_concluido],
+      ["Peso", x.peso], ["Situação", x.situacao], ["Observações", x.observacoes]
+    ] : tipo === "riscos" ? [
+      ["Severidade", x.severidade], ["Ação / mitigação", x.acao_mitigacao],
+      ["Prazo", x.prazo, true], ["Nota prazo / TBD", x.prazo_descricao],
+      ["Situação", x.situacao], ["Observações", x.observacoes]
+    ] : [
+      ["Prazo", x.prazo, true], ["Nota prazo / TBD", x.prazo_descricao],
+      ["Situação", x.situacao], ["Conclusão", x.data_conclusao, true],
+      ["Observações", x.observacoes]
+    ];
+    const detalhes = document.createElement("details");
+    detalhes.className = "pmo-detalhe-item";
+    detalhes.appendChild(E("summary", "Ver todos os campos"));
+    const dados = E("div", "", "pmo-campos");
+    campos.forEach(([nome, valor, data]) => pmoCampo(dados, nome, valor, !!data));
+    detalhes.appendChild(dados);
+    principal.appendChild(detalhes);
+    b.appendChild(it);
+  }
+  return b;
+}
+
+function detalheExecutivo(pai, pacote, contexto = {}) {
+  pai.replaceChildren();
+  const r = pacote?.relatorio;
+  if (!r) { pai.textContent = "Nenhum relatório publicado"; return; }
+
+  const hist = [...(pacote.historico || [])].sort((a, b) =>
+    String(a.data_referencia).localeCompare(String(b.data_referencia)));
+  const ult = hist.length ? hist[hist.length - 1] : r;
+  const pen = hist.length > 1 ? hist[hist.length - 2] : null;
+  const delta = (a, b) => a == null || b == null ? "—" :
+    ((Number(a) - Number(b) >= 0 ? "+" : "") + (Number(a) - Number(b)).toFixed(1) + " p.p.");
+
+  const header = E("div", "", "pmo-rel-cabecalho");
+  const nomes = E("div");
+  nomes.appendChild(E("h3", contexto.projeto || "Relatório executivo completo"));
+  nomes.appendChild(E("p", "Gerente: " + T(contexto.gerente) +
+    " · Semana: " + dataBR(r.data_referencia), "pmo-rel-sub"));
+  const fechar = btn("Fechar relatório", () => {
+    pai.hidden = true;
+    pai.replaceChildren();
+  }, "secondary");
+  header.append(nomes, fechar);
+  pai.appendChild(header);
+
+  const kpis = E("div", "", "pmo-rel-kpis");
+  pmoKpi(kpis, "Planejado", r.planejado == null ? "—" : r.planejado + "%");
+  pmoKpi(kpis, "Realizado", r.realizado == null ? "—" : r.realizado + "%");
+  pmoKpi(kpis, "Variação realizado", pen ? delta(ult.realizado, pen.realizado) : "—");
+  pmoKpi(kpis, "SPI informado", r.spi);
+  pmoKpi(kpis, "Go-live forecast", r.go_live_forecast ? dataBR(r.go_live_forecast) : "TBD");
+  pai.appendChild(kpis);
+
+  const abas = [
+    ["visao", "Visão geral"], ["marcos", "Marcos"], ["riscos", "Riscos"],
+    ["acoes", "Próximos passos"], ["datas", "Datas e gestão"],
+    ["historico", "Histórico"]
+  ];
+  const nav = E("div", "", "pmo-tabs");
+  nav.setAttribute("role", "tablist");
+  const panes = new Map();
+  const buttons = new Map();
+  function mostrarAbaRel(id) {
+    for (const [nome, el] of panes) el.hidden = nome !== id;
+    for (const [nome, el] of buttons) el.setAttribute("aria-selected", String(nome === id));
+  }
+  for (const [id, titulo] of abas) {
+    const b = btn(titulo, () => mostrarAbaRel(id), "secondary");
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", String(id === "visao"));
+    buttons.set(id, b);
+    nav.appendChild(b);
+  }
+  pai.appendChild(nav);
+  for (const [id] of abas) {
+    const div = E("div", "", "pmo-pane");
+    div.hidden = id !== "visao";
+    panes.set(id, div);
+    pai.appendChild(div);
   }
 
-  if (hist.length > 1) {
-    compararItens(
-      pai, "marcos", pacote.marcos,
-      pacote.marcos_anteriores, "marco_chave"
-    );
-    compararItens(
-      pai, "riscos", pacote.riscos,
-      pacote.riscos_anteriores, "risco_chave"
-    );
-    compararItens(
-      pai, "ações", pacote.proximos,
-      pacote.proximos_anteriores, "acao_chave"
-    );
+  const visual = panes.get("visao");
+  const duas = E("div", "", "pmo-rel-grid");
+  const gra = pmoBloco("Evolução de planejado x realizado");
+  if (hist.length) desenharBarras(gra, hist);
+  else gra.appendChild(E("p", "Sem histórico para exibir.", "muted"));
+  const resumo = pmoBloco("Situação e saúde");
+  const hs = E("div", "", "pmo-farois");
+  for (const [nome, valor] of [
+    ["Escopo", r.farol_escopo], ["Prazo", r.farol_prazo],
+    ["Custo", r.farol_custo], ["Qualidade", r.farol_qualidade]
+  ]) {
+    const linha = E("div", "", "pmo-farol-linha");
+    linha.appendChild(E("span", nome));
+    linha.appendChild(E("span", T(valor), "farol " + classeFarol(valor)));
+    hs.appendChild(linha);
   }
+  resumo.appendChild(hs);
+  resumo.appendChild(E("p", "Status geral: " + T(r.status_geral), "small"));
+  resumo.appendChild(E("p", "Objetivo: " + T(r.objetivo), "small"));
+  resumo.appendChild(E("p", "Contexto: " + T(r.contexto), "small"));
+  duas.append(gra, resumo);
+  visual.appendChild(duas);
+  const acompanhamento = pmoPainelInfo("Acompanhamento desta semana", [
+    ["Realizado", r.resumo_realizado],
+    ["Em andamento", r.resumo_andamento],
+    ["Próximos passos — síntese", r.resumo_proximos]
+  ]);
+  acompanhamento.style.marginTop = "12px";
+  visual.appendChild(acompanhamento);
+
+  panes.get("marcos").appendChild(pmoListaEstruturada("Marcos e entregas", pacote.marcos, "marcos"));
+  panes.get("riscos").appendChild(pmoListaEstruturada("Riscos e impedimentos", pacote.riscos, "riscos"));
+  panes.get("acoes").appendChild(pmoListaEstruturada("Próximos passos estruturados", pacote.proximos, "acoes"));
+
+  const dados = panes.get("datas");
+  const gDados = E("div", "", "pmo-rel-grid");
+  gDados.appendChild(pmoPainelInfo("Datas e responsáveis", [
+    ["Início baseline", r.inicio_baseline, true],
+    ["Início: nota / TBD", r.inicio_descricao],
+    ["Go-live baseline", r.go_live_baseline, true],
+    ["Go-live forecast", r.go_live_forecast, true],
+    ["Go-live: nota / TBD", r.go_live_descricao],
+    ["Líder Naturgy", r.lider_naturgy],
+    ["Fornecedor / líder fornecedor", r.fornecedor_report],
+    ["Sponsor / Stakeholder", r.stakeholder_report]
+  ]));
+  const custoCampos = [
+    ["Classificação de custo", r.custo_modalidade],
+    ["Observações de custo", r.custo_observacoes],
+    ["Observações gerenciais", r.observacoes_gerenciais]
+  ];
+  if (!cred("executivo")) {
+    custoCampos.splice(1, 0, ["Custo aprovado", r.custo_aprovado], ["Custo realizado", r.custo_realizado]);
+  }
+  gDados.appendChild(pmoPainelInfo("Gestão e custos", custoCampos));
+  dados.appendChild(gDados);
+
+  const hPane = panes.get("historico");
+  const chartWrap = pmoBloco("Histórico semanal");
+  if (hist.length) {
+    desenharBarras(chartWrap, hist);
+    const tabela = document.createElement("details");
+    tabela.appendChild(E("summary", "Ver tabela histórica detalhada"));
+    tabelaSemanal(tabela, hist);
+    chartWrap.appendChild(tabela);
+    if (pen) chartWrap.appendChild(E("p", "Variação planejado: " + delta(ult.planejado, pen.planejado) +
+      " · Realizado: " + delta(ult.realizado, pen.realizado), "small muted"));
+  } else chartWrap.appendChild(E("p", "Sem histórico.", "muted"));
+  hPane.appendChild(chartWrap);
+  if (hist.length > 1) {
+    const cmp = document.createElement("details");
+    cmp.className = "pmo-rel-section";
+    cmp.style.marginTop = "12px";
+    cmp.appendChild(E("summary", "Comparar marcos, riscos e ações com a semana anterior"));
+    compararItens(cmp, "marcos", pacote.marcos, pacote.marcos_anteriores, "marco_chave");
+    compararItens(cmp, "riscos", pacote.riscos, pacote.riscos_anteriores, "risco_chave");
+    compararItens(cmp, "ações", pacote.proximos, pacote.proximos_anteriores, "acao_chave");
+    hPane.appendChild(cmp);
+  }
+}
+
+const pmoDetalhesEmCache = new Map();
+
+async function pmoBuscarDetalhe(projetoId) {
+  const chave = String(projetoId);
+  if (!pmoDetalhesEmCache.has(chave)) {
+    const req = db.rpc("pmo_detalhe_publicado", {p_projeto_id: projetoId})
+      .then(res => {
+        if (res.error) throw res.error;
+        return res.data;
+      }).catch(err => {
+        pmoDetalhesEmCache.delete(chave);
+        throw err;
+      });
+    pmoDetalhesEmCache.set(chave, req);
+  }
+  return pmoDetalhesEmCache.get(chave);
 }
 
 async function carregarResumo() {
   const seq = ++sequenciaResumo;
+  pmoDetalhesEmCache.clear();
   const alvo = $("listaResumo");
   alvo.textContent = "Carregando relatórios publicados...";
 
   const r = await db.rpc("resumo_publicado_por_gerente");
   if (seq !== sequenciaResumo) return;
-
-  if (r.error) {
-    alvo.textContent = "Erro: " + r.error.message;
-    return;
-  }
-
+  if (r.error) { alvo.textContent = "Erro: " + r.error.message; return; }
   alvo.replaceChildren();
-
   if (!r.data?.length) {
     alvo.textContent = "Nenhum relatório publicado até o momento.";
     return;
   }
 
-  const groups = new Map();
-
+  const grupos = new Map();
   r.data.forEach(x => {
     const k = x.gerente_id || "sem-gerente";
-
-    if (!groups.has(k)) {
-      groups.set(k, {
-        nome: x.gerente_identificacao || "Sem gerente atribuído",
-        list: []
-      });
-    }
-    groups.get(k).list.push(x);
+    if (!grupos.has(k)) grupos.set(k, {
+      nome: x.gerente_identificacao || "Sem gerente atribuído", list: []
+    });
+    grupos.get(k).list.push(x);
   });
 
-  Array.from(groups.values())
-    .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"))
+  Array.from(grupos.values())
+    .sort((a,b) => a.nome.localeCompare(b.nome, "pt-BR"))
     .forEach(g => {
-      const d = document.createElement("details");
-      d.open = true;
-      d.className = "group pmo-gerente";
-      d.appendChild(E(
-        "summary",
-        "Gerente: " + g.nome + " — " + g.list.length + " projeto(s)"
-      ));
+      const section = document.createElement("details");
+      section.open = true;
+      section.className = "group pmo-gerente";
+      section.appendChild(E("summary", "Gerente: " + g.nome + " — " + g.list.length +
+        (g.list.length === 1 ? " projeto" : " projetos")));
+      const body = E("div", "", "group-content");
+      const controls = E("div", "", "pmo-carrossel-navegacao");
+      const pos = E("span", "1 / " + g.list.length, "muted small");
+      const voltar = btn("‹ Anterior", () => navegar(-1), "secondary");
+      const avancar = btn("Próximo ›", () => navegar(1), "secondary");
+      controls.append(voltar, pos, avancar);
+      const carrossel = E("div", "", "pmo-carrossel");
+      carrossel.setAttribute("aria-label", "Projetos do gerente " + g.nome);
+      carrossel.tabIndex = 0;
+      const detalhamento = E("div", "", "pmo-onepage");
+      detalhamento.hidden = true;
 
-      const cont = E("div", "", "group-content");
-      const grade = E("div", "", "pmo-carrossel");
-      const detalhes = E("div", "", "pmo-onepage");
-      detalhes.style.display = "none";
-
-      g.list
-        .sort((a, b) =>
-          a.projeto_nome.localeCompare(b.projeto_nome, "pt-BR"))
-        .forEach(x => {
-          const card = E("div", "", "summary-card pmo-projeto-card");
-          card.appendChild(E("h3", x.projeto_nome));
-          card.appendChild(E(
-            "p",
-            "Referência: " + dataBR(x.data_referencia),
-            "muted"
-          ));
-
-          const stats = E("div", "", "stats");
-
-          for (const [nome, v] of [
-            ["Planejado", x.planejado],
-            ["Realizado", x.realizado]
-          ]) {
-            const s = E("div", "", "stat");
-            s.appendChild(E("span", nome));
-            s.appendChild(E("strong", v == null ? "—" : v + "%"));
-            stats.appendChild(s);
-          }
-          card.appendChild(stats);
-
-          for (const [n, v] of [
-            ["Escopo", x.farol_escopo],
-            ["Prazo", x.farol_prazo],
-            ["Custo", x.farol_custo],
-            ["Qualidade", x.farol_qualidade]
-          ]) {
-            const p = E("p", n + ": ");
-            p.appendChild(E("span", T(v),
-              "farol " + classeFarol(v)));
-            card.appendChild(p);
-          }
-
-          card.appendChild(btn(
-            "Abrir relatório completo e evolução",
-            async () => {
-              detalhes.style.display = "block";
-              detalhes.textContent = "Carregando relatório...";
-              const p = await db.rpc("pmo_detalhe_publicado", {
-                p_projeto_id: x.projeto_id
-              });
-              if (p.error) {
-                detalhes.textContent = "Erro: " + p.error.message;
-                return;
-              }
-              detalheExecutivo(detalhes, p.data);
-            }
-          ));
-
-          grade.appendChild(card);
+      const sorted = g.list.sort((a,b) =>
+        a.projeto_nome.localeCompare(b.projeto_nome, "pt-BR"));
+      let indice = 0;
+      let timerFluxo = 0;
+      function carregarGraficoAtivo() {
+        const card = carrossel.children[indice];
+        const alvoGrafico = card?.querySelector("[data-mini-chart]");
+        if (!alvoGrafico || alvoGrafico.dataset.loaded === "1") return;
+        const projetoId = sorted[indice].projeto_id;
+        alvoGrafico.dataset.loaded = "1";
+        alvoGrafico.appendChild(E("p", "Carregando evolução...", "muted small"));
+        pmoBuscarDetalhe(projetoId).then(pacote => {
+          if (seq !== sequenciaResumo || !alvoGrafico.isConnected) return;
+          alvoGrafico.replaceChildren();
+          if (pacote?.historico?.length) desenharBarras(alvoGrafico, pacote.historico, 185);
+          else alvoGrafico.appendChild(E("p", "Sem histórico semanal.", "muted"));
+        }).catch(err => {
+          if (!alvoGrafico.isConnected) return;
+          alvoGrafico.dataset.loaded = "";
+          alvoGrafico.textContent = "Não foi possível carregar o gráfico: " + err.message;
         });
+      }
+      function selecionar(i, scroll = true) {
+        indice = Math.max(0, Math.min(sorted.length - 1, i));
+        pos.textContent = (indice+1) + " / " + sorted.length;
+        voltar.disabled = indice === 0;
+        avancar.disabled = indice === sorted.length - 1;
+        if (scroll && carrossel.children[indice]) {
+          carrossel.scrollTo({
+            left: carrossel.children[indice].offsetLeft - carrossel.children[0].offsetLeft,
+            behavior: "instant"
+          });
+        }
+        carregarGraficoAtivo();
+      }
+      function navegar(delta) { selecionar(indice + delta); }
+      carrossel.addEventListener("scroll", () => {
+        window.clearTimeout(timerFluxo);
+        timerFluxo = window.setTimeout(() => {
+          const card0 = carrossel.children[0];
+          if (!card0) return;
+          const largura = card0.offsetWidth + 16;
+          selecionar(Math.round(carrossel.scrollLeft / largura), false);
+        }, 100);
+      });
+      carrossel.addEventListener("keydown", e => {
+        if (e.target !== carrossel) return;
+        if (e.key === "ArrowRight") { e.preventDefault(); navegar(1); }
+        if (e.key === "ArrowLeft") { e.preventDefault(); navegar(-1); }
+      });
 
-      cont.appendChild(grade);
-      cont.appendChild(detalhes);
-      d.appendChild(cont);
-      alvo.appendChild(d);
+      sorted.forEach(x => {
+        const card = E("article", "", "summary-card pmo-projeto-card");
+        const topo = E("div", "", "pmo-cartao-topo");
+        const nome = E("div");
+        nome.appendChild(E("h3", x.projeto_nome));
+        nome.appendChild(E("small", "Referência: " + dataBR(x.data_referencia), "muted"));
+        topo.appendChild(nome);
+        topo.appendChild(E("span", T(x.farol_prazo), "farol " + classeFarol(x.farol_prazo)));
+        card.appendChild(topo);
+
+        const corpo = E("div", "", "pmo-projeto-corpo");
+        const met = E("div", "", "pmo-projeto-metricas");
+        const numeros = E("div", "", "pmo-kpis");
+        [["Planejado",x.planejado],["Realizado",x.realizado]].forEach(([t,v]) => {
+          const caixa = E("div", "", "pmo-kpi");
+          caixa.appendChild(E("div", t, "pmo-kpi-label"));
+          caixa.appendChild(E("strong", v == null ? "—" : v + "%", "pmo-kpi-valor"));
+          numeros.appendChild(caixa);
+        });
+        met.appendChild(numeros);
+        const farois = E("div", "", "pmo-farois");
+        [["Escopo",x.farol_escopo],["Prazo",x.farol_prazo],
+         ["Custo",x.farol_custo],["Qualidade",x.farol_qualidade]].forEach(([n,v]) => {
+          const linha = E("div", "", "pmo-farol-linha");
+          linha.appendChild(E("small", n));
+          linha.appendChild(E("span", T(v), "farol " + classeFarol(v)));
+          farois.appendChild(linha);
+        });
+        met.appendChild(farois);
+        const grafico = E("div", "", "pmo-mini-chart");
+        grafico.setAttribute("data-mini-chart", "");
+        corpo.append(met,grafico);
+        card.appendChild(corpo);
+        const rodape = E("div", "", "pmo-cartao-rodape");
+        rodape.appendChild(btn("Abrir relatório one-page", async () => {
+          detalhamento.hidden = false;
+          detalhamento.textContent = "Carregando relatório completo...";
+          try {
+            const pacote = await pmoBuscarDetalhe(x.projeto_id);
+            if (seq !== sequenciaResumo || !detalhamento.isConnected) return;
+            detalheExecutivo(detalhamento, pacote, {projeto:x.projeto_nome, gerente:g.nome});
+            detalhamento.scrollIntoView({behavior:"smooth", block:"start"});
+          } catch(err) {
+            detalhamento.textContent = "Erro ao abrir relatório: " + err.message;
+          }
+        }));
+        card.appendChild(rodape);
+        carrossel.appendChild(card);
+      });
+
+      body.append(controls,carrossel,detalhamento);
+      section.appendChild(body);
+      alvo.appendChild(section);
+      selecionar(0, false);
     });
 }
 
@@ -2263,6 +2506,58 @@ function limparAuditoria() {
   carregarAuditoria();
 }
 
+const pmoSecoesStatus = [
+  ["indicadores", "Indicadores"], ["datas", "Datas e custos"],
+  ["saude", "Saúde"], ["marcos", "Marcos"], ["riscos", "Riscos"],
+  ["acoes", "Próximos passos"], ["acompanhamento", "Acompanhamento"]
+];
+let pmoSecaoAtual = "indicadores";
+function mostrarPainelStatus(id) {
+  if (!pmoSecoesStatus.some(x => x[0] === id)) return;
+  pmoSecaoAtual = id;
+  const idx = pmoSecoesStatus.findIndex(x => x[0] === id);
+  document.querySelectorAll("[data-pmo-pane]").forEach(p => {
+    p.hidden = p.dataset.pmoPane !== id;
+  });
+  document.querySelectorAll("#pmoFormNav button[data-pmo-ir]").forEach(b => {
+    b.setAttribute("aria-selected", String(b.dataset.pmoIr === id));
+  });
+  $("pmoStatusTitulo").textContent = pmoSecoesStatus[idx][1];
+  $("pmoStatusProgresso").textContent = "Seção " + (idx+1) + " de " + pmoSecoesStatus.length;
+  $("pmoStatusAnterior").disabled = idx === 0;
+  $("pmoStatusProximo").disabled = idx === pmoSecoesStatus.length - 1;
+}
+function configurarNavegacaoStatus() {
+  const nav = $("pmoFormNav");
+  pmoSecoesStatus.forEach(([id, titulo]) => {
+    const b = btn(titulo, () => mostrarPainelStatus(id), "secondary");
+    b.dataset.pmoIr = id;
+    b.setAttribute("role", "tab");
+    nav.appendChild(b);
+  });
+  $("pmoStatusAnterior").onclick = () => {
+    const i = pmoSecoesStatus.findIndex(x => x[0] === pmoSecaoAtual);
+    mostrarPainelStatus(pmoSecoesStatus[Math.max(0, i-1)][0]);
+  };
+  $("pmoStatusProximo").onclick = () => {
+    const i = pmoSecoesStatus.findIndex(x => x[0] === pmoSecaoAtual);
+    mostrarPainelStatus(pmoSecoesStatus[Math.min(pmoSecoesStatus.length-1, i+1)][0]);
+  };
+  // O formulário faz validação global mesmo quando uma seção está oculta.
+  $("formStatus").noValidate = true;
+  mostrarPainelStatus("indicadores");
+}
+function pmoValidarObrigatorios() {
+  const obrigatorios = Array.from($("formStatus").querySelectorAll("[required]"));
+  const invalido = obrigatorios.find(el => !el.disabled && !el.checkValidity());
+  if (!invalido) return true;
+  const sec = invalido.closest("[data-pmo-pane]");
+  if (sec) mostrarPainelStatus(sec.dataset.pmoPane);
+  M("msgStatus", "Preencha os campos obrigatórios antes de publicar.", "error");
+  invalido.focus();
+  return false;
+}
+
 function iniciar() {
   if (!window.supabase) {
     M(
@@ -2299,6 +2594,7 @@ function iniciar() {
   $("loginForm").onsubmit = entrar;
   $("formProjeto").onsubmit = salvarProjeto;
   $("formStatus").onsubmit = salvarStatus;
+  configurarNavegacaoStatus();
   $("logout").onclick = sair;
   $("novoProjeto").onclick = limparProjeto;
   $("sProjeto").onchange = carregarStatus;
@@ -2356,4 +2652,3 @@ iniciar();
 </script>
 </body>
 </html>
-
