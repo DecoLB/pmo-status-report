@@ -253,6 +253,162 @@ tr:hover td { background: #24364d; }
   .grid, .grid-wide { grid-template-columns: 1fr; }
   header { padding: 17px; }
 }
+
+  /* =========================================
+   PMO - VISUAL EXECUTIVO V2
+   Carrossel, cartões e gráficos
+   ========================================= */
+
+.pmo-executivo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+  
+.pmo-gerente {
+  background: #1d2d43;
+  border: 1px solid #40516a;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.pmo-gerente-titulo {
+  font-size: 21px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.pmo-gerente-subtitulo {
+  color: #c5d0df;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.pmo-carrossel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 6px 2px 16px;
+  scrollbar-color: #52627a #172438;
+}
+
+.pmo-projeto-card {
+  flex: 0 0 min(100%, 400px);
+  scroll-snap-align: start;
+  background: #172438;
+  border: 1px solid #40516a;
+  border-top: 3px solid #ec7900;
+  border-radius: 12px;
+  padding: 18px;
+  min-width: 0;
+}
+
+.pmo-projeto-titulo {
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.pmo-projeto-data {
+  color: #c5d0df;
+  font-size: 12px;
+}
+
+.pmo-kpis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.pmo-kpi {
+  background: #263850;
+  border-radius: 9px;
+  padding: 13px;
+}
+
+.pmo-kpi-label {
+  color: #c5d0df;
+  font-size: 12px;
+}
+
+.pmo-kpi-valor {
+  display: block;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.pmo-grafico {
+  position: relative;
+  height: 190px;
+  padding: 12px;
+  margin: 12px 0;
+  background: #101827;
+  border: 1px solid #40516a;
+  border-radius: 10px;
+}
+
+.pmo-grafico canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.pmo-farois {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.pmo-controles {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.pmo-onepage {
+  background: #1d2d43;
+  border: 1px solid #40516a;
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 16px;
+}
+
+.pmo-onepage-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 14px;
+}
+
+.pmo-bloco {
+  background: #172438;
+  border: 1px solid #40516a;
+  border-radius: 10px;
+  padding: 15px;
+  min-width: 0;
+}
+
+@media (max-width: 850px) {
+  .pmo-onepage-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pmo-projeto-card {
+    flex-basis: min(100%, 340px);
+  }
+
+  .pmo-gerente {
+    padding: 14px;
+  }
+}
+
 </style>
 </head>
 <body>
