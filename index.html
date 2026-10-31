@@ -1988,20 +1988,20 @@ async function carregarResumo() {
     .forEach(g => {
       const d = document.createElement("details");
       d.open = true;
-      d.className = "group";
+      d.className = "group pmo-gerente";
       d.appendChild(E(
         "summary",
         "Gerente: " + g.nome + " — " + g.list.length + " projeto(s)"
       ));
 
       const cont = E("div", "", "group-content");
-      const grade = E("div", "", "grid-wide");
+      const grade = E("div", "", "pmo-carrossel");
 
       g.list
         .sort((a, b) =>
           a.projeto_nome.localeCompare(b.projeto_nome, "pt-BR"))
         .forEach(x => {
-          const card = E("div", "", "summary-card");
+          const card = E("div", "", "summary-card pmo-projeto-card");
           card.appendChild(E("h3", x.projeto_nome));
           card.appendChild(E(
             "p",
