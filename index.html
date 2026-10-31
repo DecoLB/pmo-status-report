@@ -1988,12 +1988,21 @@ function detalheExecutivo(pai, pacote) {
   const hist = pacote.historico || [];
   pai.appendChild(E("h4", "Histórico semanal"));
 
-  if (hist.length) {
-    desenharBarras(pai, hist);
-    tabelaSemanal(pai, hist);
-  } else {
-    pai.appendChild(E("p", "Sem histórico"));
-  }
+if (hist.length) {
+  desenharBarras(pai, hist);
+
+  const tabelaHistorica = document.createElement("details");
+
+  tabelaHistorica.appendChild(
+    E("summary", "Ver tabela histórica detalhada")
+  );
+
+  tabelaSemanal(tabelaHistorica, hist);
+
+  pai.appendChild(tabelaHistorica);
+} else {
+  pai.appendChild(E("p", "Sem histórico"));
+}
 
   if (hist.length > 1) {
     const a = hist[hist.length - 1];
