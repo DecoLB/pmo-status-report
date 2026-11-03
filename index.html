@@ -2485,7 +2485,8 @@ function pmoSaudePortfolio(r) {
   const vals = [r.farol_escopo,r.farol_prazo,r.farol_custo,r.farol_qualidade];
   if (vals.includes("Crítico")) return "Crítico";
   if (vals.includes("Atenção")) return "Atenção";
-  if (vals.includes("No prazo")) return "No prazo";
+  if (vals.some(v=>!v || v==="TBD" || v==="Não avaliado")) return "TBD";
+  if (vals.some(v=>v==="No prazo") && vals.every(v=>v==="No prazo" || v==="N/A")) return "No prazo";
   return "TBD";
 }
 
@@ -2538,12 +2539,18 @@ function filtrarPortfolio() {
     ];
     campos.forEach(valor=>tr.appendChild(E("td",String(valor))));
     const acao=E("td");
-    if (x.publicado && x.pacote) {
-      const abrir=btn("Ver slide",()=>{
+    if (x.publicado) {
+      const abrir=btn("Ver slide",async()=>{
         const dest=$("portDetalhe");
         dest.hidden=false;
-        detalheExecutivo(dest,x.pacote,{projeto:x.nome,gerente:x.gerente});
-        dest.scrollIntoView({behavior:"smooth",block:"start"});
+        dest.textContent="Carregando slide...";
+        try {
+          const pacote=await pmoBuscarDetalhe(x.id);
+          detalheExecutivo(dest,pacote,{projeto:x.nome,gerente:x.gerente});
+          dest.scrollIntoView({behavior:"smooth",block:"start"});
+        } catch(err) {
+          dest.textContent="Erro ao consultar slide: "+err.message;
+        }
       },"secondary");
       acao.appendChild(abrir);
     } else {
@@ -2571,7 +2578,14 @@ async function carregarPortfolio() {
       projetosMap.set(id,{
         id:Number(s.projeto_id),nome:T(s.projeto_nome),
         gerente:T(s.gerente_identificacao||"Não atribuído"),
-        publicado:true,pacote:null,relatorio:null,saude:"TBD"
+        publicado:true,pacote:null,
+        relatorio:{
+          data_referencia:s.data_referencia,planejado:s.planejado,realizado:s.realizado,
+          status_geral:s.status_geral||"Não informado",
+          farol_escopo:s.farol_escopo,farol_prazo:s.farol_prazo,
+          farol_custo:s.farol_custo,farol_qualidade:s.farol_qualidade
+        },
+        saude:pmoSaudePortfolio(s)
       });
     }
     // Apenas o administrador vê também projetos ainda sem report publicado.
@@ -2587,20 +2601,8 @@ async function carregarPortfolio() {
       }
     }
     const valores=[...projetosMap.values()];
-    // Nunca requisitar ou renderizar custos aprovados ou realizados neste painel.
-    await Promise.all(valores.filter(x=>x.publicado).map(async x=>{
-      try {
-        const resp=await db.rpc("pmo_detalhe_publicado",{p_projeto_id:x.id});
-        if(resp.error) throw resp.error;
-        if(resp.data?.relatorio) {
-          x.pacote=resp.data;
-          x.relatorio=resp.data.relatorio;
-          x.saude=pmoSaudePortfolio(x.relatorio);
-        }
-      } catch(_erro) {
-        x.saude="TBD"; // Falhas individuais não expõem detalhes não autorizados.
-      }
-    }));
+    // A consulta consolidada utiliza somente o resumo publicado.
+    // Detalhe completo e carregado apenas quando o usuario abre o slide.
     if(seq!==pmoSeqPortfolio) return;
     pmoDadosPortfolio=valores.sort((a,b)=>
       a.gerente.localeCompare(b.gerente,"pt-BR")||a.nome.localeCompare(b.nome,"pt-BR")
