@@ -727,6 +727,20 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
         esse vínculo; editar o campo de texto não altera permissões.
       </div>
     </div>
+    <div class="card" id="cardAtribuicaoAdmin">
+      <h2>Atribuição de gerentes (somente administrador)</h2>
+      <p class="muted small">O nome informado no projeto não modifica o vínculo de acesso. Use esta área para atribuir ou transferir formalmente o responsável, com auditoria.</p>
+      <div class="grid">
+        <label>Projeto
+          <select id="adminProjetoAtrib"><option value="">Selecione</option></select>
+        </label>
+        <label>Gerente ativo
+          <select id="adminGerenteAtrib"><option value="">Selecione</option></select>
+        </label>
+      </div>
+      <button type="button" id="adminAtribuir">Confirmar atribuição</button>
+      <p id="adminAtribMensagem" class="message" role="status"></p>
+    </div>
   </section>
 
   <section id="tabStatus" hidden>
@@ -1315,6 +1329,7 @@ async function sessao() {
     $("sNovoProjetoBtn").hidden = !cred("gerente");
 
     if (!cred("executivo")) await atualizarProjetos();
+    if (cred("administrador")) await carregarAtribuicoesAdmin();
 
     $("loginBox").hidden = true;
     $("app").hidden = false;
@@ -1515,6 +1530,49 @@ async function salvarProjeto(e) {
     M("msgProjeto", "Erro: " + e.message, "error");
   } finally {
     $("salvarProjeto").disabled = false;
+  }
+}
+
+
+/* A atribuicao real exige uma RPC SECURITY DEFINER que valida perfil ADMIN. */
+async function carregarAtribuicoesAdmin() {
+  if (!cred("administrador")) return;
+  const projetosSelect=$("adminProjetoAtrib"),gerentesSelect=$("adminGerenteAtrib");
+  projetosSelect.replaceChildren(new Option("Selecione um projeto",""));
+  projetos.forEach(p=>projetosSelect.add(new Option(p.nome,String(p.id))));
+  gerentesSelect.replaceChildren(new Option("Selecione um gerente",""));
+  try {
+    const r=await db.rpc("pmo_admin_listar_gerentes");
+    if(r.error) throw r.error;
+    (r.data||[]).forEach(g=>{
+      gerentesSelect.add(new Option(T(g.email),String(g.usuario_id)));
+    });
+    M("adminAtribMensagem","Escolha projeto e gerente para efetivar a atribuição.","");
+  } catch(err) {
+    M("adminAtribMensagem","Atribuição administrativa pendente de configuração segura no Supabase: "+err.message,"error");
+  }
+}
+
+async function atribuirProjetoAdmin() {
+  if(!cred("administrador"))return;
+  const id=Number(V("adminProjetoAtrib")),uid=V("adminGerenteAtrib");
+  if(!Number.isInteger(id)||id<1||!uid){
+    M("adminAtribMensagem","Selecione o projeto e o gerente.","error");return;
+  }
+  const nome=projetos.find(p=>p.id===id)?.nome || "Projeto";
+  const gerente=$("adminGerenteAtrib").selectedOptions[0]?.textContent||"";
+  if(!window.confirm("Confirmar atribuição de '"+nome+"' para "+gerente+"?"))return;
+  $("adminAtribuir").disabled=true;
+  try {
+    const r=await db.rpc("pmo_admin_atribuir_gerente",{p_projeto_id:id,p_usuario_id:uid});
+    if(r.error)throw r.error;
+    M("adminAtribMensagem","Gerente atribuído com sucesso. Vínculo atualizado no banco e auditado.","success");
+    await atualizarProjetos();
+    await carregarAtribuicoesAdmin();
+  } catch(err) {
+    M("adminAtribMensagem","Falha na atribuição: "+err.message,"error");
+  } finally {
+    $("adminAtribuir").disabled=false;
   }
 }
 
@@ -2780,6 +2838,7 @@ function iniciar() {
 
   $("loginForm").onsubmit = entrar;
   $("formProjeto").onsubmit = salvarProjeto;
+  $("adminAtribuir").onclick = atribuirProjetoAdmin;
   $("formStatus").onsubmit = salvarStatus;
   $("formStatus").noValidate = true;
   $("sNovoProjetoBtn").onclick = () => alternarNovoProjeto(!modoNovoProjeto);
