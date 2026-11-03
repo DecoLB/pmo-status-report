@@ -1,0 +1,34 @@
+name: PMO V6 - Validar JavaScript
+on:
+  push:
+    paths:
+      - 'teste-v6/**'
+      - '.github/workflows/pmo-v6-validar.yml'
+  workflow_dispatch:
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validar sintaxe JS
+        run: node --check teste-v6/refino.js
+      - name: Verificar referências HTML
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const h = fs.readFileSync('teste-v6/index.html', 'utf8');
+          const js = fs.readFileSync('teste-v6/refino.js','utf8');
+          const css = fs.readFileSync('teste-v6/refino.css','utf8');
+          for(const item of ['refino.js','refino.css','pmo_portfolio_status','pmo-admin-convites','primeiroAcesso']) {
+            if (!h.includes(item)) throw Error('Ausente em V6: '+item);
+          }
+          for(const field of ['sEscopo','sPrazo','sCusto','sQualidade','listaResumo','portLinhas','usuario']) {
+            if(!h.includes('id="'+field+'"')) throw Error('Campo obrigatório ausente: '+field);
+          }
+          for(const fn of ['identityLine','refreshStatusVisual','portfolioVisual','updateMyPhoto']) {
+            if(!js.includes('function '+fn)) throw Error('Função refinada ausente: '+fn);
+          }
+          if(!css.includes('.pmo-v6-graficos')) throw Error('Estilos ausentes');
+          console.log('Estrutura PMO V6 validada');
+          NODE
