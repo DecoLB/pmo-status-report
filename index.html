@@ -983,7 +983,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
         <table>
           <thead><tr>
             <th>Projeto</th><th>Gerente</th><th>Referência</th><th>Planejado</th>
-            <th>Realizado</th><th>Desvio</th><th>Status</th><th>Saúde</th><th>Consulta</th>
+            <th>Realizado</th><th>Desvio</th><th>Publicação</th><th>Saúde</th><th>Consulta</th>
           </tr></thead>
           <tbody id="portLinhas"></tbody>
         </table>
@@ -2593,7 +2593,7 @@ function filtrarPortfolio() {
     const campos=[
       x.nome,x.gerente,x.publicado?dataBR(r.data_referencia):"Sem report",
       pmoPctPortfolio(r.planejado),pmoPctPortfolio(r.realizado),
-      desvio,x.publicado?T(r.status_geral):"Aguardando publicação",x.saude
+      desvio,x.publicado?"Publicado":"Sem report",x.saude
     ];
     campos.forEach(valor=>tr.appendChild(E("td",String(valor))));
     const acao=E("td");
