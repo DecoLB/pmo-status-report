@@ -1,91 +1,177 @@
--- PMO V5 - PROPOSTA DE MIGRACAO DE ATRIBUICAO ADMINISTRATIVA.
--- NAO EXECUTAR em producao antes de validar o checklist
--- homologacao/auditoria-seguranca-readonly.sql e o gatilho do criador.
--- Requer transacao, backup e testes negativos. Sem contas, senhas ou dados pessoais.
-
+-- PMO V5 | CONTROLES DE ACESSO E ATRIBUICAO
+-- REVISADO em 03/11/2026 contra o schema real.
+-- NAO EXECUTAR automaticamente: exige validação pelo administrador.
+-- Não cria usuários, não importa histórico e não apaga reports.
+-- Executar integralmente no SQL Editor do projeto "Projetos Naturgy".
 BEGIN;
 
--- A criacao de projetos por gerente depende do gatilho de vinculo automatico.
--- Se ele nao for SECURITY DEFINER, abortar ANTES de revogar escritas diretas.
-DO $pmo$
+-- Um projeto pode ter no maximo um responsavel efetivo.
+-- Falha automaticamente se ja houver projetos com vinculos duplicados.
+CREATE UNIQUE INDEX IF NOT EXISTS pmo_projeto_gerente_unico
+ON public.projeto_gerentes (projeto_id);
+
+-- Administrador consulta reports, mas não insere, altera ou exclui.
+DROP POLICY IF EXISTS admin_gerencia_status ON public.status_semanais;
+DROP POLICY IF EXISTS pmo_admin_consulta_status ON public.status_semanais;
+CREATE POLICY pmo_admin_consulta_status
+ON public.status_semanais FOR SELECT TO authenticated
+USING (EXISTS (
+  SELECT 1 FROM public.perfis p
+  WHERE p.usuario_id=(SELECT auth.uid())
+    AND p.papel='administrador' AND p.ativo=true
+));
+
+DROP POLICY IF EXISTS pmo_admin_detalhes ON public.relatorio_marcos_semanais;
+DROP POLICY IF EXISTS pmo_admin_consulta_marcos ON public.relatorio_marcos_semanais;
+CREATE POLICY pmo_admin_consulta_marcos
+ON public.relatorio_marcos_semanais FOR SELECT TO authenticated
+USING (EXISTS (
+  SELECT 1 FROM public.perfis p
+  WHERE p.usuario_id=(SELECT auth.uid())
+    AND p.papel='administrador' AND p.ativo=true
+));
+
+DROP POLICY IF EXISTS pmo_admin_detalhes ON public.relatorio_riscos_semanais;
+DROP POLICY IF EXISTS pmo_admin_consulta_riscos ON public.relatorio_riscos_semanais;
+CREATE POLICY pmo_admin_consulta_riscos
+ON public.relatorio_riscos_semanais FOR SELECT TO authenticated
+USING (EXISTS (
+  SELECT 1 FROM public.perfis p
+  WHERE p.usuario_id=(SELECT auth.uid())
+    AND p.papel='administrador' AND p.ativo=true
+));
+
+DROP POLICY IF EXISTS pmo_admin_detalhes ON public.relatorio_proximos_passos_semanais;
+DROP POLICY IF EXISTS pmo_admin_consulta_acoes ON public.relatorio_proximos_passos_semanais;
+CREATE POLICY pmo_admin_consulta_acoes
+ON public.relatorio_proximos_passos_semanais FOR SELECT TO authenticated
+USING (EXISTS (
+  SELECT 1 FROM public.perfis p
+  WHERE p.usuario_id=(SELECT auth.uid())
+    AND p.papel='administrador' AND p.ativo=true
+));
+
+-- Garantia de não armazenamento de valores monetarios na base de reports
+-- (o relatório pode manter a classificacao de custo e o farol).
+-- A validação anterior confirmou que os valores atuais são todos NULL.
+ALTER TABLE public.status_semanais
+  DROP CONSTRAINT IF EXISTS pmo_sem_valores_financeiros;
+ALTER TABLE public.status_semanais
+  ADD CONSTRAINT pmo_sem_valores_financeiros
+  CHECK (custo_aprovado IS NULL AND custo_realizado IS NULL);
+
+-- Lista privada de responsáveis. Administradores podem constar como
+-- responsáveis históricos, mas isso NÃO dá direito de publicação.
+CREATE OR REPLACE FUNCTION app_private.pmo_admin_listar_responsaveis_privado()
+RETURNS TABLE (usuario_id uuid,email text,papel text)
+LANGUAGE plpgsql STABLE SECURITY DEFINER SET search_path=''
+AS $pmo$
 BEGIN
-  IF NOT EXISTS (
-    SELECT 1 FROM pg_trigger t
-    JOIN pg_class c ON c.oid=t.tgrelid
-    JOIN pg_proc f ON f.oid=t.tgfoid
-    WHERE c.oid='public.projetos'::regclass
-      AND t.tgname='vincular_gerente_criador'
-      AND NOT t.tgisinternal
-      AND f.prosecdef=true
+  IF (SELECT auth.uid()) IS NULL OR NOT EXISTS (
+    SELECT 1 FROM public.perfis p
+    WHERE p.usuario_id=(SELECT auth.uid())
+      AND p.ativo=true AND p.papel='administrador'
   ) THEN
-    RAISE EXCEPTION 'ABORTADO: vincular_gerente_criador nao possui SECURITY DEFINER confirmado';
+    RAISE EXCEPTION 'Acesso restrito ao administrador' USING ERRCODE='42501';
   END IF;
+  RETURN QUERY
+    SELECT u.id,u.email::text,p.papel::text
+    FROM auth.users u
+    JOIN public.perfis p ON p.usuario_id=u.id
+    WHERE p.ativo=true AND p.papel IN ('gerente','administrador')
+    ORDER BY u.email;
 END;
 $pmo$;
 
--- A lista de responsaveis inclui gerentes e administradores para permitir autoria historica.\n-- Um administrador atribuido NAO ganha permissao de publicar report por esta funcao.
+REVOKE ALL ON FUNCTION app_private.pmo_admin_listar_responsaveis_privado()
+  FROM PUBLIC,anon,authenticated;
+GRANT EXECUTE ON FUNCTION app_private.pmo_admin_listar_responsaveis_privado()
+  TO authenticated;
+
 CREATE OR REPLACE FUNCTION public.pmo_admin_listar_gerentes()
-RETURNS TABLE(usuario_id uuid, email text, papel text)
-LANGUAGE sql STABLE SECURITY DEFINER SET search_path=''
+RETURNS TABLE (usuario_id uuid,email text,papel text)
+LANGUAGE sql STABLE SECURITY INVOKER SET search_path=''
 AS $pmo$
-  SELECT u.id, u.email::text, p.papel::text
-  FROM auth.users AS u
-  JOIN public.perfis AS p ON p.usuario_id=u.id
-  WHERE p.ativo=true AND p.papel IN ('gerente','administrador')
-    AND EXISTS (
-      SELECT 1 FROM public.perfis AS a
-      WHERE a.usuario_id=auth.uid()
-        AND a.ativo=true AND a.papel='administrador'
-    )
-  ORDER BY u.email
+  SELECT * FROM app_private.pmo_admin_listar_responsaveis_privado();
 $pmo$;
 
-REVOKE ALL ON FUNCTION public.pmo_admin_listar_gerentes() FROM PUBLIC, anon, authenticated;
-GRANT EXECUTE ON FUNCTION public.pmo_admin_listar_gerentes() TO authenticated;
+REVOKE ALL ON FUNCTION public.pmo_admin_listar_gerentes()
+  FROM PUBLIC,anon,authenticated;
+GRANT EXECUTE ON FUNCTION public.pmo_admin_listar_gerentes()
+  TO authenticated;
 
--- Transferencia atomica, autorizacao server-side e trilha por gatilhos existentes.
-CREATE OR REPLACE FUNCTION public.pmo_admin_atribuir_gerente(
-  p_projeto_id bigint, p_usuario_id uuid
+-- Operação administrativa protegida, executada no banco em uma transação.
+CREATE OR REPLACE FUNCTION app_private.pmo_admin_atribuir_gerente_privado(
+  p_projeto_id bigint,p_usuario_id uuid
 )
-RETURNS TABLE(projeto_id bigint, gerente_email text)
-LANGUAGE plpgsql SECURITY DEFINER SET search_path=''
+RETURNS TABLE (projeto_id bigint,gerente_email text)
+LANGUAGE plpgsql VOLATILE SECURITY DEFINER SET search_path=''
 AS $pmo$
 DECLARE
   v_email text;
+  v_atual uuid;
 BEGIN
-  IF auth.uid() IS NULL OR NOT EXISTS (
-    SELECT 1 FROM public.perfis a
-    WHERE a.usuario_id=auth.uid()
-      AND a.ativo=true AND a.papel='administrador'
+  IF (SELECT auth.uid()) IS NULL OR NOT EXISTS (
+    SELECT 1 FROM public.perfis p
+    WHERE p.usuario_id=(SELECT auth.uid())
+      AND p.ativo=true AND p.papel='administrador'
   ) THEN
-    RAISE EXCEPTION 'Atribuicao permitida apenas ao administrador'
+    RAISE EXCEPTION 'Somente administrador pode atribuir gerente'
       USING ERRCODE='42501';
   END IF;
+  IF p_projeto_id IS NULL OR p_usuario_id IS NULL THEN
+    RAISE EXCEPTION 'Projeto e usuario sao obrigatorios'
+      USING ERRCODE='22023';
+  END IF;
+
   SELECT u.email::text INTO v_email
   FROM auth.users u
   JOIN public.perfis p ON p.usuario_id=u.id
-  WHERE u.id=p_usuario_id AND p.papel IN ('gerente','administrador') AND p.ativo=true;
+  WHERE u.id=p_usuario_id
+    AND p.ativo=true AND p.papel IN ('gerente','administrador');
   IF v_email IS NULL THEN
-    RAISE EXCEPTION 'Gerente inexistente ou inativo';
+    RAISE EXCEPTION 'Responsavel inexistente ou inativo'
+      USING ERRCODE='22023';
   END IF;
-  PERFORM 1 FROM public.projetos pr
-  WHERE pr.id=p_projeto_id FOR UPDATE;
+
+  PERFORM 1 FROM public.projetos p
+  WHERE p.id=p_projeto_id FOR UPDATE;
   IF NOT FOUND THEN
-    RAISE EXCEPTION 'Projeto inexistente';
+    RAISE EXCEPTION 'Projeto inexistente' USING ERRCODE='22023';
   END IF;
 
-  -- O banco guarda o vinculo EFETIVO neste relacionamento, nao no texto.
-  DELETE FROM public.projeto_gerentes pg WHERE pg.projeto_id=p_projeto_id;
-  INSERT INTO public.projeto_gerentes (projeto_id,usuario_id)
-  VALUES (p_projeto_id,p_usuario_id);
+  SELECT pg.usuario_id INTO v_atual
+  FROM public.projeto_gerentes pg
+  WHERE pg.projeto_id=p_projeto_id;
 
-  -- Campo descritivo atualizado somente por processo autorizado.
-  UPDATE public.projetos pr
-  SET gerente=v_email
-  WHERE pr.id=p_projeto_id;
+  IF v_atual IS DISTINCT FROM p_usuario_id THEN
+    DELETE FROM public.projeto_gerentes pg
+    WHERE pg.projeto_id=p_projeto_id;
+    INSERT INTO public.projeto_gerentes (projeto_id,usuario_id)
+    VALUES (p_projeto_id,p_usuario_id);
+  END IF;
+
+  UPDATE public.projetos p SET gerente=v_email
+  WHERE p.id=p_projeto_id AND p.gerente IS DISTINCT FROM v_email;
 
   RETURN QUERY SELECT p_projeto_id,v_email;
 END;
+$pmo$;
+
+REVOKE ALL ON FUNCTION app_private.pmo_admin_atribuir_gerente_privado(bigint,uuid)
+  FROM PUBLIC,anon,authenticated;
+GRANT EXECUTE ON FUNCTION app_private.pmo_admin_atribuir_gerente_privado(bigint,uuid)
+  TO authenticated;
+
+CREATE OR REPLACE FUNCTION public.pmo_admin_atribuir_gerente(
+  p_projeto_id bigint,p_usuario_id uuid
+)
+RETURNS TABLE (projeto_id bigint,gerente_email text)
+LANGUAGE sql VOLATILE SECURITY INVOKER SET search_path=''
+AS $pmo$
+  SELECT * FROM app_private.pmo_admin_atribuir_gerente_privado(
+    p_projeto_id,p_usuario_id
+  );
 $pmo$;
 
 REVOKE ALL ON FUNCTION public.pmo_admin_atribuir_gerente(bigint,uuid)
@@ -93,38 +179,13 @@ REVOKE ALL ON FUNCTION public.pmo_admin_atribuir_gerente(bigint,uuid)
 GRANT EXECUTE ON FUNCTION public.pmo_admin_atribuir_gerente(bigint,uuid)
   TO authenticated;
 
--- Impede API autenticada de transferir vinculos diretamente.
--- A insercao automatica via gatilho SECURITY DEFINER permanece permitida.
-REVOKE INSERT,UPDATE,DELETE ON public.projeto_gerentes
-  FROM PUBLIC,anon,authenticated;
-
--- Bloqueia alteracao da coluna descritiva por usuarios nao administradores.
-CREATE OR REPLACE FUNCTION app_private.pmo_proteger_nome_gerente()
-RETURNS trigger
-LANGUAGE plpgsql SECURITY DEFINER SET search_path=''
-AS $pmo$
-BEGIN
-  IF NEW.gerente IS DISTINCT FROM OLD.gerente THEN
-    IF NOT EXISTS (
-      SELECT 1 FROM public.perfis p
-      WHERE p.usuario_id=auth.uid() AND p.ativo AND p.papel='administrador'
-    ) THEN
-      RAISE EXCEPTION 'Somente administrador pode alterar o gerente do projeto'
-      USING ERRCODE='42501';
-    END IF;
-  END IF;
-  RETURN NEW;
-END;
-$pmo$;
-
-DROP TRIGGER IF EXISTS pmo_proteger_nome_gerente ON public.projetos;
-CREATE TRIGGER pmo_proteger_nome_gerente
-BEFORE UPDATE OF gerente ON public.projetos
-FOR EACH ROW EXECUTE FUNCTION app_private.pmo_proteger_nome_gerente();
-
 COMMIT;
 
--- TESTES OBRIGATORIOS: admin transfere; gerente cria proprio;
--- gerente nao consegue editar campo gerente via REST nem projeto_gerentes;
--- anonimo nao transfere; auditoria registra DELETE+INSERT+UPDATE;
--- report do gerente anterior fica apenas leitura apos transferencia.
+-- Após executar, validar:
+-- 1) Admin lê, mas não salva ou exclui reports
+-- 2) Gerente só publica projetos vinculados
+-- 3) Somente admin consegue chamar pmo_admin_atribuir_gerente
+-- 4) Criação de projeto pelo gerente continua vinculando automaticamente
+-- 5) Auditoria registra mudança de vínculo e nome de responsável
+-- 6) Campos custo_aprovado e custo_realizado permanecem NULL
+-- 7) Teste da consulta executiva e do painel gerencial
