@@ -1,0 +1,46 @@
+name: PMO V6.2 - Integridade e Smoke Test
+on:
+  push:
+    paths:
+      - 'teste-v6-2/**'
+      - '.github/workflows/pmo-v62-validar.yml'
+  workflow_dispatch:
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Testar sintaxe JavaScript
+        run: |
+          node --check teste-v6-2/refino.js
+          node --check teste-v6-2/ux.js
+          node --check teste-v6-2/validar.cjs
+      - name: Validar integridade do HTML e CSS
+        run: |
+          node - <<'NODE'
+          const fs=require('fs'),vm=require('vm');
+          const h=fs.readFileSync('teste-v6-2/index.html','utf8');
+          const inline=[...h.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(x=>x[1]).filter(s=>s.trim());
+          if(inline.length!==1)throw Error('Esperado um script inline');
+          new vm.Script(inline[0]);
+          for(const asset of ['refino.js','refino.css','ux.js','ux.css'])if(!h.includes(asset))throw Error('Asset ausente '+asset);
+          for(const id of ['sStatusGeral','portLinhas','tabResumo','tabPortfolio','pmoV6Identity'])if(id!=='pmoV6Identity'&&!h.includes('id="'+id+'"'))throw Error('Campo ausente '+id);
+          if(h.includes('ajustes.js')||h.includes('ajustes.css'))throw Error('V6.1 antiga ainda incluída');
+          if(!h.includes('STATUS GERAL | DEFINIDO PELO GERENTE'))throw Error('Report não usa status declarado');
+          if(!h.includes('<select id="sStatusGeral" required>'))throw Error('Status Geral não obrigatório');
+          if(h.includes('sb_secret_')||h.includes('service_role'))throw Error('Possível chave privilegiada');
+          const ids=[...h.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);
+          const duplicates=ids.filter((x,i)=>ids.indexOf(x)!==i);
+          if(duplicates.length)throw Error('IDs duplicados: '+[...new Set(duplicates)].join(', '));
+          const css=fs.readFileSync('teste-v6-2/ux.css','utf8');
+          for(const fragment of ['max-width:1270px','max-width:1000px','max-width:720px','max-width:490px','prefers-reduced-motion'])if(!css.includes(fragment))throw Error('Falta responsividade: '+fragment);
+          console.log('PASS: sintaxe inline, chaves, responsividade, dependências, status próprio');
+          NODE
+      - name: Instalar simulador de DOM
+        run: npm install --no-save --no-package-lock jsdom@26
+      - name: Testar consulta, renderização e filtros com dados fictícios
+        run: node teste-v6-2/validar.cjs
