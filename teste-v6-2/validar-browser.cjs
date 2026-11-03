@@ -115,4 +115,4 @@ const {chromium}=require('playwright');
  assert.equal(errors.length,0,'Erros de execução: '+errors.join('; '));
  console.log('PASS: navegador real, consulta sem stack overflow, KPIs, filtro de projetos, status estático e 4 resoluções.');
  await browser.close();
-})().catch(err=>{console.error(err);process.exitCode=1});
+})().catch(err=>{console.error(err);process.exit(1);});
