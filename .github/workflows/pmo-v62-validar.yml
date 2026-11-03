@@ -8,7 +8,7 @@ on:
 jobs:
   validar:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -41,6 +41,10 @@ jobs:
           console.log('PASS: sintaxe inline, chaves, responsividade, dependências, status próprio');
           NODE
       - name: Instalar simulador de DOM
-        run: npm install --no-save --no-package-lock jsdom@26
+        run: npm install --no-save --no-package-lock jsdom@26 playwright@1.55.1 chart.js@4.5.0
       - name: Testar consulta, renderização e filtros com dados fictícios
         run: node teste-v6-2/validar.cjs
+      - name: Instalar navegador Chromium de teste
+        run: npx playwright install --with-deps chromium
+      - name: Testar layout responsivo e consultas em navegador real
+        run: node teste-v6-2/validar-browser.cjs
