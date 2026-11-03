@@ -511,6 +511,96 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
  .pmo-onepage { border:0; box-shadow:none; }
 }
 
+
+/* V4: report fiel ao slide original, sem painel paralelo */
+#tabResumo>.card { padding:15px; }
+.pmo-gerente { padding:0; margin:14px 0; background:transparent; border-color:#41536b; }
+.pmo-gerente > summary { padding:11px 16px; font-size:15px; }
+.group-content { padding:10px; }
+.pmo-slide-nav { display:flex; justify-content:flex-end; align-items:center; gap:12px; margin-bottom:10px; }
+.pmo-slide-nav strong { margin-right:auto; }
+.pmo-slide-nav button { padding:8px 12px; }
+.pmo-slide-host { width:100%; }
+.pmo-slide { background:#fff; color:#123450; border-radius:8px; width:100%; padding:16px; display:grid; gap:9px; box-shadow:0 3px 12px #0002; }
+.slide-topo { display:grid; grid-template-columns:minmax(0,1fr) 200px; gap:10px; align-items:stretch; }
+.slide-identidade { min-width:0; }
+.slide-identidade h2 { color:#073b69; font-size:clamp(21px,2.1vw,28px); margin:0 0 5px; }
+.slide-objetivo, .slide-contexto { margin:3px 0; font-size:12px; line-height:1.35; white-space:pre-wrap; }
+.slide-objetivo b { color:#ec7900; }
+.slide-contexto { color:#586679; font-style:italic; }
+.slide-geral { display:flex; flex-direction:column; justify-content:center; gap:3px; background:#05396a; color:#fff; padding:9px 14px; border-radius:6px; }
+.slide-geral small { font-size:10px; }
+.slide-geral strong { font-size:19px; }
+.slide-dias { color:#ffba61; font-size:10px; font-style:normal; }
+.slide-metricas { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:6px; }
+.slide-metrica { min-width:0; background:#f2f6fa; border:1px solid #ccd7e3; padding:8px 7px; border-radius:5px; }
+.slide-legenda { display:block; color:#ec7900; font-size:9px; font-weight:bold; margin-bottom:5px; }
+.slide-valor { display:block; font-size:11px; color:#003966; overflow-wrap:anywhere; }
+.slide-saude { display:grid; grid-template-columns:120px repeat(4,minmax(0,1fr)); align-items:center; gap:6px; }
+.slide-saude > b { color:#073b69; font-size:11px; }
+.slide-farol { display:flex; align-items:center; justify-content:space-between; gap:6px; background:#f9fafc; border:1px solid #d3dce6; border-radius:5px; padding:6px; font-size:11px; }
+.slide-farol b { margin-right:auto; }
+.slide-dot { border-radius:100%; padding:0 4px; font-size:16px; line-height:1; }
+.slide-dot.verde { background:transparent; color:#05a852; }
+.slide-dot.amarelo { background:transparent; color:#f2a500; }
+.slide-dot.vermelho { background:transparent; color:#ef4d36; }
+.slide-dot.cinza { background:transparent; color:#99a4af; }
+.slide-tabelas { display:grid; grid-template-columns:1.55fr 1fr; gap:9px; min-height:185px; }
+.slide-painel { min-width:0; border:1px solid #cfdae6; border-radius:5px; padding:6px 8px; background:#fff; }
+.slide-painel h4 { color:#073b69; font-size:12px; margin:0 0 6px; }
+.slide-tabela-scroll { max-height:190px; overflow:auto; }
+.slide-painel table { width:100%; border-collapse:collapse; table-layout:fixed; font-size:10px; }
+.slide-painel th { background:#06416f; color:white; font-weight:bold; font-size:9px; }
+.slide-painel td,.slide-painel th { padding:4px 5px; border:1px solid #d4dce7; vertical-align:top; overflow-wrap:anywhere; line-height:1.2; }
+.slide-painel tr:hover td { background:#edf4fa; }
+.slide-resumos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
+.slide-resumos .slide-painel { min-height:110px; }
+.slide-resumo-texto { white-space:pre-wrap; overflow:auto; max-height:130px; font-size:11px; line-height:1.35; }
+.slide-evolucao { min-height:135px; }
+.slide-evolucao .pmo-grafico { margin:0; height:130px!important; border:0; background:#f9fbfd; padding:4px; }
+.slide-evolucao .slide-variacao { color:#496078; font-size:10px; margin:0; }
+/* Formulário direto: todos os campos do slide, sem etapas ou abas. */
+#tabStatus>.card { padding:16px; }
+#formStatus #camposStatus { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+#camposStatus .pmo-status-pane { margin:0; min-height:0; padding:12px; }
+#camposStatus [data-pmo-pane="indicadores"],
+#camposStatus [data-pmo-pane="datas"],
+#camposStatus [data-pmo-pane="saude"],
+#camposStatus [data-pmo-pane="acompanhamento"] { grid-column:1 / -1; }
+#camposStatus [data-pmo-pane="marcos"],#camposStatus [data-pmo-pane="riscos"] { grid-column:span 1; }
+#camposStatus [data-pmo-pane="acoes"] { grid-column:1 / -1; }
+.pmo-status-pane .grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.pmo-status-pane .line .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.pmo-status-pane textarea { min-height:50px; }
+.pmo-status-pane label { font-size:12px; }
+.pmo-status-pane input,.pmo-status-pane select,.pmo-status-pane textarea { font-size:12px; padding:7px; }
+.pmo-acompanhamento { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.pmo-acompanhamento h3 { grid-column:1 / -1; }
+.pmo-acompanhamento textarea { min-height:105px; }
+.pmo-novo-projeto { border:1px solid #ec7900; background:#172438; padding:14px; border-radius:8px; margin:8px 0; }
+.pmo-help { font-size:12px; color:#bccbdb; }
+.pmo-rodape-status { position:static; }
+@media(min-width:1250px) { .pmo-slide { max-width:1400px; margin:0 auto; } }
+@media(max-width:1000px) {
+ .slide-metricas { grid-template-columns:repeat(3,minmax(0,1fr)); }
+ .slide-saude { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .slide-saude > b { grid-column:1 / -1; }
+ .slide-tabelas { grid-template-columns:1fr; }
+ #camposStatus [data-pmo-pane="marcos"],#camposStatus [data-pmo-pane="riscos"] { grid-column:1/-1; }
+}
+@media(max-width:680px) {
+ .slide-topo { grid-template-columns:1fr; }
+ .slide-metricas { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .slide-resumos { grid-template-columns:1fr; }
+ #formStatus #camposStatus { grid-template-columns:1fr; }
+ .pmo-acompanhamento { grid-template-columns:1fr; }
+ .pmo-acompanhamento h3 { grid-column:1; }
+ .pmo-slide { padding:8px; }
+ .pmo-status-pane .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .pmo-slide-nav { flex-wrap:wrap; }
+}
+@media print { .pmo-slide-nav,nav,header,.footer { display:none!important; } .pmo-slide { box-shadow:none; } }
+
 </style>
 </head>
 <body>
@@ -543,11 +633,11 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
   </div>
 
   <nav>
-    <button data-tab="consulta" id="navConsulta">Consulta Geral</button>
-    <button data-tab="projeto" id="navProjeto">Cadastro / Edição</button>
-    <button data-tab="status" id="navStatus">Status Semanal</button>
-    <button data-tab="resumo" id="navResumo">Resumo Executivo</button>
+    <button data-tab="status" id="navStatus">Meu Status Report</button>
+    <button data-tab="resumo" id="navResumo">Consultar Reports</button>
+    <button data-tab="projeto" id="navProjeto">Administração de Projetos</button>
     <button data-tab="auditoria" id="navAuditoria">Auditoria</button>
+    <button data-tab="consulta" id="navConsulta" hidden>Consulta Geral</button>
   </nav>
 
   <section id="tabConsulta" hidden>
@@ -622,14 +712,23 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
 
   <section id="tabStatus" hidden>
     <div class="card">
-      <h2>Status Report Semanal</h2>
-      <p class="muted">
-        Preencha por seções. O Gerente responsável salva e publica automaticamente;
-        cada semana preserva seu próprio histórico para comparação.
-      </p>
+      <div class="top"><div>
+        <h2>Meu Status Report</h2>
+        <p class="muted">Preencha os itens do PowerPoint e salve. O gerente responsável publica automaticamente, sem aprovação.</p>
+      </div>
+      <button id="sNovoProjetoBtn" class="secondary" type="button">+ Cadastrar meu projeto</button></div>
 
       <form id="formStatus">
-        <div class="grid">
+        <div id="novoProjetoCampos" class="pmo-novo-projeto" hidden>
+          <div class="top"><h3>Novo projeto</h3><button id="sCancelarNovo" class="secondary" type="button">Cancelar</button></div>
+          <p class="muted small">O vínculo ao gerente logado será criado automaticamente. O projeto e o primeiro report serão salvos juntos.</p>
+          <label>Nome do projeto *<input id="sNovoNome" maxlength="200" autocomplete="off"></label>
+          <div class="grid">
+            <label>Objetivo *<textarea id="sNovoObjetivo"></textarea></label>
+            <label>Contexto<textarea id="sNovoContexto"></textarea></label>
+          </div>
+        </div>
+        <div class="grid pmo-seletor">
           <label>Projeto *
             <select id="sProjeto" required></select>
           </label>
@@ -647,7 +746,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
           Usar última semana como ponto de partida
         </button>
 
-        <div id="pmoFormNav" class="pmo-form-nav" role="tablist" aria-label="Seções do relatório semanal"></div>
+        <p class="pmo-help">Mesmo conteúdo do slide: indicadores, datas, saúde, marcos, riscos e acompanhamento. Campos sem evidência devem indicar TBD.</p>
         <fieldset id="camposStatus" disabled>
           <div class="section pmo-status-pane" data-pmo-pane="indicadores">
             <h3>Planejamento e indicadores</h3>
@@ -676,7 +775,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
             </p>
           </div>
 
-          <div class="section pmo-status-pane" data-pmo-pane="datas" hidden>
+          <div class="section pmo-status-pane" data-pmo-pane="datas">
             <h3>Datas, responsáveis e custos</h3>
             <div class="grid">
               <label>Início baseline
@@ -707,14 +806,8 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
               <label>Classificação de custo
                 <input id="sModalidade" placeholder="Interno | CAPEX ou N/A">
               </label>
-              <label>Custo aprovado (acesso gerencial)
-                <input type="number" step="0.01" min="0"
-                       id="sCustoAprovado">
-              </label>
-              <label>Custo realizado (acesso gerencial)
-                <input type="number" step="0.01" min="0"
-                       id="sCustoRealizado">
-              </label>
+              <input type="hidden" id="sCustoAprovado">
+              <input type="hidden" id="sCustoRealizado">
               <label>Observações de custo
                 <input id="sCustoObs">
               </label>
@@ -725,7 +818,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
             </label>
           </div>
 
-          <div class="section pmo-status-pane" data-pmo-pane="saude" hidden>
+          <div class="section pmo-status-pane" data-pmo-pane="saude">
             <h3>Saúde do projeto</h3>
             <div class="grid">
               <label>Escopo *
@@ -744,7 +837,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
             <div id="sFarolGeral" class="info">Farol geral: —</div>
           </div>
 
-          <div id="secMarcos" class="section pmo-status-pane" data-pmo-pane="marcos" hidden>
+          <div id="secMarcos" class="section pmo-status-pane" data-pmo-pane="marcos">
             <h3>Marcos e entregas</h3>
             <p class="muted">
               Informe responsável, datas, situação, percentual e peso,
@@ -757,7 +850,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
             </button>
           </div>
 
-          <div id="secRiscos" class="section pmo-status-pane" data-pmo-pane="riscos" hidden>
+          <div id="secRiscos" class="section pmo-status-pane" data-pmo-pane="riscos">
             <h3>Riscos e impedimentos</h3>
             <p class="muted">
               Registre descrição, severidade, ação ou mitigação,
@@ -770,19 +863,16 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
             </button>
           </div>
 
-          <div id="secAcoes" class="section pmo-status-pane" data-pmo-pane="acoes" hidden>
-            <h3>Próximos passos estruturados</h3>
-            <p class="muted">
-              O quê, quem e quando. Use a mesma ação nas próximas semanas
-              para comparar evolução.
-            </p>
+          <div id="secAcoes" class="section pmo-status-pane pmo-complementar" data-pmo-pane="acoes">
+            <h3>Próximos passos com responsável e data (opcional)</h3>
+            <p class="muted small">Use quando precisar controlar ações individualmente; a síntese do report fica no acompanhamento.</p>
             <div id="linhasAcoes"></div>
             <button type="button" class="secondary" data-adicionar="acoes">
               + Adicionar ação
             </button>
           </div>
 
-          <div class="section pmo-status-pane" data-pmo-pane="acompanhamento" hidden>
+          <div class="section pmo-status-pane pmo-acompanhamento" data-pmo-pane="acompanhamento">
             <h3>Acompanhamento</h3>
             <label>Realizado
               <textarea id="sFeito"></textarea>
@@ -797,15 +887,8 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
         </fieldset>
 
         <div class="pmo-rodape-status">
-          <div>
-            <strong id="pmoStatusTitulo">Planejamento e indicadores</strong>
-            <div id="pmoStatusProgresso" class="pmo-status-info">Seção 1 de 7</div>
-          </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button id="pmoStatusAnterior" type="button" class="secondary">Anterior</button>
-            <button id="pmoStatusProximo" type="button" class="secondary">Próxima seção</button>
-            <button id="salvarStatus" type="submit" disabled>Salvar e publicar</button>
-          </div>
+          <span class="pmo-status-info">Report semanal: salve para publicar imediatamente no perfil Gerente.</span>
+          <button id="salvarStatus" type="submit" disabled>Salvar e publicar report</button>
         </div>
         <p id="msgStatus" class="message" role="status"></p>
       </form>
@@ -816,11 +899,8 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
     <div class="card">
       <div class="top">
         <div>
-          <h2>Resumo Executivo por Gerente</h2>
-          <p class="muted">
-              Projetos agrupados por gerente, com navegação horizontal, indicadores,
-              gráficos de evolução e relatório completo em visão compacta.
-          </p>
+          <h2>Consulta de Status Reports</h2>
+          <p class="muted">Um slide por projeto, agrupado por gerente. Use as setas para mudar de projeto; a linha abaixo mostra a evolução semanal.</p>
         </div>
         <button id="atualizarResumo" class="secondary" type="button">
           Atualizar
@@ -1100,21 +1180,15 @@ const options = {
 
 function mostrarAba(tab) {
   const permitidas = cred("administrador")
-    ? ["consulta", "projeto", "status", "resumo", "auditoria"]
-    : cred("gerente")
-      ? ["consulta", "projeto", "status", "resumo"]
-      : ["resumo"];
-
+    ? ["resumo", "projeto", "auditoria"]
+    : cred("gerente") ? ["resumo", "status"] : ["resumo"];
   if (!permitidas.includes(tab)) tab = "resumo";
-
   for (const x of ["consulta", "projeto", "status", "resumo", "auditoria"]) {
     $("tab" + x[0].toUpperCase() + x.slice(1)).hidden = x !== tab;
   }
-
   document.querySelectorAll("nav button").forEach(b => {
     b.classList.toggle("active", b.dataset.tab === tab);
   });
-
   if (tab === "resumo") carregarResumo();
   if (tab === "auditoria") carregarAuditoria();
 }
@@ -1164,17 +1238,18 @@ async function sessao() {
     $("perfil").textContent = "Perfil: " +
       (cred("executivo") ? "Usuário — Resumo" : papel);
 
-    $("navConsulta").hidden = cred("executivo");
-    $("navProjeto").hidden = cred("executivo");
-    $("navStatus").hidden = cred("executivo");
+    $("navConsulta").hidden = true;
+    $("navProjeto").hidden = !cred("administrador");
+    $("navStatus").hidden = !cred("gerente");
     $("navAuditoria").hidden = !cred("administrador");
+    $("sNovoProjetoBtn").hidden = !cred("gerente");
 
     if (!cred("executivo")) await atualizarProjetos();
 
     $("loginBox").hidden = true;
     $("app").hidden = false;
     limparProjeto();
-    mostrarAba(cred("executivo") ? "resumo" : "consulta");
+    mostrarAba(cred("gerente") ? "status" : "resumo");
   } catch (e) {
     $("app").hidden = true;
     $("loginBox").hidden = false;
@@ -1502,6 +1577,32 @@ function calcularAvanco(ms) {
   ) / 100;
 }
 
+let modoNovoProjeto = false;
+function alternarNovoProjeto(ativar) {
+  if (!cred("gerente")) return;
+  modoNovoProjeto = Boolean(ativar);
+  $("novoProjetoCampos").hidden = !modoNovoProjeto;
+  $("sProjeto").disabled = modoNovoProjeto;
+  $("sProjeto").required = !modoNovoProjeto;
+  $("sNovoNome").required = modoNovoProjeto;
+  $("sNovoObjetivo").required = modoNovoProjeto;
+  $("sNovoProjetoBtn").textContent = modoNovoProjeto ? "Voltar ao projeto existente" : "+ Cadastrar meu projeto";
+  if (modoNovoProjeto) {
+    $("sProjeto").value = "";
+    $("sData").value = hoje();
+    limparFormularioStatus();
+    statusPronto = true;
+    $("sLider").value = usu?.email || "";
+    M("msgStatus", "Novo projeto: preencha o nome, objetivo e dados do report. Ao salvar, ambos serão criados.", "warning");
+  } else {
+    $("sNovoNome").value = "";
+    $("sNovoObjetivo").value = "";
+    $("sNovoContexto").value = "";
+    statusPronto = false;
+    carregarStatus();
+  }
+  bloquearStatus();
+}
 function limparFormularioStatus() {
   for (const id of Object.keys(colunas)) $(id).value = "";
   limparLinhas();
@@ -1516,33 +1617,15 @@ function limparFormularioStatus() {
 
 function bloquearStatus() {
   const id = V("sProjeto");
-  const autorizado = id && podeEditar(id);
-  const publicado = relatorio?.situacao_publicacao === "publicado";
-  const habilitado = Boolean(
-    statusPronto && autorizado &&
-    (!cred("administrador") || publicado)
-  );
-
+  const autorizado = !modoNovoProjeto && id && podeEditar(id) && cred("gerente");
+  const habilitado = modoNovoProjeto ? cred("gerente") : Boolean(statusPronto && autorizado);
   $("camposStatus").disabled = !habilitado;
   $("salvarStatus").disabled = !habilitado;
-
-  if (!id) {
-    $("avisoStatus").textContent = "Selecione um projeto";
-  } else if (!autorizado) {
-    $("avisoStatus").textContent =
-      "Somente leitura: projeto não atribuído a você";
-  } else if (!statusPronto) {
-    $("avisoStatus").textContent =
-      "Consultando relatório e permissões...";
-  } else if (cred("administrador") && !publicado) {
-    $("avisoStatus").textContent =
-      "A primeira publicação é do Gerente responsável. " +
-      "O Administrador pode corrigir relatórios publicados.";
-  } else {
-    $("avisoStatus").textContent =
-      "Edição autorizada. Salvar publica imediatamente " +
-      "e registra a auditoria.";
-  }
+  if (modoNovoProjeto) $("avisoStatus").textContent = "Novo projeto: vínculo automático ao gerente autenticado; publicação na primeira gravação.";
+  else if (!id) $("avisoStatus").textContent = "Selecione um projeto ou cadastre um novo.";
+  else if (!autorizado) $("avisoStatus").textContent = "Somente leitura: edição permitida apenas ao gerente atribuído.";
+  else if (!statusPronto) $("avisoStatus").textContent = "Consultando histórico semanal...";
+  else $("avisoStatus").textContent = "Edição autorizada. Salvar publica imediatamente e registra a auditoria.";
 }
 
 function preencherStatus(r) {
@@ -1601,6 +1684,7 @@ async function carregarStatus() {
   limparFormularioStatus();
   bloquearStatus();
 
+  if (modoNovoProjeto) return;
   const pid = Number(V("sProjeto"));
   const dt = V("sData");
   if (!pid || !dt) {
@@ -1737,23 +1821,14 @@ async function salvarStatus(e) {
   e.preventDefault();
   if (!pmoValidarObrigatorios()) return;
 
-  const pid = Number(V("sProjeto"));
+  let pid = Number(V("sProjeto"));
   const dt = V("sData");
+  const criando = modoNovoProjeto;
 
-  if (!statusPronto || !podeEditar(pid) || !dt) {
+  if (!statusPronto || (criando ? !cred("gerente") : !cred("gerente") || !podeEditar(pid)) || !dt) {
     M(
       "msgStatus",
       "Gravação não autorizada ou carregamento incompleto",
-      "error"
-    );
-    return;
-  }
-
-  if (cred("administrador") &&
-      relatorio?.situacao_publicacao !== "publicado") {
-    M(
-      "msgStatus",
-      "A publicação inicial cabe ao Gerente responsável",
       "error"
     );
     return;
@@ -1805,6 +1880,32 @@ async function salvarStatus(e) {
 
     M("msgStatus", "Gravando e publicando relatório completo...");
 
+    if (criando) {
+      if (!V("sNovoNome") || !V("sNovoObjetivo")) {
+        throw Error("Informe nome e objetivo do novo projeto.");
+      }
+      const novo = await db.from("projetos").insert({
+        nome: V("sNovoNome"), objetivo: V("sNovoObjetivo"),
+        contexto: V("sNovoContexto"), gerente: usu.email,
+        fornecedor: V("sFornecedorReport"), sponsor: V("sStakeholder"),
+        situacao: "Em andamento"
+      }).select("id").single();
+      if (novo.error) throw novo.error;
+      pid = novo.data.id;
+      // A atribuição efetiva é realizada pelo gatilho do Supabase já homologado.
+      modoNovoProjeto = false;
+      $("novoProjetoCampos").hidden = true;
+      $("sProjeto").disabled = false;
+      $("sProjeto").required = true;
+      $("sNovoNome").required = false;
+      $("sNovoObjetivo").required = false;
+      await atualizarProjetos();
+      $("sProjeto").value = String(pid);
+      if (!podeEditar(pid)) {
+        throw Error("Projeto criado, mas o vínculo com o gerente não foi confirmado. Verifique a atribuição antes de publicar.");
+      }
+    }
+
     const r = await db.rpc("pmo_salvar_relatorio_completo", {
       p_projeto_id: pid,
       p_data_referencia: dt,
@@ -1831,7 +1932,10 @@ async function salvarStatus(e) {
   } catch (err) {
     M("msgStatus", "Erro: " + err.message, "error");
     for (const t of ["marcos", "riscos", "acoes"]) {
-      if (String(err.message).includes("linhas de " + t)) mostrarPainelStatus(t);
+      if (String(err.message).includes("linhas de " + t)) {
+        const sec = $(t === "marcos" ? "secMarcos" : t === "riscos" ? "secRiscos" : "secAcoes");
+        if (sec) sec.scrollIntoView({behavior:"smooth",block:"start"});
+      }
     }
   } finally {
     bloquearStatus();
@@ -1884,6 +1988,9 @@ function desenharBarras(container, h, altura = 260) {
       ? null
       : Number(valor);
 
+  const slideClaro = Boolean(container.closest(".pmo-slide"));
+  const corTexto = slideClaro ? "#274663" : "#ffffff";
+  const corGrade = slideClaro ? "rgba(0,48,92,.12)" : "rgba(255,255,255,.08)";
   const grafico = new Chart(canvas, {
     type: "line",
     data: {
@@ -1922,7 +2029,7 @@ function desenharBarras(container, h, altura = 260) {
         legend: {
           position: "top",
           labels: {
-            color: "#ffffff",
+            color: corTexto,
             usePointStyle: true,
             padding: 18
           }
@@ -1937,17 +2044,17 @@ function desenharBarras(container, h, altura = 260) {
       },
       scales: {
         x: {
-          ticks: { color: "#c5d0df" },
-          grid: { color: "rgba(255,255,255,0.06)" }
+          ticks: { color: corTexto },
+          grid: { color: corGrade }
         },
         y: {
           min: 0,
           max: 100,
           ticks: {
-            color: "#c5d0df",
+            color: corTexto,
             callback: valor => valor + "%"
           },
-          grid: { color: "rgba(255,255,255,0.08)" }
+          grid: { color: corGrade }
         }
       }
     }
@@ -2083,142 +2190,142 @@ function pmoListaEstruturada(titulo, arr, tipo) {
 function detalheExecutivo(pai, pacote, contexto = {}) {
   pai.replaceChildren();
   const r = pacote?.relatorio;
-  if (!r) { pai.textContent = "Nenhum relatório publicado"; return; }
-
-  const hist = [...(pacote.historico || [])].sort((a, b) =>
+  if (!r) { pai.appendChild(E("p", "Sem Status Report publicado para este projeto.")); return; }
+  const marcos = pacote.marcos || [], riscos = pacote.riscos || [];
+  const hist = [...(pacote.historico || [])].sort((a,b) =>
     String(a.data_referencia).localeCompare(String(b.data_referencia)));
-  const ult = hist.length ? hist[hist.length - 1] : r;
-  const pen = hist.length > 1 ? hist[hist.length - 2] : null;
-  const delta = (a, b) => a == null || b == null ? "—" :
-    ((Number(a) - Number(b) >= 0 ? "+" : "") + (Number(a) - Number(b)).toFixed(1) + " p.p.");
-
-  const header = E("div", "", "pmo-rel-cabecalho");
-  const nomes = E("div");
-  nomes.appendChild(E("h3", contexto.projeto || "Relatório executivo completo"));
-  nomes.appendChild(E("p", "Gerente: " + T(contexto.gerente) +
-    " · Semana: " + dataBR(r.data_referencia), "pmo-rel-sub"));
-  const fechar = btn("Fechar relatório", () => {
-    pai.hidden = true;
-    pai.replaceChildren();
-  }, "secondary");
-  header.append(nomes, fechar);
-  pai.appendChild(header);
-
-  const kpis = E("div", "", "pmo-rel-kpis");
-  pmoKpi(kpis, "Planejado", r.planejado == null ? "—" : r.planejado + "%");
-  pmoKpi(kpis, "Realizado", r.realizado == null ? "—" : r.realizado + "%");
-  pmoKpi(kpis, "Variação realizado", pen ? delta(ult.realizado, pen.realizado) : "—");
-  pmoKpi(kpis, "SPI informado", r.spi);
-  pmoKpi(kpis, "Go-live forecast", r.go_live_forecast ? dataBR(r.go_live_forecast) : "TBD");
-  pai.appendChild(kpis);
-
-  const abas = [
-    ["visao", "Visão geral"], ["marcos", "Marcos"], ["riscos", "Riscos"],
-    ["acoes", "Próximos passos"], ["datas", "Datas e gestão"],
-    ["historico", "Histórico"]
-  ];
-  const nav = E("div", "", "pmo-tabs");
-  nav.setAttribute("role", "tablist");
-  const panes = new Map();
-  const buttons = new Map();
-  function mostrarAbaRel(id) {
-    for (const [nome, el] of panes) el.hidden = nome !== id;
-    for (const [nome, el] of buttons) el.setAttribute("aria-selected", String(nome === id));
+  const vazio = v => v === null || v === undefined || String(v).trim() === "" ? "TBD" : String(v);
+  const dataOuNota = (v, nota) => v ? dataBR(v) : vazio(nota);
+  const campo = (rotulo, valor, extra = "") => {
+    const d = E("div", "", "slide-metrica " + extra);
+    d.appendChild(E("span", rotulo, "slide-legenda"));
+    d.appendChild(E("strong", vazio(valor), "slide-valor"));
+    return d;
+  };
+  const bloco = titulo => {
+    const b = E("section", "", "slide-painel");
+    b.appendChild(E("h4", titulo));
+    return b;
+  };
+  const slide = E("article", "", "pmo-slide");
+  const topo = E("div", "", "slide-topo");
+  const identidade = E("div", "", "slide-identidade");
+  identidade.appendChild(E("h2", contexto.projeto || "Projeto"));
+  const objetivo = E("p", "", "slide-objetivo");
+  objetivo.appendChild(E("b", "Objetivo: "));
+  objetivo.appendChild(document.createTextNode(vazio(r.objetivo)));
+  identidade.appendChild(objetivo);
+  const contextoEl = E("p", "", "slide-contexto");
+  contextoEl.appendChild(E("b", "Contexto: "));
+  contextoEl.appendChild(document.createTextNode(vazio(r.contexto)));
+  identidade.appendChild(contextoEl);
+  const geral = E("div", "", "slide-geral");
+  geral.appendChild(E("small", "STATUS GERAL"));
+  geral.appendChild(E("strong", vazio(r.status_geral || r.farol_prazo)));
+  geral.appendChild(E("small", "Report: " + dataBR(r.data_referencia)));
+  const goLive = r.go_live_forecast || r.go_live_baseline;
+  if (goLive) {
+    const dt = new Date(goLive + "T12:00:00");
+    const ref = new Date(r.data_referencia + "T12:00:00");
+    if (!Number.isNaN(dt.getTime()) && !Number.isNaN(ref.getTime())) {
+      const dias = Math.round((dt - ref) / 86400000);
+      geral.appendChild(E("em", dias + " dias para go-live", "slide-dias"));
+    }
   }
-  for (const [id, titulo] of abas) {
-    const b = btn(titulo, () => mostrarAbaRel(id), "secondary");
-    b.setAttribute("role", "tab");
-    b.setAttribute("aria-selected", String(id === "visao"));
-    buttons.set(id, b);
-    nav.appendChild(b);
-  }
-  pai.appendChild(nav);
-  for (const [id] of abas) {
-    const div = E("div", "", "pmo-pane");
-    div.hidden = id !== "visao";
-    panes.set(id, div);
-    pai.appendChild(div);
-  }
+  topo.append(identidade, geral);
+  slide.appendChild(topo);
 
-  const visual = panes.get("visao");
-  const duas = E("div", "", "pmo-rel-grid");
-  const gra = pmoBloco("Evolução de planejado x realizado");
-  if (hist.length) desenharBarras(gra, hist);
-  else gra.appendChild(E("p", "Sem histórico para exibir.", "muted"));
-  const resumo = pmoBloco("Situação e saúde");
-  const hs = E("div", "", "pmo-farois");
-  for (const [nome, valor] of [
-    ["Escopo", r.farol_escopo], ["Prazo", r.farol_prazo],
-    ["Custo", r.farol_custo], ["Qualidade", r.farol_qualidade]
-  ]) {
-    const linha = E("div", "", "pmo-farol-linha");
-    linha.appendChild(E("span", nome));
-    linha.appendChild(E("span", T(valor), "farol " + classeFarol(valor)));
-    hs.appendChild(linha);
+  const metricas = E("div", "", "slide-metricas");
+  const progresso = [r.planejado == null ? "TBD" : r.planejado + "%",
+                    r.realizado == null ? "TBD" : r.realizado + "%",
+                    r.spi == null ? "TBD" : r.spi].join(" / ");
+  metricas.appendChild(campo("PLANEJADO / AVANÇO / SPI", progresso));
+  metricas.appendChild(campo("INÍCIO", dataOuNota(r.inicio_baseline, r.inicio_descricao)));
+  const fim = dataOuNota(r.go_live_baseline, r.go_live_descricao);
+  const fin = r.go_live_forecast && r.go_live_forecast !== r.go_live_baseline
+    ? fim + " | Prev.: " + dataBR(r.go_live_forecast) : fim;
+  metricas.appendChild(campo("GO-LIVE BASELINE / FORECAST", fin));
+  metricas.appendChild(campo("LÍDER NATURGY / FORNECEDOR", [r.lider_naturgy, r.fornecedor_report].filter(Boolean).join(" | ")));
+  metricas.appendChild(campo("SPONSOR / STAKEHOLDER", r.stakeholder_report));
+  metricas.appendChild(campo("CUSTO (CLASSIFICAÇÃO)", r.custo_modalidade || "Interno / N/A"));
+  slide.appendChild(metricas);
+
+  const saude = E("div", "", "slide-saude");
+  saude.appendChild(E("b", "Saúde do projeto"));
+  for (const [nome, val] of [["Escopo",r.farol_escopo],["Prazo",r.farol_prazo],
+                             ["Custo",r.farol_custo],["Qualidade",r.farol_qualidade]]) {
+    const cel = E("div", "", "slide-farol");
+    cel.appendChild(E("span", "●", "slide-dot " + classeFarol(val)));
+    cel.appendChild(E("b", nome));
+    cel.appendChild(E("span", vazio(val)));
+    saude.appendChild(cel);
   }
-  resumo.appendChild(hs);
-  resumo.appendChild(E("p", "Status geral: " + T(r.status_geral), "small"));
-  resumo.appendChild(E("p", "Objetivo: " + T(r.objetivo), "small"));
-  resumo.appendChild(E("p", "Contexto: " + T(r.contexto), "small"));
-  duas.append(gra, resumo);
-  visual.appendChild(duas);
-  const acompanhamento = pmoPainelInfo("Acompanhamento desta semana", [
-    ["Realizado", r.resumo_realizado],
-    ["Em andamento", r.resumo_andamento],
-    ["Próximos passos — síntese", r.resumo_proximos]
-  ]);
-  acompanhamento.style.marginTop = "12px";
-  visual.appendChild(acompanhamento);
+  slide.appendChild(saude);
 
-  panes.get("marcos").appendChild(pmoListaEstruturada("Marcos e entregas", pacote.marcos, "marcos"));
-  panes.get("riscos").appendChild(pmoListaEstruturada("Riscos e impedimentos", pacote.riscos, "riscos"));
-  panes.get("acoes").appendChild(pmoListaEstruturada("Próximos passos estruturados", pacote.proximos, "acoes"));
-
-  const dados = panes.get("datas");
-  const gDados = E("div", "", "pmo-rel-grid");
-  gDados.appendChild(pmoPainelInfo("Datas e responsáveis", [
-    ["Início baseline", r.inicio_baseline, true],
-    ["Início: nota / TBD", r.inicio_descricao],
-    ["Go-live baseline", r.go_live_baseline, true],
-    ["Go-live forecast", r.go_live_forecast, true],
-    ["Go-live: nota / TBD", r.go_live_descricao],
-    ["Líder Naturgy", r.lider_naturgy],
-    ["Fornecedor / líder fornecedor", r.fornecedor_report],
-    ["Sponsor / Stakeholder", r.stakeholder_report]
+  const tabelas = E("div", "", "slide-tabelas");
+  function montarTabela(titulo, cabecalhos, registros, obter) {
+    const paiTabela = bloco(titulo);
+    const viewport = E("div", "", "slide-tabela-scroll");
+    const tab = document.createElement("table");
+    const thead = document.createElement("thead");
+    const head = document.createElement("tr");
+    cabecalhos.forEach(t => head.appendChild(E("th", t)));
+    thead.appendChild(head);
+    tab.appendChild(thead);
+    const tbody = document.createElement("tbody");
+    if (!registros.length) {
+      const tr = E("tr");
+      const td = E("td", "Nenhum registro informado");
+      td.colSpan = cabecalhos.length;
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+    }
+    registros.forEach(item => {
+      const tr = E("tr");
+      obter(item).forEach(v => tr.appendChild(E("td", vazio(v))));
+      tbody.appendChild(tr);
+    });
+    tab.appendChild(tbody);
+    viewport.appendChild(tab);
+    paiTabela.appendChild(viewport);
+    return paiTabela;
+  }
+  tabelas.appendChild(montarTabela("Marcos / Entregas", ["Entrega", "Resp.", "Início", "Fim", "Status / %"], marcos, x => [
+    x.descricao, x.responsavel, dataOuNota(x.data_inicio,x.inicio_descricao),
+    dataOuNota(x.data_fim_baseline,x.fim_descricao) + (x.data_fim_forecast && x.data_fim_forecast !== x.data_fim_baseline ? " → " + dataBR(x.data_fim_forecast) : ""),
+    [x.situacao, x.percentual_concluido == null ? "" : x.percentual_concluido + "%"].filter(Boolean).join(" / ")
   ]));
-  const custoCampos = [
-    ["Classificação de custo", r.custo_modalidade],
-    ["Observações de custo", r.custo_observacoes],
-    ["Observações gerenciais", r.observacoes_gerenciais]
-  ];
-  if (!cred("executivo")) {
-    custoCampos.splice(1, 0, ["Custo aprovado", r.custo_aprovado], ["Custo realizado", r.custo_realizado]);
-  }
-  gDados.appendChild(pmoPainelInfo("Gestão e custos", custoCampos));
-  dados.appendChild(gDados);
+  tabelas.appendChild(montarTabela("Riscos & Impedimentos", ["Descrição", "Sev.", "Ação / Mitigação"], riscos, x => [
+    x.descricao, x.severidade, x.acao_mitigacao
+  ]));
+  slide.appendChild(tabelas);
 
-  const hPane = panes.get("historico");
-  const chartWrap = pmoBloco("Histórico semanal");
-  if (hist.length) {
-    desenharBarras(chartWrap, hist);
-    const tabela = document.createElement("details");
-    tabela.appendChild(E("summary", "Ver tabela histórica detalhada"));
-    tabelaSemanal(tabela, hist);
-    chartWrap.appendChild(tabela);
-    if (pen) chartWrap.appendChild(E("p", "Variação planejado: " + delta(ult.planejado, pen.planejado) +
-      " · Realizado: " + delta(ult.realizado, pen.realizado), "small muted"));
-  } else chartWrap.appendChild(E("p", "Sem histórico.", "muted"));
-  hPane.appendChild(chartWrap);
-  if (hist.length > 1) {
-    const cmp = document.createElement("details");
-    cmp.className = "pmo-rel-section";
-    cmp.style.marginTop = "12px";
-    cmp.appendChild(E("summary", "Comparar marcos, riscos e ações com a semana anterior"));
-    compararItens(cmp, "marcos", pacote.marcos, pacote.marcos_anteriores, "marco_chave");
-    compararItens(cmp, "riscos", pacote.riscos, pacote.riscos_anteriores, "risco_chave");
-    compararItens(cmp, "ações", pacote.proximos, pacote.proximos_anteriores, "acao_chave");
-    hPane.appendChild(cmp);
+  const resumos = E("div", "", "slide-resumos");
+  for (const [titulo, valor] of [["Realizado",r.resumo_realizado],
+                                ["Em Andamento",r.resumo_andamento],
+                                ["Próximos Passos",r.resumo_proximos]]) {
+    const b = bloco(titulo);
+    b.appendChild(E("div", vazio(valor), "slide-resumo-texto"));
+    resumos.appendChild(b);
   }
+  slide.appendChild(resumos);
+
+  const evolucao = bloco("Evolução semanal: planejado x realizado");
+  evolucao.classList.add("slide-evolucao");
+  if (hist.length) {
+    desenharBarras(evolucao, hist, 150);
+    const ultimo = hist[hist.length-1];
+    const anterior = hist.length > 1 ? hist[hist.length-2] : null;
+    if (anterior && ultimo.realizado != null && anterior.realizado != null) {
+      const d = Number(ultimo.realizado) - Number(anterior.realizado);
+      evolucao.appendChild(E("p", "Variação desde " + dataBR(anterior.data_referencia) + ": " +
+        (d >= 0 ? "+" : "") + d.toFixed(1) + " p.p. realizado", "slide-variacao"));
+    }
+  } else {
+    evolucao.appendChild(E("p", "Primeira semana; sem histórico para comparação.", "muted"));
+  }
+  slide.appendChild(evolucao);
+  pai.appendChild(slide);
 }
 
 const pmoDetalhesEmCache = new Map();
@@ -2243,152 +2350,59 @@ async function carregarResumo() {
   const seq = ++sequenciaResumo;
   pmoDetalhesEmCache.clear();
   const alvo = $("listaResumo");
-  alvo.textContent = "Carregando relatórios publicados...";
-
-  const r = await db.rpc("resumo_publicado_por_gerente");
+  alvo.textContent = "Carregando reports publicados...";
+  const resposta = await db.rpc("resumo_publicado_por_gerente");
   if (seq !== sequenciaResumo) return;
-  if (r.error) { alvo.textContent = "Erro: " + r.error.message; return; }
+  if (resposta.error) { alvo.textContent = "Erro: " + resposta.error.message; return; }
   alvo.replaceChildren();
-  if (!r.data?.length) {
-    alvo.textContent = "Nenhum relatório publicado até o momento.";
+  if (!resposta.data?.length) {
+    alvo.appendChild(E("p", "Nenhum Status Report publicado até o momento."));
     return;
   }
-
   const grupos = new Map();
-  r.data.forEach(x => {
+  resposta.data.forEach(x => {
     const k = x.gerente_id || "sem-gerente";
-    if (!grupos.has(k)) grupos.set(k, {
-      nome: x.gerente_identificacao || "Sem gerente atribuído", list: []
-    });
-    grupos.get(k).list.push(x);
+    if (!grupos.has(k)) grupos.set(k, { nome: x.gerente_identificacao || "Sem gerente atribuído", projetos: [] });
+    grupos.get(k).projetos.push(x);
   });
-
-  Array.from(grupos.values())
-    .sort((a,b) => a.nome.localeCompare(b.nome, "pt-BR"))
-    .forEach(g => {
-      const section = document.createElement("details");
-      section.open = true;
-      section.className = "group pmo-gerente";
-      section.appendChild(E("summary", "Gerente: " + g.nome + " — " + g.list.length +
-        (g.list.length === 1 ? " projeto" : " projetos")));
-      const body = E("div", "", "group-content");
-      const controls = E("div", "", "pmo-carrossel-navegacao");
-      const pos = E("span", "1 / " + g.list.length, "muted small");
-      const voltar = btn("‹ Anterior", () => navegar(-1), "secondary");
-      const avancar = btn("Próximo ›", () => navegar(1), "secondary");
-      controls.append(voltar, pos, avancar);
-      const carrossel = E("div", "", "pmo-carrossel");
-      carrossel.setAttribute("aria-label", "Projetos do gerente " + g.nome);
-      carrossel.tabIndex = 0;
-      const detalhamento = E("div", "", "pmo-onepage");
-      detalhamento.hidden = true;
-
-      const sorted = g.list.sort((a,b) =>
-        a.projeto_nome.localeCompare(b.projeto_nome, "pt-BR"));
-      let indice = 0;
-      let timerFluxo = 0;
-      function carregarGraficoAtivo() {
-        const card = carrossel.children[indice];
-        const alvoGrafico = card?.querySelector("[data-mini-chart]");
-        if (!alvoGrafico || alvoGrafico.dataset.loaded === "1") return;
-        const projetoId = sorted[indice].projeto_id;
-        alvoGrafico.dataset.loaded = "1";
-        alvoGrafico.appendChild(E("p", "Carregando evolução...", "muted small"));
-        pmoBuscarDetalhe(projetoId).then(pacote => {
-          if (seq !== sequenciaResumo || !alvoGrafico.isConnected) return;
-          alvoGrafico.replaceChildren();
-          if (pacote?.historico?.length) desenharBarras(alvoGrafico, pacote.historico, 185);
-          else alvoGrafico.appendChild(E("p", "Sem histórico semanal.", "muted"));
-        }).catch(err => {
-          if (!alvoGrafico.isConnected) return;
-          alvoGrafico.dataset.loaded = "";
-          alvoGrafico.textContent = "Não foi possível carregar o gráfico: " + err.message;
-        });
+  [...grupos.values()].sort((a,b) => a.nome.localeCompare(b.nome,"pt-BR")).forEach(grupo => {
+    const sec = document.createElement("details");
+    sec.open = true;
+    sec.className = "group pmo-gerente";
+    const arr = grupo.projetos.sort((a,b) => a.projeto_nome.localeCompare(b.projeto_nome,"pt-BR"));
+    sec.appendChild(E("summary", "Gerente: " + grupo.nome + " | " + arr.length + (arr.length === 1 ? " projeto" : " projetos")));
+    const corpo = E("div", "", "group-content");
+    const navegacao = E("div", "", "pmo-slide-nav");
+    const antes = btn("‹ Anterior", () => exibir(indice - 1), "secondary");
+    const depois = btn("Próximo ›", () => exibir(indice + 1), "secondary");
+    const contador = E("span", "", "muted small");
+    const titulo = E("strong", "");
+    navegacao.append(antes,titulo,contador,depois);
+    const slide = E("div", "", "pmo-slide-host");
+    corpo.append(navegacao,slide);
+    sec.appendChild(corpo);
+    alvo.appendChild(sec);
+    let indice = 0;
+    let pedido = 0;
+    async function exibir(i) {
+      indice = Math.max(0,Math.min(arr.length-1,i));
+      const atual = arr[indice];
+      contador.textContent = (indice+1) + " / " + arr.length;
+      titulo.textContent = atual.projeto_nome;
+      antes.disabled = indice === 0;
+      depois.disabled = indice === arr.length-1;
+      slide.textContent = "Carregando slide do projeto...";
+      const meuPedido = ++pedido;
+      try {
+        const pacote = await pmoBuscarDetalhe(atual.projeto_id);
+        if (seq !== sequenciaResumo || meuPedido !== pedido || !slide.isConnected) return;
+        detalheExecutivo(slide,pacote,{projeto:atual.projeto_nome,gerente:grupo.nome});
+      } catch (err) {
+        if (meuPedido === pedido && slide.isConnected) slide.textContent = "Erro ao consultar report: " + err.message;
       }
-      function selecionar(i, scroll = true) {
-        indice = Math.max(0, Math.min(sorted.length - 1, i));
-        pos.textContent = (indice+1) + " / " + sorted.length;
-        voltar.disabled = indice === 0;
-        avancar.disabled = indice === sorted.length - 1;
-        if (scroll && carrossel.children[indice]) {
-          carrossel.scrollTo({
-            left: carrossel.children[indice].offsetLeft - carrossel.children[0].offsetLeft,
-            behavior: "instant"
-          });
-        }
-        carregarGraficoAtivo();
-      }
-      function navegar(delta) { selecionar(indice + delta); }
-      carrossel.addEventListener("scroll", () => {
-        window.clearTimeout(timerFluxo);
-        timerFluxo = window.setTimeout(() => {
-          const card0 = carrossel.children[0];
-          if (!card0) return;
-          const largura = card0.offsetWidth + 16;
-          selecionar(Math.round(carrossel.scrollLeft / largura), false);
-        }, 100);
-      });
-      carrossel.addEventListener("keydown", e => {
-        if (e.target !== carrossel) return;
-        if (e.key === "ArrowRight") { e.preventDefault(); navegar(1); }
-        if (e.key === "ArrowLeft") { e.preventDefault(); navegar(-1); }
-      });
-
-      sorted.forEach(x => {
-        const card = E("article", "", "summary-card pmo-projeto-card");
-        const topo = E("div", "", "pmo-cartao-topo");
-        const nome = E("div");
-        nome.appendChild(E("h3", x.projeto_nome));
-        nome.appendChild(E("small", "Referência: " + dataBR(x.data_referencia), "muted"));
-        topo.appendChild(nome);
-        topo.appendChild(E("span", T(x.farol_prazo), "farol " + classeFarol(x.farol_prazo)));
-        card.appendChild(topo);
-
-        const corpo = E("div", "", "pmo-projeto-corpo");
-        const met = E("div", "", "pmo-projeto-metricas");
-        const numeros = E("div", "", "pmo-kpis");
-        [["Planejado",x.planejado],["Realizado",x.realizado]].forEach(([t,v]) => {
-          const caixa = E("div", "", "pmo-kpi");
-          caixa.appendChild(E("div", t, "pmo-kpi-label"));
-          caixa.appendChild(E("strong", v == null ? "—" : v + "%", "pmo-kpi-valor"));
-          numeros.appendChild(caixa);
-        });
-        met.appendChild(numeros);
-        const farois = E("div", "", "pmo-farois");
-        [["Escopo",x.farol_escopo],["Prazo",x.farol_prazo],
-         ["Custo",x.farol_custo],["Qualidade",x.farol_qualidade]].forEach(([n,v]) => {
-          const linha = E("div", "", "pmo-farol-linha");
-          linha.appendChild(E("small", n));
-          linha.appendChild(E("span", T(v), "farol " + classeFarol(v)));
-          farois.appendChild(linha);
-        });
-        met.appendChild(farois);
-        const grafico = E("div", "", "pmo-mini-chart");
-        grafico.setAttribute("data-mini-chart", "");
-        corpo.append(met,grafico);
-        card.appendChild(corpo);
-        const rodape = E("div", "", "pmo-cartao-rodape");
-        rodape.appendChild(btn("Abrir relatório one-page", async () => {
-          detalhamento.hidden = false;
-          detalhamento.textContent = "Carregando relatório completo...";
-          try {
-            const pacote = await pmoBuscarDetalhe(x.projeto_id);
-            if (seq !== sequenciaResumo || !detalhamento.isConnected) return;
-            detalheExecutivo(detalhamento, pacote, {projeto:x.projeto_nome, gerente:g.nome});
-            detalhamento.scrollIntoView({behavior:"smooth", block:"start"});
-          } catch(err) {
-            detalhamento.textContent = "Erro ao abrir relatório: " + err.message;
-          }
-        }));
-        card.appendChild(rodape);
-        carrossel.appendChild(card);
-      });
-
-      body.append(controls,carrossel,detalhamento);
-      section.appendChild(body);
-      alvo.appendChild(section);
-      selecionar(0, false);
-    });
+    }
+    exibir(0);
+  });
 }
 
 function isoLocal(date, maisUm = false) {
@@ -2506,54 +2520,12 @@ function limparAuditoria() {
   carregarAuditoria();
 }
 
-const pmoSecoesStatus = [
-  ["indicadores", "Indicadores"], ["datas", "Datas e custos"],
-  ["saude", "Saúde"], ["marcos", "Marcos"], ["riscos", "Riscos"],
-  ["acoes", "Próximos passos"], ["acompanhamento", "Acompanhamento"]
-];
-let pmoSecaoAtual = "indicadores";
-function mostrarPainelStatus(id) {
-  if (!pmoSecoesStatus.some(x => x[0] === id)) return;
-  pmoSecaoAtual = id;
-  const idx = pmoSecoesStatus.findIndex(x => x[0] === id);
-  document.querySelectorAll("[data-pmo-pane]").forEach(p => {
-    p.hidden = p.dataset.pmoPane !== id;
-  });
-  document.querySelectorAll("#pmoFormNav button[data-pmo-ir]").forEach(b => {
-    b.setAttribute("aria-selected", String(b.dataset.pmoIr === id));
-  });
-  $("pmoStatusTitulo").textContent = pmoSecoesStatus[idx][1];
-  $("pmoStatusProgresso").textContent = "Seção " + (idx+1) + " de " + pmoSecoesStatus.length;
-  $("pmoStatusAnterior").disabled = idx === 0;
-  $("pmoStatusProximo").disabled = idx === pmoSecoesStatus.length - 1;
-}
-function configurarNavegacaoStatus() {
-  const nav = $("pmoFormNav");
-  pmoSecoesStatus.forEach(([id, titulo]) => {
-    const b = btn(titulo, () => mostrarPainelStatus(id), "secondary");
-    b.dataset.pmoIr = id;
-    b.setAttribute("role", "tab");
-    nav.appendChild(b);
-  });
-  $("pmoStatusAnterior").onclick = () => {
-    const i = pmoSecoesStatus.findIndex(x => x[0] === pmoSecaoAtual);
-    mostrarPainelStatus(pmoSecoesStatus[Math.max(0, i-1)][0]);
-  };
-  $("pmoStatusProximo").onclick = () => {
-    const i = pmoSecoesStatus.findIndex(x => x[0] === pmoSecaoAtual);
-    mostrarPainelStatus(pmoSecoesStatus[Math.min(pmoSecoesStatus.length-1, i+1)][0]);
-  };
-  // O formulário faz validação global mesmo quando uma seção está oculta.
-  $("formStatus").noValidate = true;
-  mostrarPainelStatus("indicadores");
-}
 function pmoValidarObrigatorios() {
   const obrigatorios = Array.from($("formStatus").querySelectorAll("[required]"));
   const invalido = obrigatorios.find(el => !el.disabled && !el.checkValidity());
   if (!invalido) return true;
-  const sec = invalido.closest("[data-pmo-pane]");
-  if (sec) mostrarPainelStatus(sec.dataset.pmoPane);
   M("msgStatus", "Preencha os campos obrigatórios antes de publicar.", "error");
+  invalido.scrollIntoView({behavior:"smooth",block:"center"});
   invalido.focus();
   return false;
 }
@@ -2594,10 +2566,12 @@ function iniciar() {
   $("loginForm").onsubmit = entrar;
   $("formProjeto").onsubmit = salvarProjeto;
   $("formStatus").onsubmit = salvarStatus;
-  configurarNavegacaoStatus();
+  $("formStatus").noValidate = true;
+  $("sNovoProjetoBtn").onclick = () => alternarNovoProjeto(!modoNovoProjeto);
+  $("sCancelarNovo").onclick = () => alternarNovoProjeto(false);
   $("logout").onclick = sair;
   $("novoProjeto").onclick = limparProjeto;
-  $("sProjeto").onchange = carregarStatus;
+  $("sProjeto").onchange = () => { if (!modoNovoProjeto) carregarStatus(); };
   $("sData").onchange = carregarStatus;
   $("abrirData").onclick = () => abrirCalendario("sData");
   $("sCopiar").onclick = copiarSemanaAnterior;
