@@ -23,15 +23,15 @@ BEGIN
 END;
 $pmo$;
 
--- A lista de gerentes nao entrega auth.users ao navegador: somente admin.
+-- A lista de responsaveis inclui gerentes e administradores para permitir autoria historica.\n-- Um administrador atribuido NAO ganha permissao de publicar report por esta funcao.
 CREATE OR REPLACE FUNCTION public.pmo_admin_listar_gerentes()
-RETURNS TABLE(usuario_id uuid, email text)
+RETURNS TABLE(usuario_id uuid, email text, papel text)
 LANGUAGE sql STABLE SECURITY DEFINER SET search_path=''
 AS $pmo$
-  SELECT u.id, u.email::text
+  SELECT u.id, u.email::text, p.papel::text
   FROM auth.users AS u
   JOIN public.perfis AS p ON p.usuario_id=u.id
-  WHERE p.ativo=true AND p.papel='gerente'
+  WHERE p.ativo=true AND p.papel IN ('gerente','administrador')
     AND EXISTS (
       SELECT 1 FROM public.perfis AS a
       WHERE a.usuario_id=auth.uid()
@@ -64,7 +64,7 @@ BEGIN
   SELECT u.email::text INTO v_email
   FROM auth.users u
   JOIN public.perfis p ON p.usuario_id=u.id
-  WHERE u.id=p_usuario_id AND p.papel='gerente' AND p.ativo=true;
+  WHERE u.id=p_usuario_id AND p.papel IN ('gerente','administrador') AND p.ativo=true;
   IF v_email IS NULL THEN
     RAISE EXCEPTION 'Gerente inexistente ou inativo';
   END IF;
