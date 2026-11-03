@@ -289,10 +289,10 @@
       card.style.borderLeft = "4px solid " + (style === "verde" ? "#35ce8e" : style === "amarelo" ? "#ffbf43" : style === "vermelho" ? "#fd7185" : "#8795aa");
       cards.appendChild(card);
     });
-    const general = dom("div","Farol geral (pior dimensão): " + farolGeral(),"pmo-v6-farol-geral");
+    const general = dom("div","Saúde consolidada (pior dimensão): " + farolGeral(),"pmo-v6-farol-geral");
     const legend = dom("div",null,"pmo-v6-farol-legenda");
     [["Verde: no prazo","verde"],["Amarelo: atenção","amarelo"],["Vermelho: crítico","vermelho"],["Cinza: N/A ou pendente","cinza"]].forEach(([t,c]) => legend.appendChild(dom("span",t,"farol "+c)));
-    panel.append(cards,general,legend);
+    panel.append(cards,general,legend,dom("small","Indicador de saúde apenas informativo. O Status Geral é escolhido separadamente pelo gerente.","muted small"));
   }
 
   function chartTheme(container) {
