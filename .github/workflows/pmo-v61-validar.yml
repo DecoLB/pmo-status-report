@@ -1,0 +1,34 @@
+name: PMO V6.1 - Auditoria de homologacao
+on:
+  push:
+    paths:
+      - 'teste-v6-1/**'
+      - '.github/workflows/pmo-v61-validar.yml'
+  workflow_dispatch:
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar os scripts e o HTML inline
+        run: |
+          node --check teste-v6-1/refino.js
+          node --check teste-v6-1/ajustes.js
+          node - <<'NODE'
+          const fs=require('fs'),vm=require('vm');
+          const html=fs.readFileSync('teste-v6-1/index.html','utf8');
+          const inline=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(x=>x[1]).filter(x=>x.trim());
+          if(!inline.length)throw Error('JS inline não encontrado');
+          for(const code of inline)new vm.Script(code);
+          const style=fs.readFileSync('teste-v6-1/ajustes.css','utf8');
+          const logic=fs.readFileSync('teste-v6-1/ajustes.js','utf8');
+          for(const path of ['refino.js','refino.css','ajustes.js','ajustes.css'])if(!html.includes(path))throw Error('Arquivo ausente: '+path);
+          for(const id of ['sEscopo','sPrazo','sCusto','sQualidade','portBusca','portLinhas','tabPortfolio'])if(!html.includes('id="'+id+'"'))throw Error('ID obrigatório: '+id);
+          for(const method of ['pmo_portfolio_evolucao','aggregateSeries','decorateSlide','syncSignals'])if(!logic.includes(method))throw Error('Refinamento ausente: '+method);
+          if(logic.includes('service_role')||logic.includes('sb_secret_')||html.includes('sb_secret_'))throw Error('Chave privilegiada inesperada');
+          if(!style.includes('prefers-reduced-motion'))throw Error('Falta alternativa para movimento reduzido');
+          const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);
+          const duplicate=ids.filter((id,i)=>ids.indexOf(id)!==i);
+          if(duplicate.length)throw Error('IDs duplicados: '+[...new Set(duplicate)].join(','));
+          console.log('V6.1 validada: JavaScript, CSS, IDs únicos e dependências');
+          NODE
