@@ -717,8 +717,8 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
         </label>
 
         <div class="grid">
-          <label>Gerente informado (não altera atribuição)
-            <input id="pGerente" maxlength="200">
+          <label>Responsável registrado (somente leitura; use Atribuição abaixo)
+            <input id="pGerente" maxlength="200" readonly>
           </label>
           <label>Fornecedor
             <input id="pFornecedor" maxlength="200">
@@ -1568,7 +1568,7 @@ async function salvarProjeto(e) {
     situacao: V("pSituacao")
   };
 
-  if (cred("administrador")) dados.gerente = V("pGerente");
+  // O vinculo e o nome do responsavel sao administrados exclusivamente pela RPC protegida.
   $("salvarProjeto").disabled = true;
 
   try {
