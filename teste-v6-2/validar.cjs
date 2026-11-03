@@ -96,6 +96,8 @@ assert.match(grab('.pmo62-golive-days',second)?.textContent||'',/TBD/);
 assert(!errors.length,'Erros globais: '+JSON.stringify(errors));
 console.log('PASS: consulta renderiza dois reports, status é estático, Go-Live correto, nenhum call stack.');
 async function portfolio(){
+  // Aguarda a sessão mock sem usuário encerrar antes de ativar o cenário autenticado.
+  await new Promise(resolve=>setTimeout(resolve,30));
   vm.runInContext("usu = {id:'user_teste',email:'gerente@teste.com'}; papel = 'gerente';",context);
   const app=grab('#app');app.hidden=false;
   grab('#tabPortfolio').hidden=false;
