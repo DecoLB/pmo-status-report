@@ -556,6 +556,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
 .slide-resumos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
 .slide-resumos .slide-painel { min-height:110px; }
 .slide-resumo-texto { white-space:pre-wrap; overflow:auto; max-height:130px; font-size:11px; line-height:1.35; }
+.slide-fonte-historica { display:block; font-size:10px; color:#496078; margin-top:4px; }
 .slide-evolucao { min-height:135px; }
 .slide-evolucao .pmo-grafico { margin:0; height:130px!important; border:0; background:#f9fbfd; padding:4px; }
 .slide-evolucao .slide-variacao { color:#496078; font-size:10px; margin:0; }
@@ -601,6 +602,24 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
 }
 @media print { .pmo-slide-nav,nav,header,.footer { display:none!important; } .pmo-slide { box-shadow:none; } }
 
+/* Portfólio gerencial: leitura consolidada sem dados financeiros */
+.pmo-port-filtros { display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr 1fr; gap:12px; margin:14px 0; }
+.pmo-port-filtros label { font-size:12px; }
+.pmo-port-kpis { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:12px 0; }
+.pmo-port-kpi { padding:14px; border:1px solid #40516a; border-radius:9px; background:#172438; }
+.pmo-port-kpi span { display:block; color:#c5d0df; font-size:12px; }
+.pmo-port-kpi strong { display:block; font-size:26px; margin-top:5px; }
+.pmo-port-tabela { overflow-x:auto; border:1px solid #40516a; border-radius:9px; }
+.pmo-port-tabela table { border-collapse:collapse; width:100%; min-width:950px; font-size:13px; }
+.pmo-port-tabela th { text-align:left; background:#172438; color:white; padding:11px; }
+.pmo-port-tabela td { padding:11px; border-top:1px solid #40516a; vertical-align:middle; }
+.pmo-port-tabela tr:hover { background:#253953; }
+.pmo-port-tabela button { padding:7px 10px; font-size:12px; }
+#portDetalhe { margin-top:14px; }
+@media(max-width:850px){ .pmo-port-filtros { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:580px){ .pmo-port-filtros,.pmo-port-kpis { grid-template-columns:1fr 1fr; } }
+
+
 </style>
 </head>
 <body>
@@ -622,6 +641,23 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
   <p id="loginMsg" class="message" role="status"></p>
 </section>
 
+<section id="primeiroAcesso" class="card login" hidden>
+  <h2>Ativação do primeiro acesso</h2>
+  <p class="muted">Defina sua senha pessoal antes de acessar os relatórios. O convite individual é enviado ao e-mail cadastrado.</p>
+  <form id="primeiroAcessoForm">
+    <label>Nova senha
+      <input id="novaSenha" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
+    </label>
+    <label>Confirme a nova senha
+      <input id="confirmarSenha" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
+    </label>
+    <p class="muted small">Mínimo de 8 caracteres, com letra maiúscula, minúscula, número e caractere especial.</p>
+    <button type="submit" id="ativarConta">Definir senha e ativar conta</button>
+    <button type="button" class="secondary" id="sairPrimeiroAcesso">Cancelar</button>
+  </form>
+  <p id="msgPrimeiroAcesso" class="message" role="status"></p>
+</section>
+
 <section id="app" hidden>
   <div class="top">
     <div>
@@ -637,6 +673,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
     <button data-tab="resumo" id="navResumo">Consultar Reports</button>
     <button data-tab="projeto" id="navProjeto">Administração de Projetos</button>
     <button data-tab="auditoria" id="navAuditoria">Auditoria</button>
+    <button data-tab="portfolio" id="navPortfolio">Portfólio</button>
     <button data-tab="consulta" id="navConsulta" hidden>Consulta Geral</button>
   </nav>
 
@@ -680,8 +717,8 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
         </label>
 
         <div class="grid">
-          <label>Gerente informado (não altera atribuição)
-            <input id="pGerente" maxlength="200">
+          <label>Responsável registrado (somente leitura; use Atribuição abaixo)
+            <input id="pGerente" maxlength="200" readonly>
           </label>
           <label>Fornecedor
             <input id="pFornecedor" maxlength="200">
@@ -706,6 +743,36 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
         O vínculo efetivo entre Gerente e projeto é definido na tabela
         <code>projeto_gerentes</code>. Apenas o Administrador pode transferir
         esse vínculo; editar o campo de texto não altera permissões.
+      </div>
+    </div>
+    <div class="card" id="cardAtribuicaoAdmin">
+      <h2>Atribuição de gerentes (somente administrador)</h2>
+      <p class="muted small">O nome informado no projeto não modifica o vínculo de acesso. Use esta área para atribuir ou transferir formalmente o responsável, com auditoria.</p>
+      <div class="grid">
+        <label>Projeto
+          <select id="adminProjetoAtrib"><option value="">Selecione</option></select>
+        </label>
+        <label>Gerente ativo
+          <select id="adminGerenteAtrib"><option value="">Selecione</option></select>
+        </label>
+      </div>
+      <button type="button" id="adminAtribuir">Confirmar atribuição</button>
+      <p id="adminAtribMensagem" class="message" role="status"></p>
+    </div>
+    <div class="card" id="cardConvites">
+      <div class="top">
+        <div>
+          <h2>Convites e primeiro acesso</h2>
+          <p class="muted">Acesso liberado por convite individual. Cada usuário define uma senha própria no primeiro acesso.</p>
+        </div>
+        <button type="button" id="enviarConvites">Enviar convites pendentes</button>
+      </div>
+      <p id="convitesMensagem" class="message" role="status"></p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>E-mail</th><th>Perfil</th><th>Situação</th></tr></thead>
+          <tbody id="listaConvites"></tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -808,9 +875,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
               </label>
               <input type="hidden" id="sCustoAprovado">
               <input type="hidden" id="sCustoRealizado">
-              <label>Observações de custo
-                <input id="sCustoObs">
-              </label>
+              <input type="hidden" id="sCustoObs">
             </div>
             <p id="sDiasGoLive" class="info">Dias até Go-Live: —</p>
             <label>Observações gerenciais
@@ -910,6 +975,65 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
     </div>
   </section>
 
+
+  <section id="tabPortfolio" hidden>
+    <div class="card">
+      <div class="top">
+        <div>
+          <h2>Painel Gerencial de Portfólio</h2>
+          <p class="muted">Visão consolidada, por gerente e situação, dos reports publicados. Projetos sem publicação são identificados apenas na visão administrativa.</p>
+        </div>
+        <button id="portAtualizar" class="secondary" type="button">Atualizar</button>
+      </div>
+      <div class="pmo-port-filtros">
+        <label>Pesquisar projeto
+          <input id="portBusca" placeholder="Nome do projeto">
+        </label>
+        <label>Gerente responsável
+          <select id="portGerente"><option value="">Todos os gerentes</option></select>
+        </label>
+        <label>Saúde consolidada
+          <select id="portSaude">
+            <option value="">Todas</option>
+            <option value="Crítico">Crítico</option>
+            <option value="Atenção">Atenção</option>
+            <option value="No prazo">No prazo</option>
+            <option value="TBD">Sem avaliação</option>
+          </select>
+        </label>
+        <label>Status geral
+          <select id="portStatus">
+            <option value="">Todos</option>
+            <option value="Em atraso">Em atraso</option>
+            <option value="No prazo">No prazo</option>
+            <option value="Crítico">Crítico</option>
+            <option value="Bloqueado">Bloqueado</option>
+            <option value="TBD">Não informado</option>
+          </select>
+        </label>
+        <label>Situação da publicação
+          <select id="portPublicado">
+            <option value="">Todos</option>
+            <option value="sim">Publicado</option>
+            <option value="nao">Sem report</option>
+          </select>
+        </label>
+      </div>
+      <div class="pmo-port-kpis" id="portKpis"></div>
+      <p id="portContagem" class="muted" role="status"></p>
+      <div class="pmo-port-tabela">
+        <table>
+          <thead><tr>
+            <th>Projeto</th><th>Gerente</th><th>Referência</th><th>Planejado</th>
+            <th>Realizado</th><th>Desvio</th><th>Status geral</th><th>Saúde</th><th>Consulta</th>
+          </tr></thead>
+          <tbody id="portLinhas"></tbody>
+        </table>
+      </div>
+      <div id="portDetalhe" hidden></div>
+    </div>
+  </section>
+
   <section id="tabAuditoria" hidden>
     <div class="card">
       <h2>Auditoria de Alterações</h2>
@@ -969,7 +1093,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
 </section>
 
 <p class="footer">
-  PMO | Ambiente de demonstração — dados fictícios
+  PMO | Status Report de Projetos · Dados históricos identificados pela fonte
 </p>
 </main>
 
@@ -1180,10 +1304,10 @@ const options = {
 
 function mostrarAba(tab) {
   const permitidas = cred("administrador")
-    ? ["resumo", "projeto", "auditoria"]
-    : cred("gerente") ? ["resumo", "status"] : ["resumo"];
+    ? ["resumo", "projeto", "auditoria", "portfolio"]
+    : cred("gerente") ? ["resumo", "status", "portfolio"] : ["resumo", "portfolio"];
   if (!permitidas.includes(tab)) tab = "resumo";
-  for (const x of ["consulta", "projeto", "status", "resumo", "auditoria"]) {
+  for (const x of ["consulta", "projeto", "status", "resumo", "auditoria", "portfolio"]) {
     $("tab" + x[0].toUpperCase() + x.slice(1)).hidden = x !== tab;
   }
   document.querySelectorAll("nav button").forEach(b => {
@@ -1191,6 +1315,8 @@ function mostrarAba(tab) {
   });
   if (tab === "resumo") carregarResumo();
   if (tab === "auditoria") carregarAuditoria();
+  if (tab === "portfolio") carregarPortfolio();
+  if (tab === "projeto" && cred("administrador")) carregarConvitesAdmin();
 }
 
 async function entrar(e) {
@@ -1217,15 +1343,25 @@ async function sessao() {
     const { data, error } = await db.auth.getUser();
     if (error || !data.user) {
       $("loginBox").hidden = false;
+      $("primeiroAcesso").hidden = true;
       $("app").hidden = true;
       return;
     }
 
     const r = await db.from("perfis")
-      .select("papel,ativo")
+      .select("papel,ativo,primeiro_acesso_pendente")
       .eq("usuario_id", data.user.id)
       .single();
 
+    if (!r.error && r.data?.primeiro_acesso_pendente === true) {
+      usu = data.user;
+      papel = null;
+      $("loginBox").hidden = true;
+      $("app").hidden = true;
+      $("primeiroAcesso").hidden = false;
+      M("msgPrimeiroAcesso", "Defina uma senha pessoal para concluir sua ativação.", "");
+      return;
+    }
     if (r.error || !r.data?.ativo ||
         !["administrador", "gerente", "executivo"].includes(r.data.papel)) {
       await db.auth.signOut();
@@ -1242,16 +1378,20 @@ async function sessao() {
     $("navProjeto").hidden = !cred("administrador");
     $("navStatus").hidden = !cred("gerente");
     $("navAuditoria").hidden = !cred("administrador");
+    $("navPortfolio").hidden = false;
     $("sNovoProjetoBtn").hidden = !cred("gerente");
 
     if (!cred("executivo")) await atualizarProjetos();
+    if (cred("administrador")) await carregarAtribuicoesAdmin();
 
     $("loginBox").hidden = true;
+    $("primeiroAcesso").hidden = true;
     $("app").hidden = false;
     limparProjeto();
     mostrarAba(cred("gerente") ? "status" : "resumo");
   } catch (e) {
     $("app").hidden = true;
+    $("primeiroAcesso").hidden = true;
     $("loginBox").hidden = false;
     M("loginMsg", "Erro ao validar o perfil: " + e.message, "error");
   }
@@ -1270,6 +1410,7 @@ async function sair() {
   projetos = [];
   vinculos.clear();
   $("app").hidden = true;
+  $("primeiroAcesso").hidden = true;
   $("loginBox").hidden = false;
   $("senha").value = "";
 }
@@ -1427,7 +1568,7 @@ async function salvarProjeto(e) {
     situacao: V("pSituacao")
   };
 
-  if (cred("administrador")) dados.gerente = V("pGerente");
+  // O vinculo e o nome do responsavel sao administrados exclusivamente pela RPC protegida.
   $("salvarProjeto").disabled = true;
 
   try {
@@ -1445,6 +1586,116 @@ async function salvarProjeto(e) {
     M("msgProjeto", "Erro: " + e.message, "error");
   } finally {
     $("salvarProjeto").disabled = false;
+  }
+}
+
+
+/* A atribuicao real exige uma RPC SECURITY DEFINER que valida perfil ADMIN. */
+async function carregarAtribuicoesAdmin() {
+  if (!cred("administrador")) return;
+  const projetosSelect=$("adminProjetoAtrib"),gerentesSelect=$("adminGerenteAtrib");
+  projetosSelect.replaceChildren(new Option("Selecione um projeto",""));
+  projetos.forEach(p=>projetosSelect.add(new Option(p.nome,String(p.id))));
+  gerentesSelect.replaceChildren(new Option("Selecione um gerente",""));
+  try {
+    const r=await db.rpc("pmo_admin_listar_gerentes");
+    if(r.error) throw r.error;
+    (r.data||[]).forEach(g=>{
+      gerentesSelect.add(new Option(T(g.email)+(g.papel==="administrador"?" (administrador: não publica)":"") ,String(g.usuario_id)));
+    });
+    M("adminAtribMensagem","Escolha projeto e gerente para efetivar a atribuição.","");
+  } catch(err) {
+    M("adminAtribMensagem","Atribuição administrativa pendente de configuração segura no Supabase: "+err.message,"error");
+  }
+}
+
+async function carregarConvitesAdmin() {
+  if(!cred("administrador")) return;
+  const corpo=$("listaConvites");
+  corpo.replaceChildren();
+  const r=await db.from("pmo_convites_planejados")
+    .select("email,papel,estado").order("email");
+  if(r.error) {
+    M("convitesMensagem","Erro ao consultar convites: "+r.error.message,"error");
+    return;
+  }
+  for(const c of r.data||[]){
+    const tr=E("tr");
+    [c.email,c.papel,c.estado].forEach(v=>tr.appendChild(E("td",String(v||"—"))));
+    corpo.appendChild(tr);
+  }
+  const pendentes=(r.data||[]).filter(x=>x.estado==="pendente"||x.estado==="erro");
+  M("convitesMensagem",String(r.data?.length||0)+" usuários planejados. "+pendentes.length+" convite(s) pendente(s).","");
+}
+
+async function enviarConvitesAdmin() {
+  if(!cred("administrador")) return;
+  if(!window.confirm("Enviar convites individuais para as contas pendentes? Os usuários definirão sua própria senha.")) return;
+  $("enviarConvites").disabled=true;
+  M("convitesMensagem","Enviando convites autorizados...");
+  try {
+    const r=await db.functions.invoke("pmo-admin-convites",{body:{}});
+    if(r.error)throw r.error;
+    const erros=(r.data?.resultados||[]).filter(x=>x.estado==="erro");
+    await carregarConvitesAdmin();
+    M("convitesMensagem",String(r.data?.processados||0)+" convite(s) processado(s). "+
+      (erros.length?String(erros.length)+" falharam; verifique a configuração de e-mail do Supabase.":"Consulte o status de cada conta."),erros.length?"warning":"success");
+  } catch(err){
+    M("convitesMensagem","Falha ao enviar convites: "+err.message,"error");
+  } finally {
+    $("enviarConvites").disabled=false;
+  }
+}
+
+async function ativarPrimeiroAcesso(e) {
+  e.preventDefault();
+  const senha=$("novaSenha").value;
+  if(senha!==$("confirmarSenha").value ||
+     senha.length<8||senha.length>128||
+     !/[A-Z]/.test(senha)||!/[a-z]/.test(senha)||!/[0-9]/.test(senha)||
+     !/[^A-Za-z0-9]/.test(senha)){
+    M("msgPrimeiroAcesso","Senhas diferentes ou fora da regra de complexidade.","error");
+    return;
+  }
+  $("ativarConta").disabled=true;
+  M("msgPrimeiroAcesso","Ativando o acesso...");
+  try {
+    const r=await db.functions.invoke("pmo-primeiro-acesso",{body:{senha}});
+    if(r.error)throw r.error;
+    $("novaSenha").value="";
+    $("confirmarSenha").value="";
+    await db.auth.signOut();
+    $("primeiroAcesso").hidden=true;
+    $("app").hidden=true;
+    $("loginBox").hidden=false;
+    M("loginMsg","Senha definida e conta ativada. Entre com seu e-mail e sua nova senha.","success");
+  } catch(err) {
+    M("msgPrimeiroAcesso","Não foi possível ativar: "+err.message,"error");
+  } finally {
+    $("ativarConta").disabled=false;
+  }
+}
+
+async function atribuirProjetoAdmin() {
+  if(!cred("administrador"))return;
+  const id=Number(V("adminProjetoAtrib")),uid=V("adminGerenteAtrib");
+  if(!Number.isInteger(id)||id<1||!uid){
+    M("adminAtribMensagem","Selecione o projeto e o gerente.","error");return;
+  }
+  const nome=projetos.find(p=>p.id===id)?.nome || "Projeto";
+  const gerente=$("adminGerenteAtrib").selectedOptions[0]?.textContent||"";
+  if(!window.confirm("Confirmar atribuição de '"+nome+"' para "+gerente+"?"))return;
+  $("adminAtribuir").disabled=true;
+  try {
+    const r=await db.rpc("pmo_admin_atribuir_gerente",{p_projeto_id:id,p_usuario_id:uid});
+    if(r.error)throw r.error;
+    await atualizarProjetos();
+    await carregarAtribuicoesAdmin();
+    M("adminAtribMensagem","Responsável atribuído com sucesso. Vínculo atualizado no banco e auditado.","success");
+  } catch(err) {
+    M("adminAtribMensagem","Falha na atribuição: "+err.message,"error");
+  } finally {
+    $("adminAtribuir").disabled=false;
   }
 }
 
@@ -2219,6 +2470,9 @@ function detalheExecutivo(pai, pacote, contexto = {}) {
   contextoEl.appendChild(E("b", "Contexto: "));
   contextoEl.appendChild(document.createTextNode(vazio(r.contexto)));
   identidade.appendChild(contextoEl);
+  if (String(r.observacoes_gerenciais || "").startsWith("Carga histórica do PowerPoint")) {
+    identidade.appendChild(E("small",r.observacoes_gerenciais,"slide-fonte-historica"));
+  }
   const geral = E("div", "", "slide-geral");
   geral.appendChild(E("small", "STATUS GERAL"));
   geral.appendChild(E("strong", vazio(r.status_geral || r.farol_prazo)));
@@ -2361,7 +2615,7 @@ async function carregarResumo() {
   }
   const grupos = new Map();
   resposta.data.forEach(x => {
-    const k = x.gerente_id || "sem-gerente";
+    const k = x.gerente_id || ("pendente:"+String(x.gerente_identificacao||"Sem atribuição").toLowerCase());
     if (!grupos.has(k)) grupos.set(k, { nome: x.gerente_identificacao || "Sem gerente atribuído", projetos: [] });
     grupos.get(k).projetos.push(x);
   });
@@ -2403,6 +2657,156 @@ async function carregarResumo() {
     }
     exibir(0);
   });
+}
+
+
+/* Portfólio: usa somente consultas autorizadas e oculta valores financeiros. */
+let pmoDadosPortfolio = [];
+let pmoSeqPortfolio = 0;
+
+function pmoSaudePortfolio(r) {
+  if (!r) return "TBD";
+  const vals = [r.farol_escopo,r.farol_prazo,r.farol_custo,r.farol_qualidade];
+  if (vals.includes("Crítico")) return "Crítico";
+  if (vals.includes("Atenção")) return "Atenção";
+  if (vals.some(v=>!v || v==="TBD" || v==="Não avaliado")) return "TBD";
+  if (vals.some(v=>v==="No prazo") && vals.every(v=>v==="No prazo" || v==="N/A")) return "No prazo";
+  return "TBD";
+}
+
+function pmoPctPortfolio(n) {
+  return n === null || n === undefined || n === "" || !Number.isFinite(Number(n))
+    ? "TBD" : Number(n).toLocaleString("pt-BR", {maximumFractionDigits:1})+"%";
+}
+
+function filtrarPortfolio() {
+  const busca = V("portBusca").toLocaleLowerCase("pt-BR");
+  const gerente = V("portGerente"), saude = V("portSaude"), pub = V("portPublicado"), status = V("portStatus");
+  const lista = pmoDadosPortfolio.filter(x =>
+    (!busca || x.nome.toLocaleLowerCase("pt-BR").includes(busca)) &&
+    (!gerente || x.gerente === gerente) &&
+    (!saude || x.saude === saude) &&
+    (!status || (x.relatorio?.status_geral || "TBD") === status) &&
+    (!pub || (pub === "sim" ? x.publicado : !x.publicado))
+  );
+  const cards = [
+    ["Projetos filtrados",lista.length],
+    ["Reports publicados",lista.filter(x=>x.publicado).length],
+    ["Atenção / Crítico",lista.filter(x=>x.saude==="Atenção"||x.saude==="Crítico").length],
+    ["Sem report",lista.filter(x=>!x.publicado).length]
+  ];
+  const kpis=$("portKpis");
+  kpis.replaceChildren();
+  for (const [titulo,valor] of cards) {
+    const k=E("div","","pmo-port-kpi");
+    k.appendChild(E("span",titulo));
+    k.appendChild(E("strong",String(valor)));
+    kpis.appendChild(k);
+  }
+  $("portContagem").textContent=lista.length+" projeto(s) na consulta.";
+  const tbody=$("portLinhas");
+  tbody.replaceChildren();
+  $("portDetalhe").hidden=true;
+  $("portDetalhe").replaceChildren();
+  if (!lista.length) {
+    const tr=E("tr"),td=E("td","Nenhum projeto corresponde aos filtros.");
+    td.colSpan=9;tr.appendChild(td);tbody.appendChild(tr);
+  }
+  for (const x of lista) {
+    const tr=E("tr");
+    const r=x.relatorio||{};
+    const desvio=r.realizado==null||r.planejado==null
+      ? "TBD" : (Number(r.realizado)-Number(r.planejado)).toLocaleString("pt-BR",{maximumFractionDigits:1})+" p.p.";
+    const campos=[
+      x.nome,x.gerente,x.publicado?(dataBR(r.data_referencia)+(r.data_original_fonte && r.data_original_fonte!==r.data_referencia?" | Fonte: "+dataBR(r.data_original_fonte):"")):"Sem report",
+      pmoPctPortfolio(r.planejado),pmoPctPortfolio(r.realizado),
+      desvio,x.publicado?T(r.status_geral):"Sem report",x.saude
+    ];
+    campos.forEach(valor=>tr.appendChild(E("td",String(valor))));
+    const acao=E("td");
+    if (x.publicado) {
+      const abrir=btn("Ver slide",async()=>{
+        const dest=$("portDetalhe");
+        dest.hidden=false;
+        dest.textContent="Carregando slide...";
+        try {
+          const pacote=await pmoBuscarDetalhe(x.id);
+          detalheExecutivo(dest,pacote,{projeto:x.nome,gerente:x.gerente});
+          dest.scrollIntoView({behavior:"smooth",block:"start"});
+        } catch(err) {
+          dest.textContent="Erro ao consultar slide: "+err.message;
+        }
+      },"secondary");
+      acao.appendChild(abrir);
+    } else {
+      acao.appendChild(E("span","—","muted"));
+    }
+    tr.appendChild(acao);
+    tbody.appendChild(tr);
+  }
+}
+
+async function carregarPortfolio() {
+  const seq=++pmoSeqPortfolio;
+  const corpo=$("portLinhas");
+  corpo.replaceChildren();
+  $("portContagem").textContent="Consultando portfólio publicado...";
+  try {
+    const [res,statusRes]=await Promise.all([db.rpc("resumo_publicado_por_gerente"),db.rpc("pmo_portfolio_status")]);
+    if(res.error) throw res.error;
+    if(statusRes.error) throw statusRes.error;
+    if(seq!==pmoSeqPortfolio) return;
+    const statusMap = new Map((statusRes.data||[]).map(x=>[String(x.projeto_id),x]));
+    const publicados=Array.isArray(res.data)?res.data:[];
+    const projetosMap=new Map();
+    for (const s of publicados) {
+      const id=String(s.projeto_id);
+      if(!id||id==="null") continue;
+      projetosMap.set(id,{
+        id:Number(s.projeto_id),nome:T(s.projeto_nome),
+        gerente:T(s.gerente_identificacao||"Não atribuído"),
+        publicado:true,pacote:null,
+        relatorio:{
+          data_referencia:s.data_referencia,planejado:s.planejado,realizado:s.realizado,
+          status_geral:statusMap.get(id)?.status_geral||"TBD",
+          data_original_fonte:statusMap.get(id)?.data_original_fonte,
+          origem_registro:statusMap.get(id)?.origem_registro,
+          farol_escopo:s.farol_escopo,farol_prazo:s.farol_prazo,
+          farol_custo:s.farol_custo,farol_qualidade:s.farol_qualidade
+        },
+        saude:pmoSaudePortfolio(s)
+      });
+    }
+    // Apenas o administrador vê também projetos ainda sem report publicado.
+    if(cred("administrador")) {
+      const cad=await db.from("projetos").select("id,nome").order("nome");
+      if(cad.error) throw cad.error;
+      for(const p of cad.data||[]) {
+        const id=String(p.id);
+        if(!projetosMap.has(id)) projetosMap.set(id,{
+          id:p.id,nome:T(p.nome),gerente:"Atribuição pendente / sem report",
+          publicado:false,pacote:null,relatorio:null,saude:"TBD"
+        });
+      }
+    }
+    const valores=[...projetosMap.values()];
+    // A consulta consolidada utiliza somente o resumo publicado.
+    // Detalhe completo e carregado apenas quando o usuario abre o slide.
+    if(seq!==pmoSeqPortfolio) return;
+    pmoDadosPortfolio=valores.sort((a,b)=>
+      a.gerente.localeCompare(b.gerente,"pt-BR")||a.nome.localeCompare(b.nome,"pt-BR")
+    );
+    const selecionado=$("portGerente").value;
+    $("portGerente").replaceChildren(new Option("Todos os gerentes",""));
+    [...new Set(valores.map(x=>x.gerente))].sort((a,b)=>a.localeCompare(b,"pt-BR")).forEach(x=>
+      $("portGerente").add(new Option(x,x))
+    );
+    $("portGerente").value=selecionado;
+    filtrarPortfolio();
+  } catch(err) {
+    if(seq!==pmoSeqPortfolio) return;
+    $("portContagem").textContent="Não foi possível carregar o portfólio: "+err.message;
+  }
 }
 
 function isoLocal(date, maisUm = false) {
@@ -2565,6 +2969,10 @@ function iniciar() {
 
   $("loginForm").onsubmit = entrar;
   $("formProjeto").onsubmit = salvarProjeto;
+  $("adminAtribuir").onclick = atribuirProjetoAdmin;
+  $("enviarConvites").onclick = enviarConvitesAdmin;
+  $("primeiroAcessoForm").onsubmit = ativarPrimeiroAcesso;
+  $("sairPrimeiroAcesso").onclick = sair;
   $("formStatus").onsubmit = salvarStatus;
   $("formStatus").noValidate = true;
   $("sNovoProjetoBtn").onclick = () => alternarNovoProjeto(!modoNovoProjeto);
@@ -2586,6 +2994,10 @@ function iniciar() {
 
   $("buscaProjeto").oninput = listarProjetos;
   $("atualizarResumo").onclick = carregarResumo;
+  $("portAtualizar").onclick = carregarPortfolio;
+  ["portBusca","portGerente","portSaude","portStatus","portPublicado"].forEach(id=>{
+    $(id).addEventListener(id==="portBusca"?"input":"change",filtrarPortfolio);
+  });
 
   $("filtrarAuditoria").onclick = () => {
     audPagina = 0;
