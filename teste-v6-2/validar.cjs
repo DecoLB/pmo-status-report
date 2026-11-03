@@ -1,5 +1,6 @@
 /* Teste local com DOM simulado: não usa dados/credenciais reais */
 const fs=require('fs');
+const vm=require('node:vm');
 const assert=require('node:assert/strict');
 const {JSDOM}=require('jsdom');
 const path=require('path');
@@ -52,9 +53,10 @@ const fakeDb={
  })
 };
 w.supabase={createClient:()=>fakeDb};
-w.eval(inline);
-w.eval(js);
-w.eval(ux);
+const context=doc.getInternalVMContext();
+new vm.Script(inline,{filename:'index-inline.js'}).runInContext(context);
+new vm.Script(js,{filename:'refino.js'}).runInContext(context);
+new vm.Script(ux,{filename:'ux.js'}).runInContext(context);
 doc.window.document.dispatchEvent(new w.Event('DOMContentLoaded',{bubbles:true}));
 const grab=(selector,where=doc.window.document)=>where.querySelector(selector);
 const status=grab('#sStatusGeral');
@@ -94,14 +96,14 @@ assert.match(grab('.pmo62-golive-days',second)?.textContent||'',/TBD/);
 assert(!errors.length,'Erros globais: '+JSON.stringify(errors));
 console.log('PASS: consulta renderiza dois reports, status é estático, Go-Live correto, nenhum call stack.');
 async function portfolio(){
-  w.eval("usu = {id:'user_teste',email:'gerente@teste.com'}; papel = 'gerente';");
+  vm.runInContext("usu = {id:'user_teste',email:'gerente@teste.com'}; papel = 'gerente';");
   const app=grab('#app');app.hidden=false;
   grab('#tabPortfolio').hidden=false;
-  w.eval("pmoDadosPortfolio = ["+
+  vm.runInContext("pmoDadosPortfolio = ["+
     "{id:4,nome:'Projeto A',gerente:'Gerente A',publicado:true,relatorio:{planejado:70,realizado:65,status_geral:'No prazo'},saude:'Crítico'},"+
     "{id:5,nome:'Projeto B',gerente:'Gerente B',publicado:true,relatorio:{planejado:60,realizado:48,status_geral:'Em atraso'},saude:'Atenção'}"+
-    "]");
-  w.eval("filtrarPortfolio()");
+    "]",context);
+  vm.runInContext("filtrarPortfolio()",context);
   await new Promise(resolve=>setTimeout(resolve,550));
   assert(grab('#pmo62Timeline'),'Timeline criada');
   assert(grab('#pmo62Timeline canvas'),'Canvas de evolução criado');
