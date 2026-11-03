@@ -1545,7 +1545,7 @@ async function carregarAtribuicoesAdmin() {
     const r=await db.rpc("pmo_admin_listar_gerentes");
     if(r.error) throw r.error;
     (r.data||[]).forEach(g=>{
-      gerentesSelect.add(new Option(T(g.email),String(g.usuario_id)));
+      gerentesSelect.add(new Option(T(g.email)+(g.papel==="administrador"?" (administrador: não publica)":"") ,String(g.usuario_id)));
     });
     M("adminAtribMensagem","Escolha projeto e gerente para efetivar a atribuição.","");
   } catch(err) {
@@ -1566,9 +1566,9 @@ async function atribuirProjetoAdmin() {
   try {
     const r=await db.rpc("pmo_admin_atribuir_gerente",{p_projeto_id:id,p_usuario_id:uid});
     if(r.error)throw r.error;
-    M("adminAtribMensagem","Gerente atribuído com sucesso. Vínculo atualizado no banco e auditado.","success");
     await atualizarProjetos();
     await carregarAtribuicoesAdmin();
+    M("adminAtribMensagem","Responsável atribuído com sucesso. Vínculo atualizado no banco e auditado.","success");
   } catch(err) {
     M("adminAtribMensagem","Falha na atribuição: "+err.message,"error");
   } finally {
