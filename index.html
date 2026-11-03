@@ -556,6 +556,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
 .slide-resumos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
 .slide-resumos .slide-painel { min-height:110px; }
 .slide-resumo-texto { white-space:pre-wrap; overflow:auto; max-height:130px; font-size:11px; line-height:1.35; }
+.slide-fonte-historica { display:block; font-size:10px; color:#496078; margin-top:4px; }
 .slide-evolucao { min-height:135px; }
 .slide-evolucao .pmo-grafico { margin:0; height:130px!important; border:0; background:#f9fbfd; padding:4px; }
 .slide-evolucao .slide-variacao { color:#496078; font-size:10px; margin:0; }
@@ -602,7 +603,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
 @media print { .pmo-slide-nav,nav,header,.footer { display:none!important; } .pmo-slide { box-shadow:none; } }
 
 /* Portfólio gerencial: leitura consolidada sem dados financeiros */
-.pmo-port-filtros { display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr; gap:12px; margin:14px 0; }
+.pmo-port-filtros { display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr 1fr; gap:12px; margin:14px 0; }
 .pmo-port-filtros label { font-size:12px; }
 .pmo-port-kpis { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:12px 0; }
 .pmo-port-kpi { padding:14px; border:1px solid #40516a; border-radius:9px; background:#172438; }
@@ -1002,6 +1003,16 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
             <option value="TBD">Sem avaliação</option>
           </select>
         </label>
+        <label>Status geral
+          <select id="portStatus">
+            <option value="">Todos</option>
+            <option value="Em atraso">Em atraso</option>
+            <option value="No prazo">No prazo</option>
+            <option value="Crítico">Crítico</option>
+            <option value="Bloqueado">Bloqueado</option>
+            <option value="TBD">Não informado</option>
+          </select>
+        </label>
         <label>Situação da publicação
           <select id="portPublicado">
             <option value="">Todos</option>
@@ -1016,7 +1027,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
         <table>
           <thead><tr>
             <th>Projeto</th><th>Gerente</th><th>Referência</th><th>Planejado</th>
-            <th>Realizado</th><th>Desvio</th><th>Publicação</th><th>Saúde</th><th>Consulta</th>
+            <th>Realizado</th><th>Desvio</th><th>Status geral</th><th>Saúde</th><th>Consulta</th>
           </tr></thead>
           <tbody id="portLinhas"></tbody>
         </table>
@@ -1084,7 +1095,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
 </section>
 
 <p class="footer">
-  PMO | Ambiente de demonstração — dados fictícios
+  PMO | Status Report de Projetos · Dados históricos identificados pela fonte
 </p>
 </main>
 
@@ -2461,6 +2472,9 @@ function detalheExecutivo(pai, pacote, contexto = {}) {
   contextoEl.appendChild(E("b", "Contexto: "));
   contextoEl.appendChild(document.createTextNode(vazio(r.contexto)));
   identidade.appendChild(contextoEl);
+  if (String(r.observacoes_gerenciais || "").startsWith("Carga histórica do PowerPoint")) {
+    identidade.appendChild(E("small",r.observacoes_gerenciais,"slide-fonte-historica"));
+  }
   const geral = E("div", "", "slide-geral");
   geral.appendChild(E("small", "STATUS GERAL"));
   geral.appendChild(E("strong", vazio(r.status_geral || r.farol_prazo)));
@@ -2603,7 +2617,7 @@ async function carregarResumo() {
   }
   const grupos = new Map();
   resposta.data.forEach(x => {
-    const k = x.gerente_id || "sem-gerente";
+    const k = x.gerente_id || ("pendente:"+String(x.gerente_identificacao||"Sem atribuição").toLowerCase());
     if (!grupos.has(k)) grupos.set(k, { nome: x.gerente_identificacao || "Sem gerente atribuído", projetos: [] });
     grupos.get(k).projetos.push(x);
   });
@@ -2669,11 +2683,12 @@ function pmoPctPortfolio(n) {
 
 function filtrarPortfolio() {
   const busca = V("portBusca").toLocaleLowerCase("pt-BR");
-  const gerente = V("portGerente"), saude = V("portSaude"), pub = V("portPublicado");
+  const gerente = V("portGerente"), saude = V("portSaude"), pub = V("portPublicado"), status = V("portStatus");
   const lista = pmoDadosPortfolio.filter(x =>
     (!busca || x.nome.toLocaleLowerCase("pt-BR").includes(busca)) &&
     (!gerente || x.gerente === gerente) &&
     (!saude || x.saude === saude) &&
+    (!status || (x.relatorio?.status_geral || "TBD") === status) &&
     (!pub || (pub === "sim" ? x.publicado : !x.publicado))
   );
   const cards = [
@@ -2705,9 +2720,9 @@ function filtrarPortfolio() {
     const desvio=r.realizado==null||r.planejado==null
       ? "TBD" : (Number(r.realizado)-Number(r.planejado)).toLocaleString("pt-BR",{maximumFractionDigits:1})+" p.p.";
     const campos=[
-      x.nome,x.gerente,x.publicado?dataBR(r.data_referencia):"Sem report",
+      x.nome,x.gerente,x.publicado?(dataBR(r.data_referencia)+(r.data_original_fonte && r.data_original_fonte!==r.data_referencia?" | Fonte: "+dataBR(r.data_original_fonte):"")):"Sem report",
       pmoPctPortfolio(r.planejado),pmoPctPortfolio(r.realizado),
-      desvio,x.publicado?"Publicado":"Sem report",x.saude
+      desvio,x.publicado?T(r.status_geral):"Sem report",x.saude
     ];
     campos.forEach(valor=>tr.appendChild(E("td",String(valor))));
     const acao=E("td");
@@ -2739,9 +2754,11 @@ async function carregarPortfolio() {
   corpo.replaceChildren();
   $("portContagem").textContent="Consultando portfólio publicado...";
   try {
-    const res=await db.rpc("resumo_publicado_por_gerente");
+    const [res,statusRes]=await Promise.all([db.rpc("resumo_publicado_por_gerente"),db.rpc("pmo_portfolio_status")]);
     if(res.error) throw res.error;
+    if(statusRes.error) throw statusRes.error;
     if(seq!==pmoSeqPortfolio) return;
+    const statusMap = new Map((statusRes.data||[]).map(x=>[String(x.projeto_id),x]));
     const publicados=Array.isArray(res.data)?res.data:[];
     const projetosMap=new Map();
     for (const s of publicados) {
@@ -2753,7 +2770,9 @@ async function carregarPortfolio() {
         publicado:true,pacote:null,
         relatorio:{
           data_referencia:s.data_referencia,planejado:s.planejado,realizado:s.realizado,
-          status_geral:s.status_geral||"Não informado",
+          status_geral:statusMap.get(id)?.status_geral||"TBD",
+          data_original_fonte:statusMap.get(id)?.data_original_fonte,
+          origem_registro:statusMap.get(id)?.origem_registro,
           farol_escopo:s.farol_escopo,farol_prazo:s.farol_prazo,
           farol_custo:s.farol_custo,farol_qualidade:s.farol_qualidade
         },
@@ -2978,7 +2997,7 @@ function iniciar() {
   $("buscaProjeto").oninput = listarProjetos;
   $("atualizarResumo").onclick = carregarResumo;
   $("portAtualizar").onclick = carregarPortfolio;
-  ["portBusca","portGerente","portSaude","portPublicado"].forEach(id=>{
+  ["portBusca","portGerente","portSaude","portStatus","portPublicado"].forEach(id=>{
     $(id).addEventListener(id==="portBusca"?"input":"change",filtrarPortfolio);
   });
 
