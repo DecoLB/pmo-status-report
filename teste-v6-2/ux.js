@@ -96,8 +96,9 @@ const chartLabels={
 };
 function registerChartLabels(){
   if(!window.Chart)return;
-  if(Chart.registry?.plugins?.get?.("pmo62Labels"))return;
+  if(window.__pmo62ChartRegistered)return;
   Chart.register(chartLabels);
+  window.__pmo62ChartRegistered=true;
 }
 function chartHistoryNote(){
   const charts=[...document.querySelectorAll("#tabResumo .slide-evolucao .pmo-grafico")];
