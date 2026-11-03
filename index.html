@@ -640,6 +640,23 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
   <p id="loginMsg" class="message" role="status"></p>
 </section>
 
+<section id="primeiroAcesso" class="card login" hidden>
+  <h2>Ativação do primeiro acesso</h2>
+  <p class="muted">Defina sua senha pessoal antes de acessar os relatórios. O convite individual é enviado ao e-mail cadastrado.</p>
+  <form id="primeiroAcessoForm">
+    <label>Nova senha
+      <input id="novaSenha" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
+    </label>
+    <label>Confirme a nova senha
+      <input id="confirmarSenha" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
+    </label>
+    <p class="muted small">Mínimo de 8 caracteres, com letra maiúscula, minúscula, número e caractere especial.</p>
+    <button type="submit" id="ativarConta">Definir senha e ativar conta</button>
+    <button type="button" class="secondary" id="sairPrimeiroAcesso">Cancelar</button>
+  </form>
+  <p id="msgPrimeiroAcesso" class="message" role="status"></p>
+</section>
+
 <section id="app" hidden>
   <div class="top">
     <div>
@@ -740,6 +757,22 @@ button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-v
       </div>
       <button type="button" id="adminAtribuir">Confirmar atribuição</button>
       <p id="adminAtribMensagem" class="message" role="status"></p>
+    </div>
+    <div class="card" id="cardConvites">
+      <div class="top">
+        <div>
+          <h2>Convites e primeiro acesso</h2>
+          <p class="muted">Acesso liberado por convite individual. Cada usuário define uma senha própria no primeiro acesso.</p>
+        </div>
+        <button type="button" id="enviarConvites">Enviar convites pendentes</button>
+      </div>
+      <p id="convitesMensagem" class="message" role="status"></p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>E-mail</th><th>Perfil</th><th>Situação</th></tr></thead>
+          <tbody id="listaConvites"></tbody>
+        </table>
+      </div>
     </div>
   </section>
 
@@ -1274,6 +1307,7 @@ function mostrarAba(tab) {
   if (tab === "resumo") carregarResumo();
   if (tab === "auditoria") carregarAuditoria();
   if (tab === "portfolio") carregarPortfolio();
+  if (tab === "projeto" && cred("administrador")) carregarConvitesAdmin();
 }
 
 async function entrar(e) {
@@ -1300,15 +1334,25 @@ async function sessao() {
     const { data, error } = await db.auth.getUser();
     if (error || !data.user) {
       $("loginBox").hidden = false;
+      $("primeiroAcesso").hidden = true;
       $("app").hidden = true;
       return;
     }
 
     const r = await db.from("perfis")
-      .select("papel,ativo")
+      .select("papel,ativo,primeiro_acesso_pendente")
       .eq("usuario_id", data.user.id)
       .single();
 
+    if (!r.error && r.data?.primeiro_acesso_pendente === true) {
+      usu = data.user;
+      papel = null;
+      $("loginBox").hidden = true;
+      $("app").hidden = true;
+      $("primeiroAcesso").hidden = false;
+      M("msgPrimeiroAcesso", "Defina uma senha pessoal para concluir sua ativação.", "");
+      return;
+    }
     if (r.error || !r.data?.ativo ||
         !["administrador", "gerente", "executivo"].includes(r.data.papel)) {
       await db.auth.signOut();
@@ -1332,11 +1376,13 @@ async function sessao() {
     if (cred("administrador")) await carregarAtribuicoesAdmin();
 
     $("loginBox").hidden = true;
+    $("primeiroAcesso").hidden = true;
     $("app").hidden = false;
     limparProjeto();
     mostrarAba(cred("gerente") ? "status" : "resumo");
   } catch (e) {
     $("app").hidden = true;
+    $("primeiroAcesso").hidden = true;
     $("loginBox").hidden = false;
     M("loginMsg", "Erro ao validar o perfil: " + e.message, "error");
   }
@@ -1355,6 +1401,7 @@ async function sair() {
   projetos = [];
   vinculos.clear();
   $("app").hidden = true;
+  $("primeiroAcesso").hidden = true;
   $("loginBox").hidden = false;
   $("senha").value = "";
 }
@@ -1550,6 +1597,73 @@ async function carregarAtribuicoesAdmin() {
     M("adminAtribMensagem","Escolha projeto e gerente para efetivar a atribuição.","");
   } catch(err) {
     M("adminAtribMensagem","Atribuição administrativa pendente de configuração segura no Supabase: "+err.message,"error");
+  }
+}
+
+async function carregarConvitesAdmin() {
+  if(!cred("administrador")) return;
+  const corpo=$("listaConvites");
+  corpo.replaceChildren();
+  const r=await db.from("pmo_convites_planejados")
+    .select("email,papel,estado").order("email");
+  if(r.error) {
+    M("convitesMensagem","Erro ao consultar convites: "+r.error.message,"error");
+    return;
+  }
+  for(const c of r.data||[]){
+    const tr=E("tr");
+    [c.email,c.papel,c.estado].forEach(v=>tr.appendChild(E("td",String(v||"—"))));
+    corpo.appendChild(tr);
+  }
+  const pendentes=(r.data||[]).filter(x=>x.estado==="pendente"||x.estado==="erro");
+  M("convitesMensagem",String(r.data?.length||0)+" usuários planejados. "+pendentes.length+" convite(s) pendente(s).","");
+}
+
+async function enviarConvitesAdmin() {
+  if(!cred("administrador")) return;
+  if(!window.confirm("Enviar convites individuais para as contas pendentes? Os usuários definirão sua própria senha.")) return;
+  $("enviarConvites").disabled=true;
+  M("convitesMensagem","Enviando convites autorizados...");
+  try {
+    const r=await db.functions.invoke("pmo-admin-convites",{body:{}});
+    if(r.error)throw r.error;
+    const erros=(r.data?.resultados||[]).filter(x=>x.estado==="erro");
+    await carregarConvitesAdmin();
+    M("convitesMensagem",String(r.data?.processados||0)+" convite(s) processado(s). "+
+      (erros.length?String(erros.length)+" falharam; verifique a configuração de e-mail do Supabase.":"Consulte o status de cada conta."),erros.length?"warning":"success");
+  } catch(err){
+    M("convitesMensagem","Falha ao enviar convites: "+err.message,"error");
+  } finally {
+    $("enviarConvites").disabled=false;
+  }
+}
+
+async function ativarPrimeiroAcesso(e) {
+  e.preventDefault();
+  const senha=$("novaSenha").value;
+  if(senha!==$("confirmarSenha").value ||
+     senha.length<8||senha.length>128||
+     !/[A-Z]/.test(senha)||!/[a-z]/.test(senha)||!/[0-9]/.test(senha)||
+     !/[^A-Za-z0-9]/.test(senha)){
+    M("msgPrimeiroAcesso","Senhas diferentes ou fora da regra de complexidade.","error");
+    return;
+  }
+  $("ativarConta").disabled=true;
+  M("msgPrimeiroAcesso","Ativando o acesso...");
+  try {
+    const r=await db.functions.invoke("pmo-primeiro-acesso",{body:{senha}});
+    if(r.error)throw r.error;
+    $("novaSenha").value="";
+    $("confirmarSenha").value="";
+    await db.auth.signOut();
+    $("primeiroAcesso").hidden=true;
+    $("app").hidden=true;
+    $("loginBox").hidden=false;
+    M("loginMsg","Senha definida e conta ativada. Entre com seu e-mail e sua nova senha.","success");
+  } catch(err) {
+    M("msgPrimeiroAcesso","Não foi possível ativar: "+err.message,"error");
+  } finally {
+    $("ativarConta").disabled=false;
   }
 }
 
@@ -2839,6 +2953,9 @@ function iniciar() {
   $("loginForm").onsubmit = entrar;
   $("formProjeto").onsubmit = salvarProjeto;
   $("adminAtribuir").onclick = atribuirProjetoAdmin;
+  $("enviarConvites").onclick = enviarConvitesAdmin;
+  $("primeiroAcessoForm").onsubmit = ativarPrimeiroAcesso;
+  $("sairPrimeiroAcesso").onclick = sair;
   $("formStatus").onsubmit = salvarStatus;
   $("formStatus").noValidate = true;
   $("sNovoProjetoBtn").onclick = () => alternarNovoProjeto(!modoNovoProjeto);
