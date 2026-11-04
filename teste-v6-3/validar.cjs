@@ -12,6 +12,7 @@ const frontend=fs.readFileSync(path.join(__dirname,'v63.js'),'utf8');
 assert(inline,'Encontrou JS principal');
 const dom=new JSDOM(html,{url:'http://localhost/teste-v6-3/',runScripts:'outside-only',pretendToBeVisual:true});
 const w=dom.window;
+w.HTMLElement.prototype.scrollIntoView=function(){}; // API inexistente no jsdom, implementada pelo navegador real.
 class ChartStub {
   static instances=[];static plugins=[];static register(...ps){this.plugins.push(...ps)}
   constructor(canvas,config){this.canvas=canvas;this.data=config.data;this.options=config.options;this.config=config;ChartStub.instances.push(this)}
