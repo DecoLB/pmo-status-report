@@ -24,6 +24,7 @@
   function chartDefaults(){
     if(!window.Chart)return;
     const defaults=Chart.defaults;
+    if(!defaults || !defaults.font)return;
     defaults.color="#1b3f64";
     defaults.font.family='system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif';
     defaults.font.size=12;
