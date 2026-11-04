@@ -1,0 +1,268 @@
+/* PMO Status Report V6.5 | Sistema de Design unificado
+   Âmbito: autenticação, cadastro, consulta, slides, portfolio e auditoria.
+   A paleta padrão é branco, azul, laranja e cinza.
+   Cores semânticas dos faróis são usadas exclusivamente para estados. */
+
+:root{
+  color-scheme:light!important;
+  --p65-paper:#fff;
+  --p65-canvas:#f5f8fc;
+  --p65-blue:#1e4d7c;
+  --p65-blue-strong:#113a65;
+  --p65-orange:#eb850e;
+  --p65-gray:#597189;
+  --p65-stroke:#c4d4e6;
+  --p65-ink:#183a5d;
+  --p65-ui-font:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+html,body{font-family:var(--p65-ui-font)!important}
+body{font-size:14px;line-height:1.52}
+button,input,textarea,select,option,optgroup,table{
+  font-family:var(--p65-ui-font)!important;
+}
+button,input,textarea,select{
+  font-size:14px!important;letter-spacing:0;
+}
+label,.pmo-status-pane label{font-size:13px!important;line-height:1.42}
+h1,h2,h3,h4{letter-spacing:-.012em;line-height:1.28}
+:where(strong,.stat,.slide-valor,.pmo63-kpi-value,.pmo64-semana-rotulos) {
+  font-variant-numeric:tabular-nums lining-nums;
+}
+:is(input,select,textarea):not(:disabled):hover{
+  border-color:#da8424!important;
+  box-shadow:0 0 0 3px rgba(232,134,22,.12)!important;
+}
+:is(input,select,textarea,button,summary):focus-visible{
+  outline:3px solid #df8115!important;
+  outline-offset:2px!important;
+}
+button:not(:disabled):hover,.pmo-projeto-card:hover{
+  transform:translateY(-1px);
+  box-shadow:0 9px 20px rgba(20,66,110,.13)!important;
+}
+button:disabled{opacity:.57!important;cursor:not-allowed}
+.pmo-status-pane .grid{row-gap:11px!important}
+.pmo-status-pane .grid label{margin-bottom:6px}
+.pmo-status-pane :is(input,select,textarea){
+  min-height:41px;
+  border-radius:9px!important;
+}
+.pmo63-light-label::after{
+  top:auto!important;
+  bottom:17px!important;
+  left:15px!important;
+  width:14px!important;
+  height:14px!important;
+}
+
+/* Corrige a colisão de especificidade:
+   ux.css #sStatusGeral e refino.css .farolSelect.pmo-v6-* eram escuros.
+   O controle e a lista nativa têm cores positivas e previsíveis. */
+html body #formStatus #sStatusGeral,
+html body #formStatus select.farolSelect,
+html body #formStatus select.farolSelect.pmo-v6-verde,
+html body #formStatus select.farolSelect.pmo-v6-amarelo,
+html body #formStatus select.farolSelect.pmo-v6-vermelho,
+html body #formStatus select.farolSelect.pmo-v6-cinza{
+  color:#153b62!important;
+  background-color:#fff!important;
+  background-image:none!important;
+  border:1px solid #adc3d8!important;
+  padding-left:43px!important;
+  font-weight:700!important;
+  color-scheme:light!important;
+  -webkit-text-fill-color:#153b62!important;
+  opacity:1!important;
+}
+html body #formStatus select.farolSelect.pmo-v6-verde{border-left:5px solid #189c75!important}
+html body #formStatus select.farolSelect.pmo-v6-amarelo{border-left:5px solid #e7a423!important}
+html body #formStatus select.farolSelect.pmo-v6-vermelho{border-left:5px solid #d24e65!important}
+html body #formStatus select.farolSelect.pmo-v6-cinza{border-left:5px solid #8294a6!important}
+html body #formStatus #sStatusGeral{border-left:5px solid #e98b16!important}
+html body select,
+html body select option,
+html body select optgroup{
+  color-scheme:light!important;
+  color:#1a3d60!important;
+  background-color:#fff!important;
+  -webkit-text-fill-color:#1a3d60!important;
+  opacity:1!important;
+}
+html body select option{font-size:14px!important;font-weight:600!important}
+html body select option:checked{
+  color:#16385c!important;
+  background-color:#e4f0fd!important;
+  -webkit-text-fill-color:#16385c!important;
+}
+html body select option:hover,
+html body select option:focus{
+  background-color:#ebf3fc!important;
+  color:#143b64!important;
+}
+html body :is(select,.farolSelect):focus{
+  background-color:#fff!important;
+  color:#153b62!important;
+}
+html body select:disabled,
+html body select:disabled option{
+  background-color:#ecf0f4!important;
+  color:#516980!important;
+  -webkit-text-fill-color:#516980!important;
+}
+#formStatus .pmo63-light-label select{
+  padding-right:32px!important;
+}
+#pmoV6FarolPanel{
+  margin-top:14px!important;
+  padding:14px 15px!important;
+  background:linear-gradient(160deg,#f7faff,#eef4fc)!important;
+  border:1px solid #c6d8e9!important;
+  box-shadow:none!important;
+}
+#pmoV6FarolPanel .pmo-v6-farol-cards{
+  gap:12px!important;
+}
+#pmoV6FarolPanel .pmo-v6-farol-card{
+  min-height:87px!important;
+  padding:13px 16px!important;
+  border-radius:11px!important;
+}
+#pmoV6FarolPanel .pmo-v6-farol-card small{
+  font-size:12px!important;letter-spacing:.02em;
+}
+#pmoV6FarolPanel .pmo-v6-farol-card span{
+  font-size:18px!important;font-weight:800!important;
+}
+#pmoV6FarolPanel .pmo-v6-farol-legenda{
+  display:flex!important;flex-wrap:wrap!important;gap:9px!important;
+  margin-top:13px!important;
+}
+#pmoV6FarolPanel .pmo-v6-farol-legenda .farol{
+  margin:0!important;
+  padding:7px 11px!important;
+  font-size:12px!important;
+}
+#pmoV6FarolPanel>small{display:block;margin-top:12px;color:#456079!important}
+#pmoV6FarolPanel .pmo-v6-farol-geral,
+#sFarolGeral{display:none!important}
+/* Edição, bloqueio e carregamento têm cor própria. */
+#avisoStatus.pmo-v6-status-aviso{
+  font-size:14px!important;
+  line-height:1.45;
+  font-weight:700!important;
+  border-radius:10px!important;
+  box-shadow:none!important;
+}
+#avisoStatus.pmo-v6-status-aviso.editar{
+  border-left:5px solid #2488c9!important;
+  background:#e6f1fe!important;
+  color:#1e4f7c!important;
+}
+#avisoStatus.pmo-v6-status-aviso.bloquear{
+  border-left:5px solid #c3515d!important;
+  background:#fff1f2!important;
+  color:#823544!important;
+}
+#avisoStatus.pmo-v6-status-aviso.aguardar{
+  border-left:5px solid #e69a25!important;
+  background:#fff6e9!important;
+  color:#7e4d14!important;
+}
+#avisoStatus.pmo-v6-status-aviso.informar{
+  border-left:5px solid #748b9e!important;
+  background:#f1f5fa!important;
+  color:#38516a!important;
+}
+
+/* Report compacto: hierarquia e leitura padronizadas */
+.pmo-slide{gap:11px!important;color:#163b5e!important}
+.pmo-slide .slide-identidade h2{font-size:clamp(21px,2vw,29px)!important}
+.pmo-slide :is(.slide-objetivo,.slide-contexto){font-size:12.5px!important}
+.pmo-slide .slide-legenda{font-size:10px!important}
+.pmo-slide .slide-valor{font-size:13px!important}
+.pmo-slide .slide-painel h4{font-size:13.5px!important}
+.pmo-slide .slide-painel table{font-size:11px!important}
+.pmo-slide .slide-painel th{font-size:10.5px!important}
+.pmo-slide .slide-painel :is(th,td){line-height:1.35!important;padding:5px 7px!important}
+.pmo-slide .slide-resumo-texto{font-size:12px!important}
+.pmo-slide .slide-evolucao{
+  grid-column:1 / -1!important;
+  order:100!important;
+  margin-top:12px!important;
+  border-top:4px solid #ea8512!important;
+}
+.pmo-slide .slide-evolucao .pmo-grafico{
+  background:#fff!important;
+  border:1px solid #d4e0eb!important;
+  border-radius:12px!important;
+  padding:13px!important;
+  height:clamp(210px,22vw,270px)!important;
+}
+.pmo65-chart-legend{
+  display:flex;justify-content:center;align-items:center;
+  flex-wrap:wrap;gap:22px;
+  margin:6px 0 9px;
+  color:#163a60;
+}
+.pmo65-chart-key{
+  display:inline-flex;align-items:center;gap:9px;
+  color:#1c4167!important;font-size:13px;font-weight:800!important;
+}
+.pmo65-chart-key::before{
+  content:"";width:14px;height:14px;border-radius:50%;
+  display:inline-block;box-shadow:0 0 0 2px #fff,0 0 0 3px #c7d7e6;
+}
+.pmo65-chart-key.plan::before{background:#286fba}
+.pmo65-chart-key.actual::before{background:#e7800d}
+.pmo63-slide-note{font-size:12px!important;color:#385775!important}
+.pmo-slide .slide-evolucao .pmo63-table-wrap{
+  margin-top:11px!important;
+}
+.pmo-slide .slide-evolucao .pmo63-table-wrap :is(th,td){
+  font-size:11px!important;padding:8px 11px!important;
+}
+
+/* Portfólio e relatórios usam a mesma tipografia e indicadores. */
+.pmo63-dashboard :is(h2,h3,h4){color:#1b4978!important}
+.pmo63-dashboard .pmo63-panel-note{color:#4b647f!important;font-size:12.5px!important}
+.pmo63-dashboard .pmo63-kpi-label{color:#47627d!important;font-size:12px!important}
+.pmo63-dashboard .pmo63-kpi-value{font-size:clamp(23px,2.6vw,31px)!important}
+.pmo63-dashboard .pmo63-kpi-sub{color:#516b84!important}
+.pmo63-dashboard :is(.pmo63-chart-canvas,.pmo63-timeline-chart){
+  background:#fff!important;
+  border-radius:10px!important;
+}
+.pmo63-dashboard .pmo63-chart-canvas canvas{opacity:1!important}
+.pmo63-dashboard :is(.pmo63-panel,.pmo63-kpi):hover{
+  border-color:#8fb4d9!important;
+  box-shadow:0 12px 28px rgba(25,68,112,.13)!important;
+}
+#tabResumo .pmo-projeto-card:hover,
+#tabPortfolio .pmo-port-tabela tbody tr:hover{
+  box-shadow:0 9px 22px rgba(32,73,114,.14)!important
+}
+.pmo63-table-wrap :is(th,td){font-size:12px!important;line-height:1.42}
+.pmo63-table-wrap th{letter-spacing:.01em}
+.pmo63-table-wrap tbody tr:hover td{background:#edf5ff!important}
+.pmo-v6-grafico-bloco :is(h4,p){color:#1a4774!important}
+#pmoV6Identity .pmo-v6-perfil-botoes button:hover{
+  background:#fff4e7!important;transform:translateY(-1px)
+}
+@media(max-width:1050px){
+  #pmoV6FarolPanel .pmo-v6-farol-cards{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important
+  }
+}
+@media(max-width:640px){
+  #pmoV6FarolPanel .pmo-v6-farol-cards{
+    grid-template-columns:1fr!important
+  }
+  .pmo-slide .slide-evolucao .pmo-grafico{height:240px!important}
+  .pmo65-chart-legend{gap:15px}
+  .pmo-slide .slide-painel :is(th,td){padding:4px 5px!important}
+  .pmo63-dashboard .pmo63-chart-canvas{height:265px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important}
+  .pmo63-panel,.pmo63-kpi,button{transform:none!important;animation:none!important}
+}
