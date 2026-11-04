@@ -1,4 +1,4 @@
-/* PMO V6.3: testes de regras, estados e filtros com dados fictícios. */
+/* PMO V6.4: testes de gráfico único, ordem do report, filtros e UX com dados fictícios. */
 const fs=require('fs');
 const path=require('path');
 const assert=require('node:assert/strict');
@@ -10,7 +10,7 @@ const inline=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)]
 const refino=fs.readFileSync(path.join(__dirname,'refino.js'),'utf8');
 const frontend=fs.readFileSync(path.join(__dirname,'v63.js'),'utf8');
 assert(inline,'Encontrou JS principal');
-const dom=new JSDOM(html,{url:'http://localhost/teste-v6-3/',runScripts:'outside-only',pretendToBeVisual:true});
+const dom=new JSDOM(html,{url:'http://localhost/teste-v6-4/',runScripts:'outside-only',pretendToBeVisual:true});
 const w=dom.window;
 w.HTMLElement.prototype.scrollIntoView=function(){}; // API inexistente no jsdom, implementada pelo navegador real.
 class ChartStub {
@@ -74,12 +74,37 @@ assert.equal(a.querySelector('.pmo62-adopted-status strong')?.textContent,'No pr
  'Status geral permanece o declarado, independentemente do farol crítico');
 assert.match(a.querySelector('.pmo62-golive-days')?.textContent||'',/14 dia\(s\)/);
 assert(a.querySelector('.pmo63-history table'),'Evolução com datas e percentuais em tabela');
+assert(a.querySelector('.pmo63-history canvas'),'Dois registros devem usar gráfico de linha');
+const slide=a.querySelector('.pmo-slide');
+const children=[...slide.children];
+assert(children.indexOf(slide.querySelector('.slide-evolucao')) > children.indexOf(slide.querySelector('.slide-resumos')),
+  'Gráfico histórico precisa vir depois dos resumos, no final do report');
+assert(children.indexOf(slide.querySelector('.slide-evolucao')) > children.indexOf(slide.querySelector('.slide-tabelas')),
+  'Evolução precisa vir depois dos marcos e riscos');
 const legacy=JSON.parse(JSON.stringify(report));legacy.relatorio.status_geral='Em atraso';
 const b=w.document.createElement('div');host.appendChild(b);
 vm.runInContext("detalheExecutivo(document.querySelector('#listaResumo > div:nth-child(2)'),"+JSON.stringify(legacy)+",{projeto:'Projeto B',gerente:'GP'});",context);
 assert.equal(b.querySelector('.pmo62-adopted-status strong')?.textContent,'Crítico','Histórico antigo normalizado visualmente');
 assert.match(b.querySelector('.pmo63-legacy-report')?.textContent||'',/Em atraso/);
-console.log('PASS: sessão não persistente, 4 estados, projeto nasce cinza, slide e histórico preservado.');
+const single=JSON.parse(JSON.stringify(report));
+single.relatorio.data_referencia='2026-10-30';
+single.relatorio.planejado=70;
+single.relatorio.realizado=78;
+single.historico=[{data_referencia:'2026-10-30',planejado:70,realizado:78}];
+const c=w.document.createElement('div');host.appendChild(c);
+vm.runInContext("detalheExecutivo(document.querySelector('#listaResumo > div:nth-child(3)'),"+JSON.stringify(single)+",{projeto:'Projeto C',gerente:'GP'});",context);
+assert(c.querySelector('.pmo64-semana-unica'),'Histórico de apenas uma semana deve ser comparativo, sem linha isolada');
+assert.equal(c.querySelector('.pmo63-history canvas'),null,'Um único ponto não deve ter canvas grande e vazio');
+assert.match(c.querySelector('.pmo64-semana-ref')?.textContent||'',/30\/10\/2026/);
+assert.equal(c.querySelectorAll('.pmo64-semana-linha').length,2,'Planejado e realizado em barras distintas');
+assert.match(c.querySelector('.pmo64-semana-desvio')?.textContent||'',/\+8 p\.p\./);
+assert.match(c.querySelector('.pmo63-slide-note')?.textContent||'',/Barras comparativas/);
+const singleChildren=[...c.querySelector('.pmo-slide').children];
+assert.equal(singleChildren[singleChildren.length-1].classList.contains('slide-evolucao'),true,'Último bloco é evolução');
+const css=fs.readFileSync(path.join(__dirname,'v64.css'),'utf8');
+assert(css.includes('--p64-navy') && css.includes('--p64-orange') && css.includes('.pmo64-semana-unica'));
+assert(css.includes('prefers-reduced-motion') && css.includes(':hover'),'Manter UX hover e acessibilidade');
+console.log('PASS: 4 estados, históricos com 1 e 2 semanas, ordem do report, comparação 70 x 78 +8 p.p. e nova paleta.');
 async function portfolio(){
  await new Promise(resolve=>setTimeout(resolve,40));
  vm.runInContext("usu={id:'00000000-0000-0000-0000-000000000004',email:'gp@exemplo.com'};papel='gerente';",context);
