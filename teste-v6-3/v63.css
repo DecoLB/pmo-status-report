@@ -67,6 +67,10 @@ button:focus-visible:not(:active){transform:translateY(-1px)}
 .pmo-v6-farol-card[data-light="amarelo"],.pmo-v6-farol-card[data-tone="amarelo"]{background:#e9b237!important;color:#152426!important}
 .pmo-v6-farol-card[data-light="vermelho"],.pmo-v6-farol-card[data-tone="vermelho"]{background:#ba3b50!important}
 .pmo-v6-farol-card[data-light="cinza"],.pmo-v6-farol-card[data-tone="cinza"]{background:#647d80!important}
+.pmo-v6-farol-geral[data-tone="verde"]{background:#0b674d!important;color:#effff8!important;border-left-color:#18dfa7!important}
+.pmo-v6-farol-geral[data-tone="amarelo"]{background:#a77b20!important;color:#fff9e8!important;border-left-color:#ffdf83!important}
+.pmo-v6-farol-geral[data-tone="vermelho"]{background:#943a4e!important;color:#fff9f8!important;border-left-color:#ff8f9e!important}
+.pmo-v6-farol-geral[data-tone="cinza"]{background:#536f72!important;color:#fff!important;border-left-color:#b4ccca!important}
 .pmo-v6-farol-card small{color:inherit!important}
 .pmo-v6-farol-legenda .verde{background:#137d5e;color:#eafff5}
 .pmo-v6-farol-legenda .amarelo{background:#ffcf61;color:#152c2e}
