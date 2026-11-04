@@ -651,7 +651,7 @@ Ambiente de Homologação (HML) · Acesso individual e auditado. Esta publicaç�
 
 <section id="primeiroAcesso" class="card login" hidden>
   <h2>Ativação do primeiro acesso</h2>
-  <p class="muted">Defina sua senha pessoal antes de acessar os relatórios. O convite individual é enviado ao e-mail cadastrado.</p>
+  <p class="muted">Defina sua senha pessoal antes de acessar os relatórios. Use a senha temporária recebida do administrador para entrar e defina uma senha pessoal antes de acessar os relatórios.</p>
   <form id="primeiroAcessoForm">
     <label>Nova senha
       <input id="novaSenha" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
@@ -1678,7 +1678,17 @@ async function ativarPrimeiroAcesso(e) {
   M("msgPrimeiroAcesso","Ativando o acesso...");
   try {
     const r=await db.functions.invoke("pmo-primeiro-acesso",{body:{senha}});
-    if(r.error)throw r.error;
+    if (r.error) {
+      let detalhe = "";
+      try {
+        if (r.error.context && typeof r.error.context.json === "function") {
+          const resposta = await r.error.context.json();
+          if (typeof resposta?.error === "string") detalhe = resposta.error;
+        }
+      } catch (_) {}
+      throw new Error(detalhe || "Falha ao concluir a ativação. Procure o administrador.");
+    }
+    if (r.data?.sucesso !== true) throw new Error("Ativação não confirmada. Procure o administrador.");
     $("novaSenha").value="";
     $("confirmarSenha").value="";
     await db.auth.signOut();
