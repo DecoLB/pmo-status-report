@@ -291,6 +291,8 @@
     const area=target.querySelector(".pmo63-timeline-chart");
     const tableArea=target.querySelector(".pmo63-timeline-values");
     if(!area||!tableArea)return;
+    const previous=chartState.get("timeline");
+    if(previous){previous.destroy();chartState.delete("timeline");}
     tableArea.replaceChildren();area.replaceChildren();
     try{
       const records=await getHistory();
@@ -376,6 +378,13 @@
       const l=sel.closest("label");
       if(l){l.classList.add("pmo63-light-label");l.dataset.light=tone(sel.value);}
     }
+    // Cartões inferiores devem ter a cor inteira, mantendo o campo seletor neutro.
+    const health=["sEscopo","sPrazo","sCusto","sQualidade"];
+    document.querySelectorAll("#pmoV6FarolPanel .pmo-v6-farol-card").forEach((card,i)=>{
+      card.dataset.tone=tone($(health[i])?.value);
+    });
+    const consolidated=document.querySelector("#pmoV6FarolPanel .pmo-v6-farol-geral");
+    if(consolidated)consolidated.dataset.tone=tone(typeof farolGeral==="function"?farolGeral():"Não avaliado");
   }
   function installDecorations(){
     paintStatus();
