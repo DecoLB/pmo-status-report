@@ -1,4 +1,4 @@
-/* PMO 6.3 | E2E Chromium com credenciais e dados fictícios, sem tocar no banco. */
+/* PMO 6.4 | E2E: gráfico individual, paleta, hover, acesso e responsividade. */
 const fs=require('fs');
 const path=require('path');
 const assert=require('node:assert/strict');
@@ -33,7 +33,9 @@ const {chromium}=require('playwright');
        farol_prazo:'Atenção',farol_custo:'No prazo',farol_qualidade:'Não avaliado',
        go_live_forecast:'2026-11-20',planejado:id===4?70:90,realizado:id===4?65:72,
        resumo_realizado:'Atividade concluída',resumo_andamento:'Pendente homologação',resumo_proximos:'Revisão visual'
-     },marcos:[],riscos:[],acoes:[],historico:reports.filter(x=>x.projeto_id===id)
+     },marcos:[],riscos:[],acoes:[],historico:id===5
+       ? reports.filter(x=>x.projeto_id===5&&x.data_referencia==='2026-11-06')
+       : reports.filter(x=>x.projeto_id===id)
    });
    const projetos=[
      {id:4,nome:'Projeto A',objetivo:'Validação A',gerente:person.email,situacao:'Em andamento'},
@@ -103,6 +105,24 @@ const {chromium}=require('playwright');
  assert.match(await slide.locator('.pmo62-golive-days').textContent(),/14 dia\(s\)/);
  assert(await slide.locator('.pmo63-history canvas').count()===1);
  assert(await slide.locator('.pmo63-history table').count()===1,'Linha de evolução com percentuais e datas');
+ const order=await slide.evaluate(el=>{
+   const children=[...el.children];
+   const last=children.at(-1);
+   return {lastIsHistory:last?.classList.contains('slide-evolucao'),
+     afterTables:children.indexOf(el.querySelector('.slide-evolucao'))>children.indexOf(el.querySelector('.slide-tabelas')),
+     afterSummary:children.indexOf(el.querySelector('.slide-evolucao'))>children.indexOf(el.querySelector('.slide-resumos'))};
+ });
+ assert(order.lastIsHistory && order.afterTables && order.afterSummary,'Evolução deve estar no final do report');
+ const palette=await page.evaluate(()=>{
+   const body=getComputedStyle(document.body);
+   const head=getComputedStyle(document.querySelector('header'));
+   return {color:body.color,scheme:getComputedStyle(document.documentElement).colorScheme,
+      bg:body.backgroundImage,header:head.backgroundImage};
+ });
+ assert.equal(palette.scheme,'light','Nova interface usa campo e paleta clara');
+ assert(palette.bg.includes('gradient'),'Parallax de fundo preservado');
+ assert(palette.header.includes('gradient'),'Cabeçalho contrastante azul');
+
  for(const width of [1440,1024,820,390,320]){
    await page.setViewportSize({width,height:850});
    await page.waitForTimeout(90);
@@ -132,6 +152,18 @@ const {chromium}=require('playwright');
  await page.waitForFunction(()=>document.querySelector('#pmo63Dashboard .pmo63-kpi-value')?.textContent==='1');
  assert.equal(await page.locator('#portBusca').inputValue(),'Projeto B','Ver slide fixa filtro do projeto');
  assert(await page.locator('#portDetalhe .pmo-slide').count()===1,'Ver slide carrega sem recursão');
+ const focusReport=page.locator('#portDetalhe .pmo-slide');
+ assert(await focusReport.locator('.pmo64-semana-unica').count()===1,'Uma única semana usa comparação em barras');
+ assert(await focusReport.locator('.pmo63-history canvas').count()===0,'Um ponto isolado não gera linha e eixo vazios');
+ assert(await focusReport.locator('.pmo64-semana-linha').count()===2,'Duas barras de percentuais');
+ assert.match(await focusReport.locator('.pmo64-semana-ref').textContent(),/06\/11\/2026/);
+ const cards=focusReport.locator('.pmo64-semana-linha');
+ assert.match(await cards.first().textContent(),/90%/);
+ assert.match(await cards.last().textContent(),/72%/);
+ assert.match(await focusReport.locator('.pmo64-semana-desvio').textContent(),/-18 p\.p\./);
+ const orderSingle=await focusReport.evaluate(el=>el.children[el.children.length-1].classList.contains('slide-evolucao'));
+ assert.equal(orderSingle,true,'Evolução no rodapé também em único registro');
+
  await page.locator('#navStatus').click();
  await page.locator('#sProjeto').selectOption('4');
  await page.waitForFunction(()=>!document.querySelector('#sStatusGeral')?.disabled,{timeout:15000});
@@ -143,6 +175,6 @@ const {chromium}=require('playwright');
  await page.locator('#sStatusGeral').selectOption('Atenção');
  assert.equal(await page.locator('#sStatusGeral').inputValue(),'Atenção');
  assert(!errors.length,'Erros JavaScript: '+errors.join('; '));
- console.log('PASS: login explícito, 4 faróis, report timeline, filtros globais, Ver slide, gráficos gerenciais e 5 larguras responsivas.');
+ console.log('PASS: login, report no rodapé, uma semana em barras, paleta clara, filtros, Ver slide e 5 resoluções.');
  await browser.close();
 })().catch(e=>{console.error(e);process.exit(1)});
