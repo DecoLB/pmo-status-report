@@ -1,0 +1,69 @@
+name: PMO V6.5 - Auditoria de homologacao
+on:
+  push:
+    paths:
+      - 'teste-v6-5/**'
+      - '.github/workflows/pmo-v65-validar.yml'
+  workflow_dispatch:
+jobs:
+  validar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Checar sintaxe dos scripts
+        run: |
+          node --check teste-v6-5/refino.js
+          node --check teste-v6-5/v63.js
+          node --check teste-v6-5/v65.js
+          node --check teste-v6-5/validar.cjs
+          node --check teste-v6-5/validar-browser.cjs
+      - name: Auditar HTML e integridade
+        run: |
+          node - <<'NODE'
+          const fs=require('fs'),vm=require('vm');
+          const s=fs.readFileSync('teste-v6-5/index.html','utf8');
+          const code=[...s.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)]
+            .map(x=>x[1]).filter(x=>x.trim());
+          if(code.length!==1)throw Error('Esperado 1 script inline');
+          new vm.Script(code[0]);
+          for(const asset of ['refino.js','refino.css','ux.css','v63.js','v63.css','v64.css','v65.js','v65.css'])
+            if(!s.includes(asset))throw Error('Asset não referenciado '+asset);
+          for(const id of ['sStatusGeral','sEscopo','sPrazo','sCusto','sQualidade','portBusca',
+             'portGerente','portSaude','portStatus','portPublicado','portLimpar','pmo63Dashboard',
+             'tabResumo','tabPortfolio','listaResumo','loginForm'])
+             if(!s.includes('id="'+id+'"'))throw Error('Elemento não encontrado '+id);
+          if(!s.includes('persistSession: false'))throw Error('Login não explícito');
+          if(!s.includes('pmo63OnPortfolioFilter(lista)'))throw Error('Sem vínculo da tabela com os gráficos');
+          if(!s.includes('pmo63AfterSlide(slide,pacote)'))throw Error('Sem linha no report');
+          if(!s.includes('slide.appendChild(evolucao)'))throw Error('Histórico não está no rodapé do slide');
+          if(!s.includes('pmo64-semana-unica'))throw Error('Registro único sem comparação em barras');
+          if(!s.includes('./v65.css?v=65'))throw Error('Nova paleta visual V6.5 não carregada');
+          if(s.includes('id="sFarolGeral"') || s.includes('function farolGeral()'))
+            throw Error('Campo ou cálculo de saúde consolidada ainda existe');
+          const refino=fs.readFileSync('teste-v6-5/refino.js','utf8');
+          if(refino.includes('Saúde consolidada (pior dimensão)'))
+            throw Error('Faixa consolidada gerada pelo JavaScript');
+          const ext=fs.readFileSync('teste-v6-5/v65.css','utf8');
+          if(!ext.includes('select option')||!ext.includes('.pmo65-chart-legend'))
+            throw Error('Sem padronização dos selects ou contraste de linhas');
+          if(s.includes('sb_secret_')||s.includes('service_role'))throw Error('Chave de serviço não permitida');
+          const ids=[...s.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);
+          const dup=ids.filter((id,i)=>ids.indexOf(id)!==i);
+          if(dup.length)throw Error('IDs duplicados: '+[...new Set(dup)].join(','));
+          const css=fs.readFileSync('teste-v6-5/v63.css','utf8');
+          for(const rule of ['max-width:1220px','max-width:960px','max-width:650px','max-width:460px','prefers-reduced-motion'])
+            if(!css.includes(rule))throw Error('Falta regra responsiva/acessibilidade '+rule);
+          console.log('PASS: autenticação, HTML, segurança estática, estados e layout responsivo');
+          NODE
+      - name: Instalar ferramentas de teste
+        run: npm install --no-save --no-package-lock jsdom@26 playwright@1.55.1 chart.js@4.5.0
+      - name: Testar domínio simulado e regras gerenciais
+        run: node teste-v6-5/validar.cjs
+      - name: Instalar Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Testar páginas em navegador real
+        run: node teste-v6-5/validar-browser.cjs
