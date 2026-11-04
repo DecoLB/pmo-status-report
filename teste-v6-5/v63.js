@@ -341,8 +341,18 @@
       : "Linha azul: Planejado | Linha laranja: Realizado | Eixo horizontal: data de referência do report.",
       "pmo63-slide-note");
     const canvasArea=panel.querySelector(".pmo-grafico");
-    if(canvasArea)canvasArea.insertAdjacentElement("afterend",info);
-    else panel.querySelector(".pmo64-semana-unica")?.insertAdjacentElement("afterend",info);
+    if(canvasArea) {
+      // Uma legenda HTML visível em qualquer tema, sem depender do contraste do canvas.
+      const key=make("div",null,"pmo65-chart-legend");
+      key.setAttribute("role","group");
+      key.setAttribute("aria-label","Legenda do gráfico");
+      for(const [name,css] of [["Planejado","plan"],["Realizado","actual"]]){
+        const item=make("span",name,"pmo65-chart-key "+css);
+        key.appendChild(item);
+      }
+      canvasArea.insertAdjacentElement("beforebegin",key);
+      canvasArea.insertAdjacentElement("afterend",info);
+    } else panel.querySelector(".pmo64-semana-unica")?.insertAdjacentElement("afterend",info);
     table(panel,["Referência","Planejado","Realizado","Desvio"],
       hist.map(x=>{
         const p=number(x.planejado),r=number(x.realizado);
