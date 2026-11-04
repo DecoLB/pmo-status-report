@@ -322,6 +322,8 @@
       ds.spanGaps = false;
     });
     if (g.options.plugins?.legend?.labels) {
+      // Legenda HTML de alto contraste no slide evita textos pálidos no canvas.
+      g.options.plugins.legend.display = false;
       g.options.plugins.legend.labels.color = ink;
       g.options.plugins.legend.labels.font = {
         size:13,weight:"bold",family:"system-ui, Segoe UI, Arial"
