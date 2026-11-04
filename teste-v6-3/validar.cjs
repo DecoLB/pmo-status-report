@@ -111,7 +111,7 @@ async function portfolio(){
  assert.equal($('#portBusca').value,'Projeto A','Ver slide aplica filtro');
  assert.equal($('#portKpis strong')?.textContent,'1','Ver slide foca KPIs');
  assert.equal($('#pmo63Dashboard .pmo63-kpi-value')?.textContent,'1','Ver slide foca gráficos');
- assert($('#portDetalhe .pmo-slide'),'Detalhe carrega');
+ assert($('#portDetalhe .pmo-slide'),'Detalhe carrega: '+$('#portDetalhe').textContent.slice(0,600));
  console.log('PASS: gráfico por projetos, gerente, desvio, timeline; foco e limpeza propagados a todos os painéis.');
  w.close();
 }
