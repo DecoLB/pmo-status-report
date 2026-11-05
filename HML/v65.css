@@ -266,3 +266,22 @@ html body select:disabled option{
   *{scroll-behavior:auto!important}
   .pmo63-panel,.pmo63-kpi,button{transform:none!important;animation:none!important}
 }
+
+
+/* Indicador real de última alteração dos dados no cabeçalho da HML. */
+#app > .top > div:first-child .pmo-ultima-atualizacao {
+  color: #275579 !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  margin: 12px 0 0 !important;
+  padding: 0 !important;
+  max-width: 540px;
+}
+@media (max-width: 640px) {
+  #app > .top > div:first-child .pmo-ultima-atualizacao {
+    font-size: 12px !important;
+    max-width: 100%;
+  }
+}
