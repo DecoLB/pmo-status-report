@@ -672,6 +672,7 @@ Ambiente de Homologação (HML) · Acesso individual e auditado. Esta publicaç�
       <h1>Gestão de Portfólio</h1>
       <p id="usuario" class="muted"></p>
       <span id="perfil" class="badge"></span>
+      <p id="pmoUltimaAtualizacao" class="pmo-ultima-atualizacao" role="status" aria-live="polite">Última atualização registrada em: consultando...</p>
     </div>
     <button id="logout" class="secondary" type="button">Sair</button>
   </div>
@@ -1334,6 +1335,7 @@ function mostrarAba(tab) {
   if (tab === "auditoria") carregarAuditoria();
   if (tab === "portfolio") carregarPortfolio();
   if (tab === "projeto" && cred("administrador")) carregarConvitesAdmin();
+  void atualizarUltimaAtualizacaoRegistrada();
 }
 
 async function entrar(e) {
@@ -1352,6 +1354,53 @@ async function entrar(e) {
     M("loginMsg", "Acesso não autorizado ou credenciais inválidas.", "error");
   } finally {
     $("loginBtn").disabled = false;
+  }
+}
+
+let pmoUltimaConsultaSeq = 0;
+
+async function atualizarUltimaAtualizacaoRegistrada() {
+  const el = $("pmoUltimaAtualizacao");
+  if (!el || !usu || !papel || !db) return;
+  const seq = ++pmoUltimaConsultaSeq;
+  const usuarioDaConsulta = usu.id;
+  el.title = papel === "gerente"
+    ? "Última alteração registrada nos projetos atribuídos a você, incluindo projetos e relatórios. Horário de Brasília."
+    : "Última alteração registrada em projetos e relatórios do portfólio. Horário de Brasília.";
+  if (!el.dataset.carregado) {
+    el.textContent = "Última atualização registrada em: consultando...";
+  }
+  try {
+    const r = await db.rpc("pmo_ultima_atualizacao_registrada");
+    if (r.error) throw r.error;
+    if (seq !== pmoUltimaConsultaSeq || usu?.id !== usuarioDaConsulta) return;
+    if (!r.data) {
+      el.textContent = "Última atualização registrada em: nenhuma atualização encontrada";
+      el.dataset.carregado = "true";
+      return;
+    }
+    const data = new Date(r.data);
+    if (Number.isNaN(data.getTime())) throw Error("Data inválida recebida do banco");
+    const partes = Object.fromEntries(
+      new Intl.DateTimeFormat("pt-BR", {
+        timeZone: "America/Sao_Paulo",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23"
+      }).formatToParts(data).map(p => [p.type, p.value])
+    );
+    el.textContent = "Última atualização registrada em: " +
+      partes.day + "/" + partes.month + "/" + partes.year + " " +
+      partes.hour + ":" + partes.minute;
+    el.dataset.carregado = "true";
+  } catch (erro) {
+    if (seq !== pmoUltimaConsultaSeq || usu?.id !== usuarioDaConsulta) return;
+    el.textContent = "Última atualização registrada em: indisponível";
+    delete el.dataset.carregado;
+    console.warn("Não foi possível consultar a última atualização registrada.", erro);
   }
 }
 
@@ -1599,6 +1648,7 @@ async function salvarProjeto(e) {
     await atualizarProjetos();
     limparProjeto();
     M("msgProjeto", "Projeto salvo com sucesso!", "success");
+    void atualizarUltimaAtualizacaoRegistrada();
   } catch (e) {
     M("msgProjeto", "Erro: " + e.message, "error");
   } finally {
@@ -2208,6 +2258,7 @@ async function salvarStatus(e) {
 
     $("sData").value = r.data.data_referencia || dt;
     await carregarStatus();
+    void atualizarUltimaAtualizacaoRegistrada();
 
     M(
       "msgStatus",
@@ -3160,6 +3211,11 @@ function iniciar() {
     b.onclick = () => montarLinha(b.dataset.adicionar);
   });
 
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && !$( "app" ).hidden) {
+      void atualizarUltimaAtualizacaoRegistrada();
+    }
+  });
   sessao();
 }
 
